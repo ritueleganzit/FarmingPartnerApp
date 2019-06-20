@@ -169,37 +169,9 @@ public class NavHomeActivity extends AppCompatActivity
         } else if (id == R.id.nav_instruct_farmer) {
 
         } else if(id == R.id.nav_payment_history) {
-            new android.app.AlertDialog.Builder(NavHomeActivity.this).setTitle("Logout").setMessage("Are you sure you want to logout?")
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
 
-                            dialog.dismiss();
-
-
-                        }
-                    }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            }).show();
 
         }else if(id == R.id.nav_contact_office) {
-            new android.app.AlertDialog.Builder(NavHomeActivity.this).setTitle("Logout").setMessage("Are you sure you want to logout?")
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                            dialog.dismiss();
-
-                        }
-                    }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            }).show();
 
         }
         else if(id == R.id.nav_logout) {
@@ -208,6 +180,7 @@ public class NavHomeActivity extends AppCompatActivity
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
 
+                            finish();
 
                         }
                     }).setNegativeButton("No", new DialogInterface.OnClickListener() {

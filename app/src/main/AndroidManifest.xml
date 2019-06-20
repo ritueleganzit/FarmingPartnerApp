@@ -12,15 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".EditProfileActivity"></activity>
+        <activity android:name=".EditProfileActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ForgotPasswordActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".RegistrationActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".HomeActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".LoginActivity"

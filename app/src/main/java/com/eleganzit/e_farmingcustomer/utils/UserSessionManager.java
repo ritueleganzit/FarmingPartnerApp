@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-import com.eleganzit.e_farmingcustomer.HomeActivity;
 import com.eleganzit.e_farmingcustomer.LoginActivity;
 
 import java.util.HashMap;
