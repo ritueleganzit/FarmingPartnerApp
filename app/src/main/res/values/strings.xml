@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">E-farming Customer</string>
+    <string name="dont_have_an_account">Don\'t have an Account? <u><font color="#4adb9b">SIGN UP</font></u></string>
+    <string name="already_have_an_account">Already have an Account? <u><font color="#4adb9b">SIGN IN</font></u></string>
+    <string name="back_to_signin">Back to <u><font color="#4adb9b">SIGN IN</font></u></string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="view_map"><u>VIEW MAP</u></string>
+</resources>

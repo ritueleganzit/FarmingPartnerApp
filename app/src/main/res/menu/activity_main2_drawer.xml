@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+        <item
+            android:id="@+id/nav_my_profile"
+            android:title="MY PROFILE" />
+        <item
+            android:id="@+id/nav_avlbl_plots"
+            android:title="AVAILABLE PLOTS" />
+        <item
+            android:id="@+id/nav_manage_farm"
+            android:title="MANAGE FARM" />
+        <item
+            android:id="@+id/nav_instruct_farmer"
+            android:title="INSTRUCT FARMER" />
+
+        <item
+            android:id="@+id/nav_payment_history"
+            android:title="PAYMENT HISTORY" />
+
+        <item
+            android:id="@+id/nav_contact_office"
+            android:title="CONTACT OFFICE" />
+
+        <item
+            android:id="@+id/nav_logout"
+            android:title="LOGOUT" />
+
+</menu>

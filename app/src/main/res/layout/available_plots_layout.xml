@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardviewdashboard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    app:cardBackgroundColor="#ffffff"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="5dp"
+    app:cardUseCompatPadding="true">
+
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/lin_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingLeft="5dp"
+                android:gravity="center"
+                android:paddingTop="5dp"
+                android:paddingRight="5dp">
+
+                <ImageView
+                    android:id="@+id/package_image"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/img_farm"
+                    android:layout_centerHorizontal="true"
+                    android:scaleType="centerCrop" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/accept"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginRight="5dp"
+                        android:padding="4dp"
+                        android:src="@mipmap/ic_map" />
+
+                    <TextView
+                        android:id="@+id/reject"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hapticFeedbackEnabled="true"
+                        android:padding="4dp"
+                        android:text="@string/view_map"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                        android:textColor="@color/colorBlack" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                android:paddingTop="5dp">
+
+                <TableRow android:layout_marginBottom="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="50"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="Birch Wood Farm"
+                        android:textColor="@color/colorBlack" />
+
+                    <TextView
+                        android:id="@+id/job_id"
+                        android:layout_width="0dp"
+                        android:layout_weight="50"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text=" 000000000"
+                        android:textColor="@color/colorBlack" />
+
+
+                </TableRow>
+
+                <TableRow android:layout_marginBottom="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="50"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text="Send Location"
+                        android:textColor="@color/colorBlack" />
+
+                    <TextView
+                        android:id="@+id/sender_location"
+                        android:layout_width="0dp"
+                        android:layout_weight="50"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text=" Location 1 "
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                        android:textColor="@color/colorBlack" />
+
+
+                </TableRow>
+
+                <TableRow android:layout_marginBottom="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text="Rec. Location"
+                        android:textColor="@color/colorBlack" />
+
+                    <TextView
+                        android:id="@+id/receiver_location"
+                        android:layout_width="0dp"
+                        android:layout_weight="50"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text=" Location 2"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                        android:textColor="@color/colorBlack" />
+
+
+                </TableRow>
+
+                <TableRow android:layout_marginBottom="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="50"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text="Date Placed"
+                        android:textColor="@color/colorBlack" />
+
+                    <TextView
+                        android:id="@+id/date_placed"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text=" Feb 27, 2019"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                        android:textColor="@color/colorBlack" />
+
+
+                </TableRow>
+
+                <TableRow android:layout_marginBottom="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="50"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text="Package weight"
+                        android:textColor="@color/colorBlack" />
+
+                    <TextView
+                        android:id="@+id/package_details"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text=" 4kg Box"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                        android:textColor="@color/colorBlack" />
+
+
+                </TableRow>
+
+            </TableLayout>
+
+            <ImageView
+                android:id="@+id/lin_arrow"
+                android:layout_width="18dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_centerVertical="true"
+                android:background="@color/colorPrimaryDark" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/successfulcard"
+            android:layout_width="90dp"
+            android:layout_height="45dp"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginRight="100dp"
+            android:alpha="0.5"
+            android:rotation="-28"
+            android:scaleType="centerInside" />
+    </FrameLayout>
+
+</android.support.v7.widget.CardView>
