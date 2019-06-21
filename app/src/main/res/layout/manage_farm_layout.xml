@@ -101,7 +101,7 @@
                         android:gravity="end"
                         android:fontFamily="@font/poppins_medium"
                         android:singleLine="true"
-                        android:text=" Rs. 50000"
+                        android:text=""
                         android:textColor="@color/colorBlack" />
 
 
@@ -165,7 +165,7 @@
                         android:layout_weight="50"
                         android:ellipsize="end"
                         android:singleLine="true"
-                        android:text="Total Capacity Av."
+                        android:text="Purchased On"
                         android:textColor="@color/colorBlack" />
 
                     <TextView
@@ -176,7 +176,7 @@
                         android:layout_weight="50"
                         android:ellipsize="end"
                         android:singleLine="true"
-                        android:text=" 90/100"
+                        android:text=" May 25,2019"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                         android:textColor="@color/colorBlack" />
 

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.eleganzit.e_farmingcustomer.NavHomeActivity;
 import com.eleganzit.e_farmingcustomer.R;
 import com.eleganzit.e_farmingcustomer.adapters.AvailablePlotsAdapter;
 import com.eleganzit.e_farmingcustomer.model.AvailablePlotsData;
@@ -32,6 +33,8 @@ public class AvailablePlotsFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View v=inflater.inflate(R.layout.fragment_available_plots, container, false);
+
+        NavHomeActivity.home_title.setText("Available Plots");
 
         rc_plots=v.findViewById(R.id.rc_plots);
 

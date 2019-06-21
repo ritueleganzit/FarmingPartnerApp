@@ -1,6 +1,8 @@
 package com.eleganzit.e_farmingcustomer.adapters;
 
+
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -14,19 +16,23 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.eleganzit.e_farmingcustomer.ManageMyFarmActivity;
 import com.eleganzit.e_farmingcustomer.R;
+import com.eleganzit.e_farmingcustomer.ViewFarmActivity;
 import com.eleganzit.e_farmingcustomer.fragments.AvailablePlotsFragment;
 import com.eleganzit.e_farmingcustomer.fragments.ViewAvailablePlotsFragment;
 import com.eleganzit.e_farmingcustomer.model.AvailablePlotsData;
+import com.eleganzit.e_farmingcustomer.model.ManageFarmData;
+import com.eleganzit.e_farmingcustomer.model.NotificationsData;
 
 import java.util.ArrayList;
 
-public class AvailablePlotsAdapter extends RecyclerView.Adapter<AvailablePlotsAdapter.MyViewHolder> {
+public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdapter.MyViewHolder> {
 
-    ArrayList<AvailablePlotsData> arrayList;
+    ArrayList<NotificationsData> arrayList;
     Context context;
 
-    public AvailablePlotsAdapter(ArrayList<AvailablePlotsData> arrayList, Context context) {
+    public NotificationsAdapter(ArrayList<NotificationsData> arrayList, Context context) {
         this.arrayList = arrayList;
         this.context = context;
     }
@@ -35,7 +41,7 @@ public class AvailablePlotsAdapter extends RecyclerView.Adapter<AvailablePlotsAd
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-        View v= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.available_plots_layout,viewGroup,false);
+        View v= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.notifications_layout,viewGroup,false);
 
         MyViewHolder myViewHolder=new MyViewHolder(v);
 
@@ -44,20 +50,6 @@ public class AvailablePlotsAdapter extends RecyclerView.Adapter<AvailablePlotsAd
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
-
-        myViewHolder.cardviewdashboard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                //((FragmentActivity)context).getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                ViewAvailablePlotsFragment viewAvailablePlotsFragment= new ViewAvailablePlotsFragment();
-
-                FragmentTransaction fragmentTransaction = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.addToBackStack("NavHomeActivity");
-                fragmentTransaction.replace(R.id.container, viewAvailablePlotsFragment, "TAG");
-                fragmentTransaction.commit();
-            }
-        });
 
     }
 

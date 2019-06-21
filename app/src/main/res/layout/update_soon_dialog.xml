@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:paddingTop="20dp"
+    android:layout_margin="20dp"
+    android:background="@drawable/rounded_corners_bg"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:fontFamily="@font/poppins_medium"
+        android:textColor="@color/colorBlack"
+        android:text="Alert"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/colorBlack"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
+        android:text="We will update soon about\nyour request"/>
+
+    <Button
+        android:id="@+id/btn_ok"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:text="OK"
+        android:fontFamily="@font/poppins_medium"
+        android:background="@drawable/gradient_horizontal_bg"/>
+
+</LinearLayout>

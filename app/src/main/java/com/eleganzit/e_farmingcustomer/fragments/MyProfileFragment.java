@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.eleganzit.e_farmingcustomer.EditProfileActivity;
+import com.eleganzit.e_farmingcustomer.NavHomeActivity;
 import com.eleganzit.e_farmingcustomer.R;
 
 /**
@@ -31,6 +32,8 @@ public class MyProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v=inflater.inflate(R.layout.fragment_my_profile, container, false);
+
+        NavHomeActivity.home_title.setText("My Profile");
 
         btn_edit_profile=v.findViewById(R.id.btn_edit_profile);
 

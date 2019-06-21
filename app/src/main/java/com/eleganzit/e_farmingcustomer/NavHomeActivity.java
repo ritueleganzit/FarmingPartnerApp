@@ -41,8 +41,13 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.eleganzit.e_farmingcustomer.fragments.AvailablePlotsFragment;
+import com.eleganzit.e_farmingcustomer.fragments.ContactOfficeFragment;
+import com.eleganzit.e_farmingcustomer.fragments.InstructFarmerFragment;
+import com.eleganzit.e_farmingcustomer.fragments.ManageFarmFragment;
 import com.eleganzit.e_farmingcustomer.fragments.MyProfileFragment;
 
+import com.eleganzit.e_farmingcustomer.fragments.PaymentHistoryFragment;
 import com.infideap.drawerbehavior.AdvanceDrawerLayout;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -55,6 +60,7 @@ public class NavHomeActivity extends AppCompatActivity
     public static TextView home_title;
     private String photo, name;
     AdvanceDrawerLayout drawer;
+    ImageView notification_bell;
 
     public static float convertPixelsToDp(float px, Context context) {
         return px / ((float) context.getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
@@ -68,6 +74,7 @@ public class NavHomeActivity extends AppCompatActivity
         setContentView(R.layout.activity_main2);
 
         home_title = findViewById(R.id.textTitle);
+        notification_bell = findViewById(R.id.notification_bell);
         SharedPreferences p_pref = getSharedPreferences("passenger_pref", Context.MODE_PRIVATE);
         SharedPreferences.Editor p_editor = p_pref.edit();
 
@@ -98,6 +105,13 @@ public class NavHomeActivity extends AppCompatActivity
             }
         });
 
+        notification_bell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(NavHomeActivity.this,NotificationsActivity.class));
+                overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+            }
+        });
 
         header_main.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,21 +172,42 @@ public class NavHomeActivity extends AppCompatActivity
         if (id == R.id.nav_my_profile) {
             // Handle the camera action
             MyProfileFragment myProfileFragment = new MyProfileFragment();
-            getSupportFragmentManager().beginTransaction()//
+            getSupportFragmentManager().beginTransaction()
+                    .addToBackStack("NavHomeActivity")
                     .replace(R.id.container, myProfileFragment, "TAG")
                     .commit();
         } else if (id == R.id.nav_avlbl_plots) {
-
+            AvailablePlotsFragment availablePlotsFragment= new AvailablePlotsFragment();
+            getSupportFragmentManager().beginTransaction()//
+                    .addToBackStack("NavHomeActivity")
+                    .replace(R.id.container, availablePlotsFragment, "TAG")
+                    .commit();
 
         } else if (id == R.id.nav_manage_farm) {
-
+            ManageFarmFragment manageFarmFragment= new ManageFarmFragment();
+            getSupportFragmentManager().beginTransaction()//
+                    .addToBackStack("NavHomeActivity")
+                    .replace(R.id.container, manageFarmFragment, "TAG")
+                    .commit();
         } else if (id == R.id.nav_instruct_farmer) {
-
+            InstructFarmerFragment instructFarmerFragment= new InstructFarmerFragment();
+            getSupportFragmentManager().beginTransaction()//
+                    .addToBackStack("NavHomeActivity")
+                    .replace(R.id.container, instructFarmerFragment, "TAG")
+                    .commit();
         } else if(id == R.id.nav_payment_history) {
-
+            PaymentHistoryFragment paymentHistoryFragment= new PaymentHistoryFragment();
+            getSupportFragmentManager().beginTransaction()//
+                    .addToBackStack("NavHomeActivity")
+                    .replace(R.id.container, paymentHistoryFragment, "TAG")
+                    .commit();
 
         }else if(id == R.id.nav_contact_office) {
-
+            ContactOfficeFragment contactOfficeFragment= new ContactOfficeFragment();
+            getSupportFragmentManager().beginTransaction()//
+                    .addToBackStack("NavHomeActivity")
+                    .replace(R.id.container, contactOfficeFragment, "TAG")
+                    .commit();
         }
         else if(id == R.id.nav_logout) {
             new android.app.AlertDialog.Builder(NavHomeActivity.this).setTitle("Logout").setMessage("Are you sure you want to logout?")

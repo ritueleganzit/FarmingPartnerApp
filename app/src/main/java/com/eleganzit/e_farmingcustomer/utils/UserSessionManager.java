@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 
 import com.eleganzit.e_farmingcustomer.LoginActivity;
+import com.eleganzit.e_farmingcustomer.NavHomeActivity;
 
 import java.util.HashMap;
 
@@ -70,7 +71,7 @@ public class UserSessionManager {
         // commit changes
         editor.commit();
 
-        Intent i = new Intent(context, HomeActivity.class);
+        Intent i = new Intent(context, NavHomeActivity.class);
         // Closing all the Activities
 
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

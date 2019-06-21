@@ -45,6 +45,7 @@
                             android:id="@+id/textTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
                             android:fontFamily="@font/poppins_medium"
                             android:text="My Profile"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"

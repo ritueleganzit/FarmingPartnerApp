@@ -1,6 +1,8 @@
 package com.eleganzit.e_farmingcustomer.adapters;
 
+
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -14,19 +16,22 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.eleganzit.e_farmingcustomer.ManageMyFarmActivity;
 import com.eleganzit.e_farmingcustomer.R;
+import com.eleganzit.e_farmingcustomer.ViewFarmActivity;
 import com.eleganzit.e_farmingcustomer.fragments.AvailablePlotsFragment;
 import com.eleganzit.e_farmingcustomer.fragments.ViewAvailablePlotsFragment;
 import com.eleganzit.e_farmingcustomer.model.AvailablePlotsData;
+import com.eleganzit.e_farmingcustomer.model.ManageFarmData;
 
 import java.util.ArrayList;
 
-public class AvailablePlotsAdapter extends RecyclerView.Adapter<AvailablePlotsAdapter.MyViewHolder> {
+public class ManageMyFarmAdapter extends RecyclerView.Adapter<ManageMyFarmAdapter.MyViewHolder> {
 
-    ArrayList<AvailablePlotsData> arrayList;
+    ArrayList<ManageFarmData> arrayList;
     Context context;
 
-    public AvailablePlotsAdapter(ArrayList<AvailablePlotsData> arrayList, Context context) {
+    public ManageMyFarmAdapter(ArrayList<ManageFarmData> arrayList, Context context) {
         this.arrayList = arrayList;
         this.context = context;
     }
@@ -35,7 +40,7 @@ public class AvailablePlotsAdapter extends RecyclerView.Adapter<AvailablePlotsAd
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-        View v= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.available_plots_layout,viewGroup,false);
+        View v= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.manage_my_farm_layout,viewGroup,false);
 
         MyViewHolder myViewHolder=new MyViewHolder(v);
 
@@ -50,14 +55,11 @@ public class AvailablePlotsAdapter extends RecyclerView.Adapter<AvailablePlotsAd
             public void onClick(View view) {
 
                 //((FragmentActivity)context).getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                ViewAvailablePlotsFragment viewAvailablePlotsFragment= new ViewAvailablePlotsFragment();
-
-                FragmentTransaction fragmentTransaction = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.addToBackStack("NavHomeActivity");
-                fragmentTransaction.replace(R.id.container, viewAvailablePlotsFragment, "TAG");
-                fragmentTransaction.commit();
+                context.startActivity(new Intent(context, ViewFarmActivity.class));
+                ((FragmentActivity)context).overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
             }
         });
+
 
     }
 
@@ -80,3 +82,4 @@ public class AvailablePlotsAdapter extends RecyclerView.Adapter<AvailablePlotsAd
     }
 
 }
+

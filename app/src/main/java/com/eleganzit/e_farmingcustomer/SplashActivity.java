@@ -24,7 +24,7 @@ public class SplashActivity extends AppCompatActivity {
 
                 if (userSessionManager.isLoggedIn())
                 {
-                    startActivity(new Intent(SplashActivity.this,HomeActivity.class));
+                    startActivity(new Intent(SplashActivity.this,NavHomeActivity.class));
                     overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
                     finish();
                 }
