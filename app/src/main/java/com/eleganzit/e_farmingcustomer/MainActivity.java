@@ -47,9 +47,19 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
 
     public void loadExerciseData() {
         exerciseList = new ObservableArrayList<>();
-        for (int i = 1; i <= 10; i++) {
-            exerciseList.add(new ExcercisePojo(i, "Vegetable " + i));
-        }
+
+        exerciseList.add(new ExcercisePojo(1, "Vegetable " + 1, "https://c.ndtvimg.com/2018-09/4a6d49go_vegetables_625x300_26_September_18.jpg"));
+        exerciseList.add(new ExcercisePojo(2, "Vegetable " + 2, "https://images-prod.healthline.com/hlcmsresource/images/topic_centers/Food-Nutrition/high-protein-veggies/388x210_potatoes.jpg"));
+        exerciseList.add(new ExcercisePojo(3, "Vegetable " + 3, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHC45t_GzF-5OXLFJoFqt21pVu2fn53z-yi4tJm3Q1i0-ozOZP"));
+        exerciseList.add(new ExcercisePojo(4, "Vegetable " + 4, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQB-4buwvMxmDdc3QlyYvQkR06V_9Ya9fegwGahfMIBFxv4amFLwg"));
+        exerciseList.add(new ExcercisePojo(5, "Vegetable " + 5, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXbpZ09GUV14WRhViNQNLSiZc6qJVV8Ju-ohjFrtdqgOYTJMisyg"));
+        exerciseList.add(new ExcercisePojo(6, "Vegetable " + 6, "https://c.ndtvimg.com/2018-09/4a6d49go_vegetables_625x300_26_September_18.jpg"));
+        exerciseList.add(new ExcercisePojo(7, "Vegetable " + 7, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXbpZ09GUV14WRhViNQNLSiZc6qJVV8Ju-ohjFrtdqgOYTJMisyg"));
+        exerciseList.add(new ExcercisePojo(8, "Vegetable " + 8, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQB-4buwvMxmDdc3QlyYvQkR06V_9Ya9fegwGahfMIBFxv4amFLwg"));
+        exerciseList.add(new ExcercisePojo(9, "Vegetable " + 9, "https://images-prod.healthline.com/hlcmsresource/images/topic_centers/Food-Nutrition/high-protein-veggies/388x210_potatoes.jpg"));
+        exerciseList.add(new ExcercisePojo(10, "Vegetable " + 10, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHC45t_GzF-5OXLFJoFqt21pVu2fn53z-yi4tJm3Q1i0-ozOZP"));
+        exerciseList.add(new ExcercisePojo(0, "", ""));
+
     }
 
     @Override
@@ -202,7 +212,7 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 }
 

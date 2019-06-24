@@ -6,10 +6,11 @@ package com.eleganzit.e_farmingcustomer;
 
 public class ExcercisePojo {
     public int exerciseId;
-    public String name;
+    public String name,img;
 
-    public ExcercisePojo(int exerciseId, String name) {
+    public ExcercisePojo(int exerciseId, String name, String img) {
         this.exerciseId = exerciseId;
         this.name = name;
+        this.img = img;
     }
 }

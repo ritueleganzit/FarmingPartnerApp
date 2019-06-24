@@ -1,5 +1,6 @@
 package com.eleganzit.e_farmingcustomer.adapters;
 
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -11,7 +12,7 @@ public class viewPagerAdapter extends FragmentStatePagerAdapter {
 
     //integer to count number of tabs
     int tabCount;
-
+    private String[] tabTitles = new String[]{"Successful", "Pending"};
     //Constructor to the class
     public viewPagerAdapter(FragmentManager fm, int tabCount) {
         super(fm);
@@ -39,6 +40,12 @@ public class viewPagerAdapter extends FragmentStatePagerAdapter {
     //Overriden method getCount to get the number of tabs
     @Override
     public int getCount() {
-        return tabCount;
+        return tabTitles.length;
+    }
+
+    @Nullable
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return tabTitles[position];
     }
 }
