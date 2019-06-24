@@ -83,10 +83,9 @@
                         android:id="@+id/ed_fname"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_medium"
                         android:hint="First Name*"
                         android:inputType="textPersonName"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -99,10 +98,9 @@
                         android:id="@+id/ed_lname"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_medium"
                         android:hint="Last Name*"
                         android:inputType="textPersonName"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
                 </android.support.design.widget.TextInputLayout>
 
             </LinearLayout>
@@ -118,10 +116,9 @@
                     android:id="@+id/ed_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_medium"
                     android:hint="Address*"
                     android:inputType="textPostalAddress"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -136,10 +133,9 @@
                     android:id="@+id/ed_landmark"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_medium"
                     android:hint="Landmark*"
                     android:inputType="textPostalAddress"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -154,10 +150,9 @@
                     android:id="@+id/ed_sub_location"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_medium"
                     android:hint="Sub Location*"
                     android:inputType="textPostalAddress"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -172,10 +167,9 @@
                     android:id="@+id/ed_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_medium"
                     android:hint="Email Address*"
                     android:inputType="textEmailAddress"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -201,9 +195,8 @@
                         android:layout_height="wrap_content"
                         android:drawableRight="@drawable/ic_drop_down"
                         android:focusable="false"
-                        android:fontFamily="@font/poppins_medium"
                         android:hint="+20"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -216,10 +209,9 @@
                         android:id="@+id/ed_phone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_medium"
                         android:hint="Phone Number*"
                         android:inputType="phone"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
                 </android.support.design.widget.TextInputLayout>
 
             </LinearLayout>
@@ -232,14 +224,14 @@
                 android:layout_marginRight="25dp">
 
                 <android.support.design.widget.TextInputEditText
+                    android:id="@+id/ed_birthdate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableRight="@drawable/ic_calendar"
                     android:focusable="false"
-                    android:fontFamily="@font/poppins_medium"
                     android:hint="Birth Date"
                     android:inputType="date"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -251,13 +243,13 @@
                 android:layout_marginRight="25dp">
 
                 <android.support.design.widget.TextInputEditText
+                    android:id="@+id/ed_referral_code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusable="false"
-                    android:fontFamily="@font/poppins_medium"
-                    android:hint="Referal Code"
+                    android:hint="Referral Code"
                     android:inputType="text"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -273,10 +265,9 @@
                     android:id="@+id/ed_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_medium"
                     android:hint="Password*"
                     android:inputType="textPassword"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -291,10 +282,9 @@
                     android:id="@+id/ed_cpassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_medium"
                     android:hint="Confirm Password*"
                     android:inputType="textPassword"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
             </android.support.design.widget.TextInputLayout>
 
             <Button
@@ -305,7 +295,7 @@
                 android:background="@drawable/gradient_btn_bg"
                 android:fontFamily="@font/poppins_medium"
                 android:text="SUBMIT"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="#ffffff" />
 
         </LinearLayout>

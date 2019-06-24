@@ -93,18 +93,36 @@
             android:id="@+id/view2"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_above="@id/rcv_choose_exercise"
+            android:layout_above="@id/rel_choose_exercise"
             android:background="@color/colorAccent" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rcv_choose_exercise"
+        <RelativeLayout
+            android:id="@+id/rel_choose_exercise"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="120dp"
             android:layout_alignParentBottom="true"
-            android:background="#BEBEBE"
-            app:exerciseChooseItems="@{mainActivity.exerciseList}"
-            app:layoutId="@{R.layout.layout_choose_exercise_item}" />
+            android:layout_height="wrap_content"
+            android:minHeight="120dp">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rcv_choose_exercise"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="120dp"
+                android:background="#BEBEBE"
+                app:exerciseChooseItems="@{mainActivity.exerciseList}"
+                app:layoutId="@{R.layout.layout_choose_exercise_item}" />
+
+            <TextView
+                android:id="@+id/no_veg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="#ffffff"
+                android:visibility="gone"
+                android:layout_centerInParent="true"
+                android:text="No Vegetables"/>
+
+        </RelativeLayout>
 
 
         <android.support.v7.widget.RecyclerView

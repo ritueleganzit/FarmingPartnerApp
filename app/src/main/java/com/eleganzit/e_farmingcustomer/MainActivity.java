@@ -42,8 +42,8 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
                 onBackPressed();
             }
         });
-    }
 
+    }
 
     public void loadExerciseData() {
         exerciseList = new ObservableArrayList<>();
@@ -58,7 +58,15 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
         exerciseList.add(new ExcercisePojo(8, "Vegetable " + 8, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQB-4buwvMxmDdc3QlyYvQkR06V_9Ya9fegwGahfMIBFxv4amFLwg"));
         exerciseList.add(new ExcercisePojo(9, "Vegetable " + 9, "https://images-prod.healthline.com/hlcmsresource/images/topic_centers/Food-Nutrition/high-protein-veggies/388x210_potatoes.jpg"));
         exerciseList.add(new ExcercisePojo(10, "Vegetable " + 10, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHC45t_GzF-5OXLFJoFqt21pVu2fn53z-yi4tJm3Q1i0-ozOZP"));
-        exerciseList.add(new ExcercisePojo(0, "", ""));
+
+        if(exerciseList.size()==0)
+        {
+            mainActivityBinding.noVeg.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            mainActivityBinding.noVeg.setVisibility(View.GONE);
+        }
 
     }
 
@@ -84,14 +92,38 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
                 newContactPosition = rcvSelected.getChildAdapterPosition(onTopOf);
                 break;
             case DragEvent.ACTION_DRAG_ENTERED:
+                if(exerciseList.size()==0)
+                {
+                    mainActivityBinding.noVeg.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    mainActivityBinding.noVeg.setVisibility(View.GONE);
+                }
                 break;
             case DragEvent.ACTION_DRAG_EXITED:
+                if(exerciseList.size()==0)
+                {
+                    mainActivityBinding.noVeg.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    mainActivityBinding.noVeg.setVisibility(View.GONE);
+                }
                 break;
             case DragEvent.ACTION_DROP:
                 //when Item is dropped off to recyclerview.
                 if (isFromExercise) {
                     exerciseSelectedList.add(exerciseToMove);
                     exerciseList.remove(exerciseToMove);
+                    if(exerciseList.size()==0)
+                    {
+                        mainActivityBinding.noVeg.setVisibility(View.VISIBLE);
+                    }
+                    else
+                    {
+                        mainActivityBinding.noVeg.setVisibility(View.GONE);
+                    }
                     mainActivityBinding.rcvChooseExercise.getAdapter().notifyItemRemoved(currentPosition);
                     mainActivityBinding.executePendingBindings();
                 }
@@ -122,6 +154,14 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
                     newContactPosition = -1;
                 } else {
                     rcvSelected.scrollToPosition(0);
+                }
+                if(exerciseList.size()==0)
+                {
+                    mainActivityBinding.noVeg.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    mainActivityBinding.noVeg.setVisibility(View.GONE);
                 }
             default:
                 break;
