@@ -34,6 +34,9 @@ public class PaymentHistoryFragment extends Fragment implements TabLayout.OnTabS
         NavHomeActivity.home_title.setText("Payment History");
 
         tabLayout = v.findViewById(R.id.payment_tabs);
+        viewPager = v.findViewById(R.id.payment_viewpager);
+
+        tabLayout.setupWithViewPager(viewPager);
 
         //Adding the tabs using addTab() method
         tabLayout.addTab(tabLayout.newTab().setText("Successful"));
@@ -41,7 +44,6 @@ public class PaymentHistoryFragment extends Fragment implements TabLayout.OnTabS
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         //Initializing viewPager
-        viewPager = v.findViewById(R.id.payment_viewpager);
 
         //Creating our pager adapter
         viewPagerAdapter adapter = new viewPagerAdapter(getActivity().getSupportFragmentManager(), tabLayout.getTabCount());

@@ -40,7 +40,7 @@ public class PaymentSuccessfulAdapter extends RecyclerView.Adapter<PaymentSucces
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
 
-       
+
     }
 
     @Override
