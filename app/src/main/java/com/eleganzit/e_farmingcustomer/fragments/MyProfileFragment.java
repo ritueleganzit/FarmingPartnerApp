@@ -3,6 +3,7 @@ package com.eleganzit.e_farmingcustomer.fragments;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -19,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
@@ -26,11 +28,23 @@ import com.bumptech.glide.request.RequestOptions;
 import com.eleganzit.e_farmingcustomer.EditProfileActivity;
 import com.eleganzit.e_farmingcustomer.NavHomeActivity;
 import com.eleganzit.e_farmingcustomer.R;
+import com.eleganzit.e_farmingcustomer.api.RetrofitAPI;
+import com.eleganzit.e_farmingcustomer.api.RetrofitInterface;
+import com.eleganzit.e_farmingcustomer.model.UpdateResponse;
+import com.eleganzit.e_farmingcustomer.utils.UserSessionManager;
 
 import java.io.File;
 import java.util.ArrayList;
 
 import me.nereo.multi_image_selector.MultiImageSelector;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.eleganzit.e_farmingcustomer.NavHomeActivity.user_name;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,8 +56,21 @@ public class MyProfileFragment extends Fragment {
     private static final int REQUEST_IMAGE2 = 201;
     protected static final int REQUEST_STORAGE_READ_ACCESS_PERMISSION2 = 202;
     private ArrayList<String> mSelectPath2;
+    UserSessionManager userSessionManager;
+    private String photo;
+    ProgressDialog progressDialog;
+    String mediapath;
     public MyProfileFragment() {
         // Required empty public constructor
+    }
+    Activity mActivity;
+    File file;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mActivity = getActivity();
+
     }
 
 
@@ -52,6 +79,12 @@ public class MyProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v=inflater.inflate(R.layout.fragment_my_profile, container, false);
+        userSessionManager=new UserSessionManager(getActivity());
+
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Please Wait");
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
 
         NavHomeActivity.home_title.setText("My Profile");
 
@@ -89,6 +122,34 @@ public class MyProfileFragment extends Fragment {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        photo=userSessionManager.getUserDetails().get(UserSessionManager.KEY_PHOTO);
+
+        txt_username.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_FNAME)+" "+userSessionManager.getUserDetails().get(UserSessionManager.KEY_LNAME));
+        user_name.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_FNAME)+" "+userSessionManager.getUserDetails().get(UserSessionManager.KEY_LNAME));
+        txt_email.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_EMAIL));
+        txt_phone.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_PHONE));
+        if(userSessionManager.getUserDetails().get(UserSessionManager.KEY_DOB).equalsIgnoreCase("0000-00-00"))
+        {
+            txt_dob.setText("Not Provided");
+        }
+        else
+        {
+            txt_dob.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_DOB));
+        }
+
+        txt_address.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_ADDRESS));
+        txt_landmark.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_LANDMARK));
+        txt_sublocation.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_SUB_LOCATION));
+        Glide
+                .with(this)
+                .load(photo).apply(new RequestOptions().placeholder(R.drawable.pr))
+                .into(profile_pic);
+
+
+    }
 
     private void pickImage() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN // Permission was added in API Level 16
@@ -126,8 +187,104 @@ public class MyProfileFragment extends Fragment {
         }
     }
 
+    /*private void updatePhoto() {
+
+        progressDialog.show();
+        RetrofitInterface myInterface = RetrofitAPI.getRetrofit().create(RetrofitInterface.class);
+        Log.d("jhgsfdvhdsdf",mediapath+"");
+        Call<UpdateResponse> call = myInterface.updatePhoto(userSessionManager.getUserDetails().get(UserSessionManager.KEY_USER_ID),mediapath);
+        call.enqueue(new Callback<UpdateResponse>() {
+            @Override
+            public void onResponse(Call<UpdateResponse> call, Response<UpdateResponse> response) {
+                progressDialog.dismiss();
+                if (response.isSuccessful()) {
+                    if (response.body().getStatus().toString().equalsIgnoreCase("1")) {
+
+                        userSessionManager.updateProfilePic(response.body().getData().get(0).getPhoto());
+                        Log.d("jhgsfdvhdsdf",response.body().getData().get(0).getPhoto()+"");
+                        Glide
+                                .with(getActivity())
+                                .load(response.body().getData().get(0).getPhoto())
+                                .thumbnail(.5f)
+                                .apply(new RequestOptions().transform(new CircleCrop()).placeholder(R.drawable.pr).centerCrop().circleCrop())
+                                .into(profile_pic);
+
+                        Toast.makeText(getActivity(), "Successfully updated", Toast.LENGTH_SHORT).show();
+
+                    } else {
+
+                        Toast.makeText(getActivity(), "--" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
 
 
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UpdateResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(getActivity(), "Server or Internet Error" + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+*/
+    public void updatePhoto() {
+        Log.d("responseseeeepppp", "" + mediapath);
+        progressDialog.show();
+
+        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), "" + userSessionManager.getUserDetails().get(UserSessionManager.KEY_USER_ID));
+
+        RequestBody requestFile = RequestBody.create(MediaType.parse("*/*"), file);
+
+        MultipartBody.Part multipartBody = MultipartBody.Part.createFormData("photo", file.getName(), requestFile);
+
+        RetrofitInterface myInterface = RetrofitAPI.getRetrofit().create(RetrofitInterface.class);
+        Call<UpdateResponse> call = myInterface.updatePhoto(user_id, multipartBody);
+        call.enqueue(new Callback<UpdateResponse>() {
+            @Override
+            public void onResponse(Call<UpdateResponse> call, final Response<UpdateResponse> response) {
+                progressDialog.dismiss();
+                if (response.isSuccessful()) {
+                    Log.d("responseseeee", "" + response.body().toString());
+
+                    if (response.body().getStatus().toString().equalsIgnoreCase("1")) {
+
+                        photo = response.body().getData().get(0).getPhoto();
+
+                        Log.d("responseseeeepppp", "" + photo);
+
+                        if(mActivity!=null)
+                            Glide
+                                    .with(getActivity())
+                                    .load(photo)
+                                    .apply(new RequestOptions().placeholder(R.drawable.pr).transforms(new CircleCrop())).into(profile_pic);
+
+                        Glide
+                                .with(getActivity())
+                                .load(photo)
+                                .apply(new RequestOptions().placeholder(R.drawable.pr).transforms(new CircleCrop())).into(NavHomeActivity.profile_image);
+                        userSessionManager.updateProfilePic(photo);
+                        Toast.makeText(getActivity(), "Profile picture updated", Toast.LENGTH_SHORT).show();
+
+
+                    } else {
+
+                        Toast.makeText(getActivity(), "" + response.body().getMessage().toString(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getActivity(), "Server or Internet Error", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<UpdateResponse> call, Throwable t) {
+                Toast.makeText(getActivity(), "Server or Internet Error", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+            }
+        });
+    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -143,16 +300,16 @@ public class MyProfileFragment extends Fragment {
                         sb.append("\n");
                     }
 
-                    String mediapath = "" + sb.toString().trim();
-
-
-                    Glide
+                    mediapath = "" + sb.toString().trim();
+                    file=new File(mediapath);
+                    updatePhoto();
+                   /* Glide
                             .with(getActivity())
                             .load(mediapath.trim())
                             .apply(new RequestOptions().transform(new CircleCrop()).placeholder(R.drawable.pr).centerCrop().circleCrop())
                             .into(profile_pic);
 
-
+*/
                 }
             }
 

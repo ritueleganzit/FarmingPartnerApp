@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.eleganzit.e_farmingcustomer.api.RetrofitAPI;
 import com.eleganzit.e_farmingcustomer.api.RetrofitInterface;
 import com.eleganzit.e_farmingcustomer.model.LoginRespose;
+import com.eleganzit.e_farmingcustomer.model.UpdateResponse;
 import com.eleganzit.e_farmingcustomer.utils.UserSessionManager;
 import com.rilixtech.CountryCodePicker;
 
@@ -67,7 +68,18 @@ public class EditProfileActivity extends AppCompatActivity {
         ed_password=findViewById(R.id.ed_password);
         ed_cpassword=findViewById(R.id.ed_cpassword);
         btn_submit=findViewById(R.id.btn_submit);
-        ed_ccode.registerPhoneNumberTextView(ed_phone);
+        //ed_ccode.registerPhoneNumberTextView(ed_phone);
+
+        ed_fname.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_FNAME));
+        ed_lname.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_LNAME));
+        ed_address.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_ADDRESS));
+        ed_landmark.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_LANDMARK));
+        ed_sub_location.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_SUB_LOCATION));
+        ed_email.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_EMAIL));
+        ed_phone.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_PHONE));
+        ed_birthdate.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_DOB));
+        ed_password.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_PASSWORD));
+        ed_cpassword.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_PASSWORD));
 
         Calendar c = Calendar.getInstance();
         final int mYear = c.get(Calendar.YEAR);
@@ -92,41 +104,33 @@ public class EditProfileActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(isValid())
                 {
-                    //updateProfile();
+                    updateProfile();
                 }
             }
         });
 
     }
 
-/*
 
     private void updateProfile() {
 
         progressDialog.show();
         RetrofitInterface myInterface = RetrofitAPI.getRetrofit().create(RetrofitInterface.class);
-        Call<UpdateResponse> call = myInterface.updateProfile(ed_fname.getText().toString(), ed_lname.getText().toString(),
+        Call<UpdateResponse> call = myInterface.updateProfile(userSessionManager.getUserDetails().get(UserSessionManager.KEY_USER_ID),ed_fname.getText().toString(), ed_lname.getText().toString(),
                 ed_address.getText().toString(), ed_landmark.getText().toString(),ed_sub_location.getText().toString(),
-                ed_email.getText().toString(),ed_phone.getText().toString(), ed_birthdate.getText().toString(),
-                ed_referral_code.getText().toString(), ed_cpassword.getText().toString());
+                ed_phone.getText().toString(), ed_birthdate.getText().toString(),
+                ed_cpassword.getText().toString());
         call.enqueue(new Callback<UpdateResponse>() {
             @Override
             public void onResponse(Call<UpdateResponse> call, Response<UpdateResponse> response) {
                 progressDialog.dismiss();
                 if (response.isSuccessful()) {
                     if (response.body().getStatus().toString().equalsIgnoreCase("1")) {
-                        if (response.body().getData() != null) {
-                            String email, id, username, photo;
-                            for (int i = 0; i < response.body().getData().size(); i++) {
-                                email = response.body().getData().get(i).getVendorEmail();
-                                id = response.body().getData().get(i).getVendorId();
-                                username = response.body().getData().get(i).getVendorName();
-                                photo = response.body().getData().get(i).getVendorStartTime();
-                                //userSessionManager.createLoginSession(id, email, ed_password.getText().toString(), username, photo);
 
-                            }
+                        userSessionManager.updateUserData(ed_password.getText().toString(), ed_fname.getText().toString(),ed_lname.getText().toString(),ed_phone.getText().toString(), ed_birthdate.getText().toString(),ed_address.getText().toString(),ed_landmark.getText().toString(),ed_sub_location.getText().toString());
+                        Toast.makeText(EditProfileActivity.this, "Successfully updated", Toast.LENGTH_SHORT).show();
+                        finish();
 
-                        }
                     } else {
 
                         Toast.makeText(EditProfileActivity.this, "--" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -145,7 +149,6 @@ public class EditProfileActivity extends AppCompatActivity {
 
     }
 
-*/
 
     public boolean isValid() {
         final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
@@ -154,29 +157,7 @@ public class EditProfileActivity extends AppCompatActivity {
         pattern = Pattern.compile(EMAIL_PATTERN);
         matcher = pattern.matcher(ed_email.getText().toString());
 
-        if (!matcher.matches()) {
-            ed_email.setError("Please enter valid email");
-
-            ed_email.requestFocus();
-            return false;
-        }
-        else  if (ed_password.getText().toString().equals("") || ed_password.getText().toString().length()<6) {
-
-            ed_password.setError("Password must contain atleast 6 characters");
-
-            ed_password.requestFocus();
-
-            return false;
-        }
-        else  if (!ed_password.getText().toString().equals(ed_cpassword.getText().toString())) {
-
-            ed_cpassword.setError("Password doesn't match");
-
-            ed_cpassword.requestFocus();
-
-            return false;
-        }
-        else  if (ed_fname.getText().toString().equals("")) {
+        if (ed_fname.getText().toString().equals("")) {
 
             ed_fname.setError("First name is mandatory");
 
@@ -216,11 +197,33 @@ public class EditProfileActivity extends AppCompatActivity {
 
             return false;
         }
+        else if (!matcher.matches()) {
+            ed_email.setError("Please enter valid email");
+
+            ed_email.requestFocus();
+            return false;
+        }
         else  if (ed_phone.getText().toString().equals("")) {
 
             ed_phone.setError("Phone is mandatory");
 
             ed_phone.requestFocus();
+
+            return false;
+        }
+        else  if (ed_password.getText().toString().equals("") || ed_password.getText().toString().length()<6) {
+
+            ed_password.setError("Password must contain atleast 6 characters");
+
+            ed_password.requestFocus();
+
+            return false;
+        }
+        else  if (!ed_password.getText().toString().equals(ed_cpassword.getText().toString())) {
+
+            ed_cpassword.setError("Password doesn't match");
+
+            ed_cpassword.requestFocus();
 
             return false;
         }

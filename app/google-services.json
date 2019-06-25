@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "507964884127",
+    "firebase_url": "https://e-farming-customer.firebaseio.com",
+    "project_id": "e-farming-customer",
+    "storage_bucket": "e-farming-customer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:507964884127:android:b0ff0c43fa31d8e2",
+        "android_client_info": {
+          "package_name": "com.eleganzit.e_farmingcustomer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "507964884127-3ck1rerebp7nmlt68vgcr1qovspfkvo3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.eleganzit.e_farmingcustomer",
+            "certificate_hash": "0382f4982b0f791382e3df85350bdbc970beceb6"
+          }
+        },
+        {
+          "client_id": "507964884127-j0f72kqlattfu335a8nnle7svlqen0rv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDBWzJskTUa621kduwH-FJbfc9aj7WMK0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "507964884127-j0f72kqlattfu335a8nnle7svlqen0rv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -33,7 +33,9 @@ public class UserSessionManager {
 
     // User name (make variable public to access from outside)
     public static final String KEY_USER_ID = "user_id";
-    public static final String KEY_USERNAME = "username";
+    public static final String KEY_FNAME = "fname";
+    public static final String KEY_LNAME = "lname";
+    public static final String KEY_PHONE = "phone";
 
     // Email address (make variable public to access from outside)
     public static final String KEY_EMAIL = "email";
@@ -41,6 +43,10 @@ public class UserSessionManager {
     public static final String KEY_PASSWORD = "password";
     public static final String KEY_MOBILE = "mobile";
     public static final String KEY_PHOTO = "photo";
+    public static final String KEY_DOB = "dob";
+    public static final String KEY_ADDRESS = "address";
+    public static final String KEY_LANDMARK = "landmark";
+    public static final String KEY_SUB_LOCATION = "sub_location";
     public static final String KEY_COUNTRY = "country";
     public static final String KEY_STATE = "state";
 
@@ -55,7 +61,7 @@ public class UserSessionManager {
     /**
      * Create login session
      * */
-    public void createLoginSession(String user_id, String email, String password, String username, String photo){
+    public void createLoginSession(String user_id, String email, String password, String fname, String lname, String phone, String dob, String address, String landmark, String sub_location, String photo){
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
 
@@ -65,8 +71,14 @@ public class UserSessionManager {
         editor.putString(KEY_EMAIL, email);
 
         editor.putString(KEY_PASSWORD, password);
-        editor.putString(KEY_USERNAME, username);
+        editor.putString(KEY_FNAME, fname);
+        editor.putString(KEY_LNAME, lname);
+        editor.putString(KEY_PHONE, phone);
         editor.putString(KEY_PHOTO, photo);
+        editor.putString(KEY_DOB, dob);
+        editor.putString(KEY_ADDRESS, address);
+        editor.putString(KEY_LANDMARK, landmark);
+        editor.putString(KEY_SUB_LOCATION, sub_location);
 
         // commit changes
         editor.commit();
@@ -79,6 +91,25 @@ public class UserSessionManager {
         context.startActivity(i);
         activity.overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
         activity.finish();
+    }
+
+    public void updateUserData(String password, String fname, String lname, String phone, String dob, String address, String landmark, String sub_location){
+        // Storing login value as TRUE
+        editor.putBoolean(IS_LOGIN, true);
+
+
+        editor.putString(KEY_PASSWORD, password);
+        editor.putString(KEY_FNAME, fname);
+        editor.putString(KEY_LNAME, lname);
+        editor.putString(KEY_PHONE, phone);
+        editor.putString(KEY_DOB, dob);
+        editor.putString(KEY_ADDRESS, address);
+        editor.putString(KEY_LANDMARK, landmark);
+        editor.putString(KEY_SUB_LOCATION, sub_location);
+
+        // commit changes
+        editor.commit();
+
     }
 
     public void updateProfilePic(String photo)
@@ -122,7 +153,13 @@ public class UserSessionManager {
         // user name
         user.put(KEY_USER_ID , pref.getString(KEY_USER_ID , null));
 
-        user.put(KEY_USERNAME, pref.getString(KEY_USERNAME, null));
+        user.put(KEY_FNAME, pref.getString(KEY_FNAME, null));
+        user.put(KEY_LNAME, pref.getString(KEY_LNAME, null));
+        user.put(KEY_PHONE, pref.getString(KEY_PHONE, null));
+        user.put(KEY_DOB, pref.getString(KEY_DOB, null));
+        user.put(KEY_ADDRESS, pref.getString(KEY_ADDRESS, null));
+        user.put(KEY_LANDMARK, pref.getString(KEY_LANDMARK, null));
+        user.put(KEY_SUB_LOCATION, pref.getString(KEY_SUB_LOCATION, null));
 
         user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
 

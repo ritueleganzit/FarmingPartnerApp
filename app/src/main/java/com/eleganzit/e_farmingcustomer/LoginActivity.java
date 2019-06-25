@@ -73,19 +73,17 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(isValid())
                 {
-                    startActivity(new Intent(LoginActivity.this,NavHomeActivity.class));
-                    overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+                    loginUser();
                 }
             }
         });
     }
 
-/*
 
     private void loginUser() {
         progressDialog.show();
         RetrofitInterface myInterface = RetrofitAPI.getRetrofit().create(RetrofitInterface.class);
-        Call<LoginRespose> call = myInterface.loginUser(ed_email.getText().toString(), ed_pw.getText().toString());
+        Call<LoginRespose> call = myInterface.loginUser(ed_email.getText().toString(), ed_password.getText().toString());
         call.enqueue(new Callback<LoginRespose>() {
             @Override
             public void onResponse(Call<LoginRespose> call, Response<LoginRespose> response) {
@@ -93,15 +91,22 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     if (response.body().getStatus().toString().equalsIgnoreCase("1")) {
                         if (response.body().getData() != null) {
-                            String email, id, username, photo;
+                            String email, id, fname,lname, photo,phone,dob,address,landmark,sub_location;
                             for (int i = 0; i < response.body().getData().size(); i++) {
-                                email = response.body().getData().get(i).getVendorEmail();
-                                id = response.body().getData().get(i).getVendorId();
-                                username = response.body().getData().get(i).getVendorName();
-                                photo = response.body().getData().get(i).getVendorStartTime();
-                                userSessionManager.createLoginSession(id, email, ed_password.getText().toString(), username, photo);
+                                email = response.body().getData().get(i).getEmail();
+                                id = response.body().getData().get(i).getCustomerId();
+                                fname = response.body().getData().get(i).getFname()+" ";
+                                lname = response.body().getData().get(i).getLname()+" ";
+                                photo = response.body().getData().get(i).getPhoto();
+                                dob = response.body().getData().get(i).getDob();
+                                address = response.body().getData().get(i).getAddress();
+                                landmark = response.body().getData().get(i).getLandmark();
+                                sub_location = response.body().getData().get(i).getSubLocation();
+                                phone = response.body().getData().get(i).getPhone();
+                                userSessionManager.createLoginSession(id, email, ed_password.getText().toString(), fname,lname,phone, dob,address,landmark,sub_location,photo);
 
                             }
+                            //Toast.makeText(LoginActivity.this, "--" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
 
                         }
                     } else {
@@ -109,6 +114,11 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, "--" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }
 
+
+                }
+                else
+                {
+                    Toast.makeText(LoginActivity.this, "--" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -122,7 +132,6 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-*/
 
     public boolean isValid() {
         final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";

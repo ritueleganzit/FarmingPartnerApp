@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import com.eleganzit.e_farmingcustomer.NavHomeActivity;
 import com.eleganzit.e_farmingcustomer.R;
 import com.eleganzit.e_farmingcustomer.adapters.viewPagerAdapter;
+import com.eleganzit.e_farmingcustomer.subFragments.PaymentPendingFragment;
+import com.eleganzit.e_farmingcustomer.subFragments.PaymentSuccessfulFragment;
 import com.eleganzit.e_farmingcustomer.utils.OnBackPressListener;
 
 /**
@@ -21,7 +23,6 @@ public class PaymentHistoryFragment extends Fragment implements TabLayout.OnTabS
 
     TabLayout tabLayout;
     ViewPager viewPager;
-    viewPagerAdapter adapter;
 
     public PaymentHistoryFragment() {
         // Required empty public constructor
@@ -37,7 +38,6 @@ public class PaymentHistoryFragment extends Fragment implements TabLayout.OnTabS
 
         tabLayout = v.findViewById(R.id.payment_tabs);
         viewPager = v.findViewById(R.id.payment_viewpager);
-
 
         //Adding the tabs using addTab() method
         tabLayout.addTab(tabLayout.newTab().setText("Successful"));
@@ -55,43 +55,26 @@ public class PaymentHistoryFragment extends Fragment implements TabLayout.OnTabS
         //Adding onTabSelectedListener to swipe views
         tabLayout.setOnTabSelectedListener(this);
 
-
         return v;
+
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
+    private void setupViewPager(ViewPager viewPager) {
+        viewPagerAdapter adapter = new viewPagerAdapter(getChildFragmentManager());
+        adapter.addFragment(new PaymentSuccessfulFragment(), "Successful");
 
-        adapter = new viewPagerAdapter(getActivity().getSupportFragmentManager(), tabLayout.getTabCount());
-
+        adapter.addFragment(new PaymentPendingFragment(), "Pending");
         viewPager.setAdapter(adapter);
-        tabLayout.setupWithViewPager(viewPager);
-
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        tabLayout.setOnTabSelectedListener(this);
 
-        adapter = new viewPagerAdapter(getActivity().getSupportFragmentManager(), tabLayout.getTabCount());
-
-        viewPager.setAdapter(adapter);
+        setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
 
-    }
-
-    public boolean onBackPressed() {
-        // currently visible tab Fragment
-        OnBackPressListener currentFragment = (OnBackPressListener) adapter.getRegisteredFragment(viewPager.getCurrentItem());
-
-        if (currentFragment != null) {
-            // lets see if the currentFragment or any of its childFragment can handle onBackPressed
-            return currentFragment.onBackPressed();
-        }
-
-        // this Fragment couldn't handle the onBackPressed call
-        return false;
     }
 
     @Override

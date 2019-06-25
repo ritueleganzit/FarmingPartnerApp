@@ -67,7 +67,7 @@
                         android:layout_height="wrap_content"
                         android:hint="First Name*"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:inputType="textPersonName"/>
+                        android:inputType="textCapWords"/>
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -83,7 +83,7 @@
                         android:layout_height="wrap_content"
                         android:hint="Last Name*"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:inputType="textPersonName"/>
+                        android:inputType="textCapWords"/>
                 </android.support.design.widget.TextInputLayout>
 
             </LinearLayout>
@@ -101,7 +101,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Address*"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:inputType="textPostalAddress"/>
+                    android:inputType="textCapSentences"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -118,7 +118,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Landmark*"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:inputType="textPostalAddress"/>
+                    android:inputType="textCapSentences"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -135,7 +135,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Sub Location*"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:inputType="textPostalAddress"/>
+                    android:inputType="textCapSentences"/>
 
             </android.support.design.widget.TextInputLayout>
 

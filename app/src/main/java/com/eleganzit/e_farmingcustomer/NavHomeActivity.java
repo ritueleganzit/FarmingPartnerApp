@@ -56,17 +56,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class NavHomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    TextView user_name;
+    public static TextView user_name;
     public static CircleImageView profile_image;
     public static TextView home_title;
     private String photo, name;
     AdvanceDrawerLayout drawer;
     ImageView notification_bell;
     UserSessionManager userSessionManager;
-
-    public static float convertPixelsToDp(float px, Context context) {
-        return px / ((float) context.getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,6 +131,10 @@ public class NavHomeActivity extends AppCompatActivity
 
         user_name = headerview.findViewById(R.id.user_name);
 
+        Log.d("sjhgdfhdfd",userSessionManager.getUserDetails().get(UserSessionManager.KEY_FNAME)+" ----- "+userSessionManager.getUserDetails().get(UserSessionManager.KEY_LNAME));
+
+        user_name.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_FNAME)+" "+userSessionManager.getUserDetails().get(UserSessionManager.KEY_LNAME));
+
         AvailablePlotsFragment availablePlotsFragment= new AvailablePlotsFragment();
         getSupportFragmentManager().beginTransaction()//
                 .replace(R.id.container, availablePlotsFragment, "TAG")
@@ -149,6 +149,8 @@ public class NavHomeActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
+
+        photo=userSessionManager.getUserDetails().get(UserSessionManager.KEY_PHOTO);
 
         Glide
                 .with(this)
