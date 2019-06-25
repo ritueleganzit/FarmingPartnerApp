@@ -135,9 +135,9 @@ public class NavHomeActivity extends AppCompatActivity
 
         user_name = headerview.findViewById(R.id.user_name);
 
-        MyProfileFragment myProfileFragment= new MyProfileFragment();
+        AvailablePlotsFragment availablePlotsFragment= new AvailablePlotsFragment();
         getSupportFragmentManager().beginTransaction()//
-                .replace(R.id.container, myProfileFragment, "TAG")
+                .replace(R.id.container, availablePlotsFragment, "TAG")
                 .commit();
         navigationView.setNavigationItemSelectedListener(this);
         drawer.setViewScale(Gravity.START, 0.9f);
