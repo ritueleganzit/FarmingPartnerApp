@@ -48,6 +48,7 @@ import com.eleganzit.e_farmingcustomer.fragments.ManageFarmFragment;
 import com.eleganzit.e_farmingcustomer.fragments.MyProfileFragment;
 
 import com.eleganzit.e_farmingcustomer.fragments.PaymentHistoryFragment;
+import com.eleganzit.e_farmingcustomer.utils.UserSessionManager;
 import com.infideap.drawerbehavior.AdvanceDrawerLayout;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -61,6 +62,7 @@ public class NavHomeActivity extends AppCompatActivity
     private String photo, name;
     AdvanceDrawerLayout drawer;
     ImageView notification_bell;
+    UserSessionManager userSessionManager;
 
     public static float convertPixelsToDp(float px, Context context) {
         return px / ((float) context.getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
@@ -72,6 +74,7 @@ public class NavHomeActivity extends AppCompatActivity
         ActivityCompat.requestPermissions(NavHomeActivity.this, new String[]{Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
 
         setContentView(R.layout.activity_main2);
+        userSessionManager=new UserSessionManager(this);
 
         home_title = findViewById(R.id.textTitle);
         notification_bell = findViewById(R.id.notification_bell);
@@ -215,7 +218,7 @@ public class NavHomeActivity extends AppCompatActivity
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
 
-                            finish();
+                            userSessionManager.logoutUser();
 
                         }
                     }).setNegativeButton("No", new DialogInterface.OnClickListener() {

@@ -176,42 +176,45 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="25dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="1">
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="25dp"
+                android:weightSum="1"
+                android:layout_marginRight="25dp"
+                android:orientation="horizontal">
+
+                <com.rilixtech.CountryCodePicker
+                    android:id="@+id/ed_ccode"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".2"
+                    app:ccp_showFlag="false"
+                    app:ccp_textSize="14sp"
+                    android:layout_marginBottom="3.8dp"
+                    android:layout_gravity="bottom"
+                    android:gravity="bottom"
+                    android:paddingBottom="5dp"
+                    android:background="@drawable/ed_line_bg"
+                    app:ccp_defaultNameCode="IN"
+                    app:ccp_defaultCode="91"
+                    app:ccp_textColor="@color/colorBlack"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:drawableRight="@drawable/ic_drop_down" />
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight=".2">
-
-                    <android.support.design.widget.TextInputEditText
-                        android:id="@+id/ed_ccode"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawableRight="@drawable/ic_drop_down"
-                        android:focusable="false"
-                        android:hint="+20"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_weight=".8"
                     android:layout_marginLeft="5dp"
-                    android:layout_weight=".8">
+                    >
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/ed_phone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Phone Number*"
-                        android:inputType="phone"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:inputType="phone"/>
                 </android.support.design.widget.TextInputLayout>
 
             </LinearLayout>
@@ -288,7 +291,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <Button
-                android:id="@+id/btn_register"
+                android:id="@+id/btn_submit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="25dp"

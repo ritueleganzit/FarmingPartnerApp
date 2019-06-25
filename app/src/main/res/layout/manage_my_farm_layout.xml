@@ -44,7 +44,7 @@
                         android:textColor="@color/colorBlack" />
 
                     <TextView
-                        android:id="@+id/sender_location"
+                        android:id="@+id/txt_slot_number"
                         android:layout_width="0dp"
                         android:layout_weight="50"
                         android:gravity="end"
@@ -71,7 +71,7 @@
                         android:textColor="@color/colorBlack" />
 
                     <TextView
-                        android:id="@+id/receiver_location"
+                        android:id="@+id/txt_cultivated"
                         android:layout_width="0dp"
                         android:layout_weight="50"
                         android:ellipsize="end"
@@ -95,7 +95,7 @@
                         android:textColor="@color/colorBlack" />
 
                     <TextView
-                        android:id="@+id/date_placed"
+                        android:id="@+id/txt_last_event"
                         android:layout_width="0dp"
                         android:gravity="end"
                         android:layout_height="wrap_content"

@@ -11,7 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.eleganzit.e_farmingcustomer.R;
@@ -68,13 +70,22 @@ public class AvailablePlotsAdapter extends RecyclerView.Adapter<AvailablePlotsAd
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        LinearLayout cardviewdashboard;
+        LinearLayout cardviewdashboard,lin_view_map;
+        ImageView img_farm;
+        TextView txt_price,txt_address,txt_plot_capacity,txt_total_capacity,txt_owner_name;
 
         public MyViewHolder(@NonNull View itemView) {
 
             super(itemView);
 
             cardviewdashboard=itemView.findViewById(R.id.cardviewdashboard);
+            lin_view_map=itemView.findViewById(R.id.lin_view_map);
+            img_farm=itemView.findViewById(R.id.img_farm);
+            txt_price=itemView.findViewById(R.id.txt_price);
+            txt_address=itemView.findViewById(R.id.txt_address);
+            txt_plot_capacity=itemView.findViewById(R.id.txt_plot_capacity);
+            txt_total_capacity=itemView.findViewById(R.id.txt_total_capacity);
+            txt_owner_name=itemView.findViewById(R.id.txt_owner_name);
 
         }
     }

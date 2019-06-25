@@ -31,6 +31,7 @@
                 android:id="@+id/back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center_vertical"
                 android:src="@mipmap/ic_back_white" />
@@ -87,6 +88,7 @@
                         android:textColor="@color/colorBlack" />
 
                     <TextView
+                        android:id="@+id/txt_slot_number"
                         android:layout_width="0dp"
                         android:layout_weight="50"
                         android:ellipsize="end"
@@ -113,6 +115,7 @@
                         android:textColor="@color/colorBlack" />
 
                     <TextView
+                        android:id="@+id/txt_vegetable"
                         android:layout_width="0dp"
                         android:layout_weight="50"
                         android:ellipsize="end"
@@ -138,7 +141,7 @@
                         android:textColor="@color/colorBlack" />
 
                     <TextView
-                        android:id="@+id/job_id"
+                        android:id="@+id/txt_sapling_date"
                         android:layout_width="0dp"
                         android:layout_weight="50"
                         android:ellipsize="end"
@@ -165,7 +168,7 @@
                         android:textColor="@color/colorBlack" />
 
                     <TextView
-                        android:id="@+id/sender_location"
+                        android:id="@+id/txt_deweeding1"
                         android:layout_width="0dp"
                         android:layout_weight="50"
                         android:ellipsize="end"
@@ -192,7 +195,7 @@
                         android:textColor="@color/colorBlack" />
 
                     <TextView
-                        android:id="@+id/receiver_location"
+                        android:id="@+id/txt_deweeding2"
                         android:layout_width="0dp"
                         android:layout_weight="50"
                         android:ellipsize="end"
@@ -217,7 +220,7 @@
                         android:textColor="@color/colorBlack" />
 
                     <TextView
-                        android:id="@+id/date_placed"
+                        android:id="@+id/txt_deweeding3"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="50"
@@ -243,7 +246,7 @@
                         android:textColor="@color/colorBlack" />
 
                     <TextView
-                        android:id="@+id/package_details"
+                        android:id="@+id/txt_fertilising1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="50"
@@ -271,6 +274,7 @@
                         android:textColor="@color/colorBlack" />
 
                     <TextView
+                        android:id="@+id/txt_fertilising2"
                         android:layout_width="0dp"
                         android:layout_weight="50"
                         android:ellipsize="end"
@@ -295,6 +299,7 @@
                         android:textColor="@color/colorBlack" />
 
                     <TextView
+                        android:id="@+id/txt_fertilising3"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="50"
@@ -320,6 +325,7 @@
                         android:textColor="@color/colorBlack" />
 
                     <TextView
+                        android:id="@+id/txt_harvesting"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="50"

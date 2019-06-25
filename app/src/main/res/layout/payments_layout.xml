@@ -44,7 +44,7 @@
                         android:textColor="@color/colorBlack" />
 
                     <TextView
-                        android:id="@+id/sender_location"
+                        android:id="@+id/txt_price"
                         android:layout_width="0dp"
                         android:layout_weight="50"
                         android:gravity="end"
@@ -72,7 +72,7 @@
                         android:textColor="@color/colorBlack" />
 
                     <TextView
-                        android:id="@+id/receiver_location"
+                        android:id="@+id/txt_received"
                         android:layout_width="0dp"
                         android:layout_weight="50"
                         android:ellipsize="end"
@@ -96,7 +96,7 @@
                         android:textColor="@color/colorBlack" />
 
                     <TextView
-                        android:id="@+id/date_placed"
+                        android:id="@+id/txt_plot_name"
                         android:layout_width="0dp"
                         android:gravity="end"
                         android:layout_height="wrap_content"

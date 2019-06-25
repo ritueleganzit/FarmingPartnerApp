@@ -18,9 +18,10 @@
         android:textColor="@color/colorBlack"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/poppins_regular"
-        android:text="Please type you message to instruct farmer"/>
+        android:text="Please type your message to instruct farmer"/>
 
     <EditText
+        android:id="@+id/ed_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:lines="8"
@@ -30,7 +31,7 @@
         android:background="@drawable/msg_ed_bg"/>
 
     <Button
-        android:id="@+id/btn_register"
+        android:id="@+id/btn_send"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="25dp"

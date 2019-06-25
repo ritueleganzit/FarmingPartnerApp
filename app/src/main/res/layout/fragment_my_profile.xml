@@ -11,8 +11,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:weightSum="2"
-        android:background="#fff"
-        tools:context="com.example.dell.newapp.Settings">
+        android:background="#fff">
 
         <LinearLayout
             android:layout_above="@+id/bottom"
@@ -29,13 +28,20 @@
                 android:layout_below="@+id/toolbar"
                 android:layout_gravity="center_vertical|center_horizontal">
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/profile_pic"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_gravity="center"
                     android:layout_centerHorizontal="true"
                     android:src="@drawable/pr"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:transitionName="simple_activity_transition"
+                    app:civ_border_width="2dp"
+                    android:layout_marginLeft="2dp"
+                    app:civ_circle_background_color="@android:color/white"
+                    app:civ_border_color="#ffff"
                     tools:ignore="UnusedAttribute"/>
 
                 <ImageView
@@ -43,7 +49,6 @@
                     android:layout_height="30dp"
                     android:paddingBottom="2dp"
                     android:src="@mipmap/camera_white"
-
                     android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
                     />
@@ -52,6 +57,7 @@
             </RelativeLayout>
 
             <TextView
+                android:id="@+id/txt_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -61,6 +67,7 @@
                 android:fontFamily="@font/poppins_medium"/>
 
             <TextView
+                android:id="@+id/txt_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
@@ -121,7 +128,9 @@
                             android:text="Phone Number"
                             android:textColor="@color/colorBlack"
                             android:layout_height="wrap_content" />
+
                         <TextView
+                            android:id="@+id/txt_phone"
                             android:layout_width="0dp"
                             android:layout_gravity="left|center"
                             android:textSize="16sp"
@@ -147,7 +156,9 @@
                             android:text="Birth Date"
                             android:textColor="#000"
                             android:layout_height="wrap_content" />
+
                         <TextView
+                            android:id="@+id/txt_dob"
                             android:layout_width="0dp"
                             android:layout_gravity="left|center"
                             android:textSize="16sp"
@@ -173,6 +184,7 @@
                             android:textColor="#000"
                             android:layout_height="wrap_content" />
                         <TextView
+                            android:id="@+id/txt_address"
                             android:layout_width="0dp"
                             android:layout_gravity="left|center"
                             android:textSize="16sp"
@@ -198,6 +210,7 @@
                             android:textColor="#000"
                             android:layout_height="wrap_content" />
                         <TextView
+                            android:id="@+id/txt_landmark"
                             android:layout_width="match_parent"
                             android:layout_gravity="left|center"
                             android:textSize="16sp"
@@ -212,8 +225,8 @@
                     <TableRow
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        >
+                        android:layout_marginTop="15dp">
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_gravity="left|center"
@@ -222,7 +235,9 @@
                             android:text="Sub Location"
                             android:textColor="#000"
                             android:layout_height="wrap_content" />
+
                         <TextView
+                            android:id="@+id/txt_sublocation"
                             android:layout_width="match_parent"
                             android:layout_gravity="left|center"
                             android:textSize="16sp"

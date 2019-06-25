@@ -1,6 +1,7 @@
 package com.eleganzit.e_farmingcustomer;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,22 +11,43 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.eleganzit.e_farmingcustomer.api.RetrofitAPI;
+import com.eleganzit.e_farmingcustomer.api.RetrofitInterface;
+import com.eleganzit.e_farmingcustomer.model.LoginRespose;
+import com.eleganzit.e_farmingcustomer.utils.UserSessionManager;
+import com.rilixtech.CountryCodePicker;
 
 import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class RegistrationActivity extends AppCompatActivity {
 
     TextView txt_signin;
     TextInputEditText ed_birthdate;
-    EditText ed_fname,ed_lname,ed_address,ed_landmark,ed_sub_location,ed_email,ed_ccode,ed_phone,ed_referral_code,ed_password,ed_cpassword;
+    EditText ed_fname,ed_lname,ed_address,ed_landmark,ed_sub_location,ed_email,ed_phone,ed_referral_code,ed_password,ed_cpassword;
     Button btn_register;
+    ProgressDialog progressDialog;
+    UserSessionManager userSessionManager;
+    CountryCodePicker ed_ccode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+
+        userSessionManager=new UserSessionManager(this);
+
+        progressDialog = new ProgressDialog(RegistrationActivity.this);
+        progressDialog.setMessage("Please Wait");
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
 
         ImageView back=findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
@@ -49,6 +71,7 @@ public class RegistrationActivity extends AppCompatActivity {
         ed_cpassword=findViewById(R.id.ed_cpassword);
         btn_register=findViewById(R.id.btn_register);
         ed_birthdate=findViewById(R.id.ed_birthdate);
+        //ed_ccode.registerPhoneNumberTextView(ed_phone);
 
         txt_signin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,8 +97,66 @@ public class RegistrationActivity extends AppCompatActivity {
             }
         });
 
+        btn_register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(isValid())
+                {
+                    //registerUser();
+                }
+            }
+        });
+
 
     }
+
+/*
+
+    private void registerUser() {
+
+        progressDialog.show();
+        RetrofitInterface myInterface = RetrofitAPI.getRetrofit().create(RetrofitInterface.class);
+        Call<RegisterResponse> call = myInterface.registerUser(ed_fname.getText().toString(), ed_lname.getText().toString(),
+                ed_address.getText().toString(), ed_landmark.getText().toString(),ed_sub_location.getText().toString(),
+                ed_email.getText().toString(),ed_phone.getText().toString(), ed_birthdate.getText().toString(),
+                ed_referral_code.getText().toString(), ed_cpassword.getText().toString());
+        call.enqueue(new Callback<RegisterResponse>() {
+            @Override
+            public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
+                progressDialog.dismiss();
+                if (response.isSuccessful()) {
+                    if (response.body().getStatus().toString().equalsIgnoreCase("1")) {
+                        if (response.body().getData() != null) {
+                            String email, id, username, photo;
+                            for (int i = 0; i < response.body().getData().size(); i++) {
+                                email = response.body().getData().get(i).getVendorEmail();
+                                id = response.body().getData().get(i).getVendorId();
+                                username = response.body().getData().get(i).getVendorName();
+                                photo = response.body().getData().get(i).getVendorStartTime();
+                                //userSessionManager.createLoginSession(id, email, ed_password.getText().toString(), username, photo);
+
+                            }
+
+                                finish();
+                        }
+                    } else {
+
+                        Toast.makeText(RegistrationActivity.this, "--" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RegisterResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(RegistrationActivity.this, "Server or Internet Error" + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+*/
 
 
     public boolean isValid() {

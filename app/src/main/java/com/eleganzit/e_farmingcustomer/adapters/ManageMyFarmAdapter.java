@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.eleganzit.e_farmingcustomer.ManageMyFarmActivity;
@@ -71,12 +72,16 @@ public class ManageMyFarmAdapter extends RecyclerView.Adapter<ManageMyFarmAdapte
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         LinearLayout cardviewdashboard;
+        TextView txt_slot_number,txt_cultivated,txt_last_event;
 
         public MyViewHolder(@NonNull View itemView) {
 
             super(itemView);
 
             cardviewdashboard=itemView.findViewById(R.id.cardviewdashboard);
+            txt_slot_number=itemView.findViewById(R.id.txt_slot_number);
+            txt_cultivated=itemView.findViewById(R.id.txt_cultivated);
+            txt_last_event=itemView.findViewById(R.id.txt_last_event);
 
         }
     }

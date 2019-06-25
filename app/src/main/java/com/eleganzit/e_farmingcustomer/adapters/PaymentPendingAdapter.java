@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.eleganzit.e_farmingcustomer.R;
 import com.eleganzit.e_farmingcustomer.ViewFarmActivity;
@@ -51,12 +52,16 @@ public class PaymentPendingAdapter extends RecyclerView.Adapter<PaymentPendingAd
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         LinearLayout cardviewdashboard;
+        TextView txt_price,txt_received,txt_plot_name;
 
         public MyViewHolder(@NonNull View itemView) {
 
             super(itemView);
 
             cardviewdashboard=itemView.findViewById(R.id.cardviewdashboard);
+            txt_price=itemView.findViewById(R.id.txt_price);
+            txt_received=itemView.findViewById(R.id.txt_received);
+            txt_plot_name=itemView.findViewById(R.id.txt_plot_name);
 
         }
     }

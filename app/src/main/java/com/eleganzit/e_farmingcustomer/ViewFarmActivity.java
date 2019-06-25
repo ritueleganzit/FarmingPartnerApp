@@ -8,10 +8,12 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class ViewFarmActivity extends AppCompatActivity {
 
     Button btn_sell,btn_walk,btn_set;
+    TextView txt_slot_number,txt_vegetable,txt_sapling_date,txt_deweeding1,txt_deweeding2,txt_deweeding3,txt_fertilising1,txt_fertilising2,txt_fertilising3,txt_harvesting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,18 @@ public class ViewFarmActivity extends AppCompatActivity {
         btn_sell=findViewById(R.id.btn_sell);
         btn_walk=findViewById(R.id.btn_walk);
         btn_set=findViewById(R.id.btn_set);
+        txt_slot_number=findViewById(R.id.txt_slot_number);
+        txt_vegetable=findViewById(R.id.txt_vegetable);
+        txt_sapling_date=findViewById(R.id.txt_sapling_date);
+        txt_deweeding1=findViewById(R.id.txt_deweeding1);
+        txt_deweeding2=findViewById(R.id.txt_deweeding2);
+        txt_deweeding3=findViewById(R.id.txt_deweeding3);
+        txt_fertilising1=findViewById(R.id.txt_fertilising1);
+        txt_fertilising2=findViewById(R.id.txt_fertilising2);
+        txt_fertilising3=findViewById(R.id.txt_fertilising3);
+        txt_harvesting=findViewById(R.id.txt_harvesting);
+
+
         final Dialog dialog=new Dialog(ViewFarmActivity.this);
         dialog.setContentView(R.layout.update_soon_dialog);
 

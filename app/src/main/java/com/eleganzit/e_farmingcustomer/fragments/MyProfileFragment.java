@@ -37,7 +37,7 @@ import me.nereo.multi_image_selector.MultiImageSelector;
  */
 public class MyProfileFragment extends Fragment {
 
-    TextView btn_edit_profile;
+    TextView btn_edit_profile,txt_username,txt_email,txt_phone,txt_dob,txt_address,txt_landmark,txt_sublocation;
     ImageView profile_pic;
     private static final int REQUEST_IMAGE2 = 201;
     protected static final int REQUEST_STORAGE_READ_ACCESS_PERMISSION2 = 202;
@@ -57,6 +57,13 @@ public class MyProfileFragment extends Fragment {
 
         btn_edit_profile=v.findViewById(R.id.btn_edit_profile);
         profile_pic=v.findViewById(R.id.profile_pic);
+        txt_username=v.findViewById(R.id.txt_username);
+        txt_email=v.findViewById(R.id.txt_email);
+        txt_phone=v.findViewById(R.id.txt_phone);
+        txt_dob=v.findViewById(R.id.txt_dob);
+        txt_address=v.findViewById(R.id.txt_address);
+        txt_landmark=v.findViewById(R.id.txt_landmark);
+        txt_sublocation=v.findViewById(R.id.txt_sublocation);
 
         profile_pic.setOnClickListener(new View.OnClickListener() {
             @Override
