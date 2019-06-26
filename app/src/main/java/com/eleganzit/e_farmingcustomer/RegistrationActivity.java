@@ -145,6 +145,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 }
             }
         });
+
         t.start();
 
     }
@@ -202,26 +203,7 @@ public class RegistrationActivity extends AppCompatActivity {
         pattern = Pattern.compile(EMAIL_PATTERN);
         matcher = pattern.matcher(ed_email.getText().toString());
 
-        if (!matcher.matches()) {
-            ed_email.setError("Please enter valid email");
-
-            ed_email.requestFocus();
-            return false;
-        } else if (ed_password.getText().toString().equals("") || ed_password.getText().toString().length() < 6) {
-
-            ed_password.setError("Password must contain atleast 6 characters");
-
-            ed_password.requestFocus();
-
-            return false;
-        } else if (!ed_password.getText().toString().equals(ed_cpassword.getText().toString())) {
-
-            ed_cpassword.setError("Password doesn't match");
-
-            ed_cpassword.requestFocus();
-
-            return false;
-        } else if (ed_fname.getText().toString().equals("")) {
+        if (ed_fname.getText().toString().equals("")) {
 
             ed_fname.setError("First name is mandatory");
 
@@ -254,6 +236,33 @@ public class RegistrationActivity extends AppCompatActivity {
             ed_sub_location.setError("Sub Location is mandatory");
 
             ed_sub_location.requestFocus();
+
+            return false;
+        } else if (!matcher.matches()) {
+            ed_email.setError("Please enter valid email");
+
+            ed_email.requestFocus();
+            return false;
+        } else if (ed_phone.getText().toString().equals("")) {
+
+            ed_phone.setError("Phone is mandatory");
+
+            ed_phone.requestFocus();
+
+            return false;
+        }
+        else if (ed_password.getText().toString().equals("") || ed_password.getText().toString().length() < 6) {
+
+            ed_password.setError("Password must contain atleast 6 characters");
+
+            ed_password.requestFocus();
+
+            return false;
+        } else if (!ed_password.getText().toString().equals(ed_cpassword.getText().toString())) {
+
+            ed_cpassword.setError("Password doesn't match");
+
+            ed_cpassword.requestFocus();
 
             return false;
         } else if (ed_phone.getText().toString().equals("")) {

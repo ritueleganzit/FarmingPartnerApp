@@ -16,4 +16,14 @@
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         android:orientation="vertical"/>
 
+    <TextView
+        android:id="@+id/txt_no_plots"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/colorBlack"
+        android:text="No Available Plots"
+        android:visibility="gone"
+        android:layout_centerInParent="true"/>
+
 </RelativeLayout>

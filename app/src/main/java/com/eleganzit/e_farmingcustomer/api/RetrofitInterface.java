@@ -1,6 +1,8 @@
 package com.eleganzit.e_farmingcustomer.api;
 
 
+import com.eleganzit.e_farmingcustomer.model.AvailablePlotsResponse;
+import com.eleganzit.e_farmingcustomer.model.FarmDetailsResponse;
 import com.eleganzit.e_farmingcustomer.model.LoginRespose;
 import com.eleganzit.e_farmingcustomer.model.RegisterResponse;
 import com.eleganzit.e_farmingcustomer.model.UpdateResponse;
@@ -69,6 +71,21 @@ public interface RetrofitInterface {
             @Part("customer_id") RequestBody customer_id,
             @Part MultipartBody.Part photo
     );
+
+
+    @FormUrlEncoded()
+    @POST("/efarming-AdminPanel/efarm-api/availablePlots")
+    Call<AvailablePlotsResponse> availablePlots(
+            @Field("dummy") String dummy
+    );
+
+    @FormUrlEncoded()
+    @POST("/efarming-AdminPanel/efarm-api/plotDetails")
+    Call<FarmDetailsResponse> plotDetails(
+            @Field("farm_id") String farm_id
+    );
+
+
 /*
 
     @FormUrlEncoded()

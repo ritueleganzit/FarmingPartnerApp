@@ -1,6 +1,7 @@
 package com.eleganzit.e_farmingcustomer.adapters;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -16,6 +17,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.eleganzit.e_farmingcustomer.R;
 import com.eleganzit.e_farmingcustomer.fragments.AvailablePlotsFragment;
 import com.eleganzit.e_farmingcustomer.fragments.ViewAvailablePlotsFragment;
@@ -47,13 +52,33 @@ public class AvailablePlotsAdapter extends RecyclerView.Adapter<AvailablePlotsAd
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
 
+        final AvailablePlotsData availablePlotsData=arrayList.get(i);
+
+
+        Glide
+                .with(context)
+                .asBitmap()
+                .apply(new RequestOptions().transform(new RoundedCorners(25)).centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL))
+                .load(availablePlotsData.getFarmPhoto())
+                .thumbnail(.1f)
+                .into(myViewHolder.img_farm);
+
+        myViewHolder.txt_farm_name.setText(availablePlotsData.getFarmName());
+        myViewHolder.txt_price.setText("");
+        myViewHolder.txt_address.setText(availablePlotsData.getFarmAddress());
+        //myViewHolder.txt_plot_capacity.setText(availablePlotsData.getFarmName());
+        myViewHolder.txt_total_capacity.setText(availablePlotsData.getPlotCapacity());
+        myViewHolder.txt_owner_name.setText(availablePlotsData.getFarmingPartnerName());
+
         myViewHolder.cardviewdashboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 //((FragmentActivity)context).getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 ViewAvailablePlotsFragment viewAvailablePlotsFragment= new ViewAvailablePlotsFragment();
-
+                Bundle bundle=new Bundle();
+                bundle.putString("farm_id", availablePlotsData.getFarmId());
+                viewAvailablePlotsFragment.setArguments(bundle);
                 FragmentTransaction fragmentTransaction = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.addToBackStack("NavHomeActivity");
                 fragmentTransaction.replace(R.id.container, viewAvailablePlotsFragment, "TAG");
@@ -72,7 +97,7 @@ public class AvailablePlotsAdapter extends RecyclerView.Adapter<AvailablePlotsAd
 
         LinearLayout cardviewdashboard,lin_view_map;
         ImageView img_farm;
-        TextView txt_price,txt_address,txt_plot_capacity,txt_total_capacity,txt_owner_name;
+        TextView txt_farm_name,txt_price,txt_address,txt_plot_capacity,txt_total_capacity,txt_owner_name;
 
         public MyViewHolder(@NonNull View itemView) {
 
@@ -81,6 +106,7 @@ public class AvailablePlotsAdapter extends RecyclerView.Adapter<AvailablePlotsAd
             cardviewdashboard=itemView.findViewById(R.id.cardviewdashboard);
             lin_view_map=itemView.findViewById(R.id.lin_view_map);
             img_farm=itemView.findViewById(R.id.img_farm);
+            txt_farm_name=itemView.findViewById(R.id.txt_farm_name);
             txt_price=itemView.findViewById(R.id.txt_price);
             txt_address=itemView.findViewById(R.id.txt_address);
             txt_plot_capacity=itemView.findViewById(R.id.txt_plot_capacity);

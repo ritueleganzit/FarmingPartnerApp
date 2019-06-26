@@ -56,8 +56,8 @@ public class MyProfileFragment extends Fragment {
     private static final int REQUEST_IMAGE2 = 201;
     protected static final int REQUEST_STORAGE_READ_ACCESS_PERMISSION2 = 202;
     private ArrayList<String> mSelectPath2;
-    UserSessionManager userSessionManager;
     private String photo;
+    UserSessionManager userSessionManager;
     ProgressDialog progressDialog;
     String mediapath;
     public MyProfileFragment() {

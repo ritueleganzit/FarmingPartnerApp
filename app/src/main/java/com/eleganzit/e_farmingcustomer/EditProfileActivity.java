@@ -92,7 +92,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 DatePickerDialog datePickerDialog=new DatePickerDialog(EditProfileActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                        ed_birthdate.setText(i2+"-"+(i1+1)+"-"+i);
+                        ed_birthdate.setText(i+"-"+(i1+1)+"-"+i2);
                     }
                 }, mYear,mMonth,mDay);
                 datePickerDialog.show();
