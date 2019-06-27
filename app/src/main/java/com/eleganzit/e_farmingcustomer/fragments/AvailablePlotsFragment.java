@@ -69,10 +69,10 @@ public class AvailablePlotsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getAllPoDetail();
+        availablePlots();
     }
 
-    private void getAllPoDetail() {
+    private void availablePlots() {
         progressDialog.show();
 
         RetrofitInterface myInterface = RetrofitAPI.getRetrofit().create(RetrofitInterface.class);
@@ -80,6 +80,7 @@ public class AvailablePlotsFragment extends Fragment {
         call.enqueue(new Callback<AvailablePlotsResponse>() {
             @Override
             public void onResponse(Call<AvailablePlotsResponse> call, Response<AvailablePlotsResponse> response) {
+                progressDialog.dismiss();
 
                 if (response.isSuccessful())
                 {
@@ -103,7 +104,6 @@ public class AvailablePlotsFragment extends Fragment {
 
                             rc_plots.setAdapter(new AvailablePlotsAdapter(arrayList,getActivity()));
 
-                            progressDialog.dismiss();
 
                         }
                         else

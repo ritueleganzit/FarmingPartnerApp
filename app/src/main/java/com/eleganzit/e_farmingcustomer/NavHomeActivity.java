@@ -177,6 +177,7 @@ public class NavHomeActivity extends AppCompatActivity
         if (id == R.id.nav_my_profile) {
             // Handle the camera action
             MyProfileFragment myProfileFragment = new MyProfileFragment();
+
             getSupportFragmentManager().beginTransaction()
                     .addToBackStack("NavHomeActivity")
                     .replace(R.id.container, myProfileFragment, "TAG")

@@ -70,8 +70,8 @@ public class EditProfileActivity extends AppCompatActivity {
         btn_submit=findViewById(R.id.btn_submit);
         //ed_ccode.registerPhoneNumberTextView(ed_phone);
 
-        ed_fname.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_FNAME));
-        ed_lname.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_LNAME));
+        ed_fname.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_FNAME).trim());
+        ed_lname.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_LNAME).trim());
         ed_address.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_ADDRESS));
         ed_landmark.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_LANDMARK));
         ed_sub_location.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_SUB_LOCATION));
@@ -127,7 +127,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     if (response.body().getStatus().toString().equalsIgnoreCase("1")) {
 
-                        userSessionManager.updateUserData(ed_password.getText().toString(), ed_fname.getText().toString(),ed_lname.getText().toString(),ed_phone.getText().toString(), ed_birthdate.getText().toString(),ed_address.getText().toString(),ed_landmark.getText().toString(),ed_sub_location.getText().toString());
+                        userSessionManager.updateUserData(ed_password.getText().toString(), ed_fname.getText().toString(),ed_lname.getText().toString(),ed_phone.getText().toString(), ed_birthdate.getText().toString(),ed_address.getText().toString(),ed_landmark.getText().toString(),ed_sub_location.getText().toString(),userSessionManager.getUserDetails().get(UserSessionManager.KEY_PHOTO));
                         Toast.makeText(EditProfileActivity.this, "Successfully updated", Toast.LENGTH_SHORT).show();
                         finish();
 

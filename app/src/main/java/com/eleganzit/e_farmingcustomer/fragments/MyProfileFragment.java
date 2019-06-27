@@ -26,11 +26,14 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.eleganzit.e_farmingcustomer.EditProfileActivity;
+import com.eleganzit.e_farmingcustomer.LoginActivity;
 import com.eleganzit.e_farmingcustomer.NavHomeActivity;
 import com.eleganzit.e_farmingcustomer.R;
 import com.eleganzit.e_farmingcustomer.api.RetrofitAPI;
 import com.eleganzit.e_farmingcustomer.api.RetrofitInterface;
+import com.eleganzit.e_farmingcustomer.model.LoginRespose;
 import com.eleganzit.e_farmingcustomer.model.UpdateResponse;
+import com.eleganzit.e_farmingcustomer.model.UserDetailsResponse;
 import com.eleganzit.e_farmingcustomer.utils.UserSessionManager;
 
 import java.io.File;
@@ -60,6 +63,7 @@ public class MyProfileFragment extends Fragment {
     UserSessionManager userSessionManager;
     ProgressDialog progressDialog;
     String mediapath;
+
     public MyProfileFragment() {
         // Required empty public constructor
     }
@@ -120,14 +124,16 @@ public class MyProfileFragment extends Fragment {
             }
         });
 
+        getCustomer();
     }
 
     @Override
     public void onResume() {
         super.onResume();
+
         photo=userSessionManager.getUserDetails().get(UserSessionManager.KEY_PHOTO);
 
-        txt_username.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_FNAME)+" "+userSessionManager.getUserDetails().get(UserSessionManager.KEY_LNAME));
+        txt_username.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_FNAME).trim()+" "+userSessionManager.getUserDetails().get(UserSessionManager.KEY_LNAME).trim());
         user_name.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_FNAME)+" "+userSessionManager.getUserDetails().get(UserSessionManager.KEY_LNAME));
         txt_email.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_EMAIL));
         txt_phone.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_PHONE));
@@ -187,48 +193,87 @@ public class MyProfileFragment extends Fragment {
         }
     }
 
-    /*private void updatePhoto() {
+
+
+    private void getCustomer() {
 
         progressDialog.show();
         RetrofitInterface myInterface = RetrofitAPI.getRetrofit().create(RetrofitInterface.class);
-        Log.d("jhgsfdvhdsdf",mediapath+"");
-        Call<UpdateResponse> call = myInterface.updatePhoto(userSessionManager.getUserDetails().get(UserSessionManager.KEY_USER_ID),mediapath);
-        call.enqueue(new Callback<UpdateResponse>() {
+
+        Call<UserDetailsResponse> call = myInterface.getCustomer(userSessionManager.getUserDetails().get(UserSessionManager.KEY_USER_ID));
+        call.enqueue(new Callback<UserDetailsResponse>() {
             @Override
-            public void onResponse(Call<UpdateResponse> call, Response<UpdateResponse> response) {
+            public void onResponse(Call<UserDetailsResponse> call, Response<UserDetailsResponse> response) {
                 progressDialog.dismiss();
                 if (response.isSuccessful()) {
                     if (response.body().getStatus().toString().equalsIgnoreCase("1")) {
+                        if (response.body().getData() != null) {
+                            String email, id, fname,lname, photo,phone,dob,address,landmark,sub_location;
+                            for (int i = 0; i < response.body().getData().size(); i++) {
 
-                        userSessionManager.updateProfilePic(response.body().getData().get(0).getPhoto());
-                        Log.d("jhgsfdvhdsdf",response.body().getData().get(0).getPhoto()+"");
-                        Glide
-                                .with(getActivity())
-                                .load(response.body().getData().get(0).getPhoto())
-                                .thumbnail(.5f)
-                                .apply(new RequestOptions().transform(new CircleCrop()).placeholder(R.drawable.pr).centerCrop().circleCrop())
-                                .into(profile_pic);
+                                fname = response.body().getData().get(i).getFname()+" ";
+                                lname = response.body().getData().get(i).getLname()+" ";
+                                photo = response.body().getData().get(i).getPhoto();
+                                dob = response.body().getData().get(i).getDob();
+                                address = response.body().getData().get(i).getAddress();
+                                landmark = response.body().getData().get(i).getLandmark();
+                                sub_location = response.body().getData().get(i).getSubLocation();
+                                phone = response.body().getData().get(i).getPhone();
 
-                        Toast.makeText(getActivity(), "Successfully updated", Toast.LENGTH_SHORT).show();
+                                userSessionManager.updateUserData(userSessionManager.getUserDetails().get(UserSessionManager.KEY_PASSWORD), fname,lname,phone, dob,address,landmark,sub_location,photo);
+                                photo=userSessionManager.getUserDetails().get(UserSessionManager.KEY_PHOTO);
 
+                                txt_username.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_FNAME).trim()+" "+userSessionManager.getUserDetails().get(UserSessionManager.KEY_LNAME).trim());
+                                user_name.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_FNAME)+" "+userSessionManager.getUserDetails().get(UserSessionManager.KEY_LNAME));
+                                txt_email.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_EMAIL));
+                                txt_phone.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_PHONE));
+                                if(userSessionManager.getUserDetails().get(UserSessionManager.KEY_DOB).equalsIgnoreCase("0000-00-00"))
+                                {
+                                    txt_dob.setText("Not Provided");
+                                }
+                                else
+                                {
+                                    txt_dob.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_DOB));
+                                }
+
+                                txt_address.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_ADDRESS));
+                                txt_landmark.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_LANDMARK));
+                                txt_sublocation.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_SUB_LOCATION));
+
+                                Glide
+                                        .with(getActivity())
+                                        .load(photo).apply(new RequestOptions().placeholder(R.drawable.pr))
+                                        .into(profile_pic);
+
+
+                            }
+                            //Toast.makeText(getActivity(), "--" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+
+                        }
                     } else {
 
-                        Toast.makeText(getActivity(), "--" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }
 
+
+                }
+                else
+                {
+                    Toast.makeText(getActivity(), "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
 
                 }
             }
 
             @Override
-            public void onFailure(Call<UpdateResponse> call, Throwable t) {
+            public void onFailure(Call<UserDetailsResponse> call, Throwable t) {
                 progressDialog.dismiss();
                 Toast.makeText(getActivity(), "Server or Internet Error" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
     }
-*/
+
+
     public void updatePhoto() {
         Log.d("responseseeeepppp", "" + mediapath);
         progressDialog.show();

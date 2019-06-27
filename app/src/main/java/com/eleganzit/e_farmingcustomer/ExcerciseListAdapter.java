@@ -110,7 +110,7 @@ public class ExcerciseListAdapter extends RecyclerView.Adapter<ExcerciseListAdap
                     Glide
                             .with(context)
                             .asBitmap()
-                            .apply(new RequestOptions().transform(new RoundedCorners(8)).placeholder(R.drawable.pr).centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL))
+                            .apply(new RequestOptions().transform(new RoundedCorners(8)).centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL))
                             .load(excercisePojo.img)
                             .thumbnail(.1f)
                             .into(selectedExerciseItemBinding.img);

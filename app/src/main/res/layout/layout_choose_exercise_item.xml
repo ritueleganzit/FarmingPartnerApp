@@ -26,6 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:cardCornerRadius="4dp"
+            android:background="#EBEBEB"
             app:cardElevation="4dp"
             app:cardUseCompatPadding="true">
 
@@ -41,6 +42,7 @@
                 <ImageView
                     android:id="@+id/img"
                     android:layout_width="match_parent"
+                    android:background="#EBEBEB"
                     android:layout_height="match_parent" />
 
             </RelativeLayout>

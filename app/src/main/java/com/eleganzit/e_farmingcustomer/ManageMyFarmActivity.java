@@ -33,7 +33,7 @@ public class ManageMyFarmActivity extends AppCompatActivity {
         });
 
         rc_farms=findViewById(R.id.rc_farms);
-        ManageFarmData manageFarmData=new ManageFarmData("","");
+        ManageFarmData manageFarmData=new ManageFarmData();
 
         ArrayList<ManageFarmData> arrayList=new ArrayList<>();
 

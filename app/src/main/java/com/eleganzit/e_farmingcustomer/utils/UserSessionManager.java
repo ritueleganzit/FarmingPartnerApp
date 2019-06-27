@@ -33,6 +33,7 @@ public class UserSessionManager {
 
     // User name (make variable public to access from outside)
     public static final String KEY_USER_ID = "user_id";
+    public static final String KEY_FARM_ID = "farm_id";
     public static final String KEY_FNAME = "fname";
     public static final String KEY_LNAME = "lname";
     public static final String KEY_PHONE = "phone";
@@ -61,12 +62,13 @@ public class UserSessionManager {
     /**
      * Create login session
      * */
-    public void createLoginSession(String user_id, String email, String password, String fname, String lname, String phone, String dob, String address, String landmark, String sub_location, String photo){
+    public void createLoginSession(String user_id,String farm_id, String email, String password, String fname, String lname, String phone, String dob, String address, String landmark, String sub_location, String photo){
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
 
         // Storing name in pref
         editor.putString(KEY_USER_ID , user_id);
+        editor.putString(KEY_FARM_ID , farm_id);
         // Storing email in pref
         editor.putString(KEY_EMAIL, email);
 
@@ -93,7 +95,7 @@ public class UserSessionManager {
         activity.finish();
     }
 
-    public void updateUserData(String password, String fname, String lname, String phone, String dob, String address, String landmark, String sub_location){
+    public void updateUserData(String password, String fname, String lname, String phone, String dob, String address, String landmark, String sub_location, String photo){
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
 
@@ -106,6 +108,7 @@ public class UserSessionManager {
         editor.putString(KEY_ADDRESS, address);
         editor.putString(KEY_LANDMARK, landmark);
         editor.putString(KEY_SUB_LOCATION, sub_location);
+        editor.putString(KEY_PHOTO, photo);
 
         // commit changes
         editor.commit();
@@ -152,6 +155,7 @@ public class UserSessionManager {
         HashMap<String, String> user = new HashMap<String, String>();
         // user name
         user.put(KEY_USER_ID , pref.getString(KEY_USER_ID , null));
+        user.put(KEY_FARM_ID, pref.getString(KEY_FARM_ID , null));
 
         user.put(KEY_FNAME, pref.getString(KEY_FNAME, null));
         user.put(KEY_LNAME, pref.getString(KEY_LNAME, null));

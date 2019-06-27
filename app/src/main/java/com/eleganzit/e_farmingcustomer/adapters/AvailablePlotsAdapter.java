@@ -63,13 +63,37 @@ public class AvailablePlotsAdapter extends RecyclerView.Adapter<AvailablePlotsAd
                 .thumbnail(.1f)
                 .into(myViewHolder.img_farm);
 
-        myViewHolder.txt_farm_name.setText(availablePlotsData.getFarmName());
-        myViewHolder.txt_price.setText("");
-        myViewHolder.txt_address.setText(availablePlotsData.getFarmAddress());
+        if(availablePlotsData.getFarmName().equalsIgnoreCase(""))
+        {
+            myViewHolder.txt_farm_name.setText("Not Provided");
+        }
+        else
+        {
+            myViewHolder.txt_farm_name.setText(availablePlotsData.getFarmName());
+        }
+        //myViewHolder.txt_price.setText("");
+        if(availablePlotsData.getFarmAddress().equalsIgnoreCase(""))
+        {
+            myViewHolder.txt_address.setText("Not Provided");
+        }
+        else {
+            myViewHolder.txt_address.setText(availablePlotsData.getFarmAddress());
+        }
         //myViewHolder.txt_plot_capacity.setText(availablePlotsData.getFarmName());
-        myViewHolder.txt_total_capacity.setText(availablePlotsData.getPlotCapacity());
-        myViewHolder.txt_owner_name.setText(availablePlotsData.getFarmingPartnerName());
-
+        if(availablePlotsData.getPlotCapacity().equalsIgnoreCase(""))
+        {
+            myViewHolder.txt_total_capacity.setText("Not Provided");
+        }
+        else {
+            myViewHolder.txt_total_capacity.setText(availablePlotsData.getPlotCapacity());
+        }
+        if(availablePlotsData.getFarmingPartnerName().equalsIgnoreCase(""))
+        {
+            myViewHolder.txt_owner_name.setText("Not Provided");
+        }
+        else {
+            myViewHolder.txt_owner_name.setText(availablePlotsData.getFarmingPartnerName());
+        }
         myViewHolder.cardviewdashboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

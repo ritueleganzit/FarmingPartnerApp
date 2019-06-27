@@ -8,6 +8,9 @@ public class LoginData {
     @SerializedName("customer_id")
     @Expose
     private String customerId;
+    @SerializedName("farm_id")
+    @Expose
+    private String farm_id;
     @SerializedName("fname")
     @Expose
     private String fname;
@@ -51,6 +54,14 @@ public class LoginData {
 
     public void setCustomerId(String customerId) {
         this.customerId = customerId;
+    }
+
+    public String getFarm_id() {
+        return farm_id;
+    }
+
+    public void setFarm_id(String farm_id) {
+        this.farm_id = farm_id;
     }
 
     public String getFname() {

@@ -16,6 +16,7 @@ import com.eleganzit.e_farmingcustomer.NavHomeActivity;
 import com.eleganzit.e_farmingcustomer.R;
 import com.eleganzit.e_farmingcustomer.api.RetrofitAPI;
 import com.eleganzit.e_farmingcustomer.api.RetrofitInterface;
+import com.eleganzit.e_farmingcustomer.model.InstructFarmerResponse;
 import com.eleganzit.e_farmingcustomer.model.LoginRespose;
 import com.eleganzit.e_farmingcustomer.utils.UserSessionManager;
 
@@ -61,54 +62,48 @@ public class InstructFarmerFragment extends Fragment {
             public void onClick(View view) {
                 if(!ed_message.getText().toString().isEmpty())
                 {
-                    // sendMessage();
+                     instructFarmer();
                 }
             }
         });
 
         return v;
     }
-/*
 
-    private void sendMessage() {
+    private void instructFarmer() {
         progressDialog.show();
         RetrofitInterface myInterface = RetrofitAPI.getRetrofit().create(RetrofitInterface.class);
-        Call<MessageRespose> call = myInterface.sendMessage(ed_email.getText().toString(), ed_message.getText().toString());
-        call.enqueue(new Callback<MessageRespose>() {
+        Call<InstructFarmerResponse> call = myInterface.instructFarmer(userSessionManager.getUserDetails().get(UserSessionManager.KEY_USER_ID), userSessionManager.getUserDetails().get(UserSessionManager.KEY_FARM_ID), ed_message.getText().toString());
+        call.enqueue(new Callback<InstructFarmerResponse>() {
             @Override
-            public void onResponse(Call<MessageRespose> call, Response<MessageRespose> response) {
+            public void onResponse(Call<InstructFarmerResponse> call, Response<InstructFarmerResponse> response) {
                 progressDialog.dismiss();
                 if (response.isSuccessful()) {
                     if (response.body().getStatus().toString().equalsIgnoreCase("1")) {
-                        if (response.body().getData() != null) {
-                            String email, id, username, photo;
-                            for (int i = 0; i < response.body().getData().size(); i++) {
-                                email = response.body().getData().get(i).getVendorEmail();
-                                id = response.body().getData().get(i).getVendorId();
-                                username = response.body().getData().get(i).getVendorName();
-                                photo = response.body().getData().get(i).getVendorStartTime();
-                                userSessionManager.createLoginSession(id, email, ed_password.getText().toString(), username, photo);
 
-                            }
+                        Toast.makeText(getActivity(), "Message sent successfully", Toast.LENGTH_SHORT).show();
+                        getActivity().getSupportFragmentManager().popBackStackImmediate();
 
-                        }
                     } else {
 
-                        Toast.makeText(getActivity(), "--" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }
 
 
                 }
+                else
+                {
+                    Toast.makeText(getActivity(), "Server or Internet Error" +response.message() , Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
-            public void onFailure(Call<MessageRespose> call, Throwable t) {
+            public void onFailure(Call<InstructFarmerResponse> call, Throwable t) {
                 progressDialog.dismiss();
                 Toast.makeText(getActivity(), "Server or Internet Error" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
     }
-*/
 
 }

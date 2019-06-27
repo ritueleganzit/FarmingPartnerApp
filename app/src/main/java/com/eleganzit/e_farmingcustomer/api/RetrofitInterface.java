@@ -2,10 +2,14 @@ package com.eleganzit.e_farmingcustomer.api;
 
 
 import com.eleganzit.e_farmingcustomer.model.AvailablePlotsResponse;
+import com.eleganzit.e_farmingcustomer.model.ContactOfficeResponse;
 import com.eleganzit.e_farmingcustomer.model.FarmDetailsResponse;
+import com.eleganzit.e_farmingcustomer.model.InstructFarmerResponse;
 import com.eleganzit.e_farmingcustomer.model.LoginRespose;
+import com.eleganzit.e_farmingcustomer.model.ManageFarmResponse;
 import com.eleganzit.e_farmingcustomer.model.RegisterResponse;
 import com.eleganzit.e_farmingcustomer.model.UpdateResponse;
+import com.eleganzit.e_farmingcustomer.model.UserDetailsResponse;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -28,7 +32,12 @@ public interface RetrofitInterface {
             @Field("email") String email,
             @Field("password") String password
 
+    );
 
+    @FormUrlEncoded()
+    @POST("/efarming-AdminPanel/efarm-api/getCustomer")
+    Call<UserDetailsResponse> getCustomer(
+            @Field("customer_id") String customer_id
     );
 
     @FormUrlEncoded()
@@ -80,37 +89,38 @@ public interface RetrofitInterface {
     );
 
     @FormUrlEncoded()
+    @POST("/efarming-AdminPanel/efarm-api/manageFarm")
+    Call<ManageFarmResponse> manageFarm(
+            @Field("customer_id") String customer_id
+    );
+
+    @FormUrlEncoded()
     @POST("/efarming-AdminPanel/efarm-api/plotDetails")
     Call<FarmDetailsResponse> plotDetails(
             @Field("farm_id") String farm_id
     );
 
 
-/*
-
     @FormUrlEncoded()
-    @POST("/VKC-API/message")
-    Call<MessageRespose> sendMessage(
-            @Field("id") String id,
+    @POST("/efarming-AdminPanel/efarm-api/instructFarmer")
+    Call<InstructFarmerResponse> instructFarmer(
+            @Field("customer_id") String customer_id,
+            @Field("farming_partner_id") String farming_partner_id,
             @Field("message") String message
 
 
     );
-*/
-/*
 
     @FormUrlEncoded()
-    @POST("/VKC-API/message")
-    Call<ContactRespose> contactOffice(
-            @Field("id") String id,
-            @Field("full_name") String full_name,
-            @Field("email") String email,
+    @POST("/efarming-AdminPanel/efarm-api/contactOffice")
+    Call<ContactOfficeResponse> contactOffice(
+            @Field("customer_id") String customer_id,
+            @Field("fullname") String fullname,
             @Field("subject") String subject,
             @Field("message") String message
 
 
     );
-*/
 
 
 }

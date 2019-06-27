@@ -91,10 +91,11 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     if (response.body().getStatus().toString().equalsIgnoreCase("1")) {
                         if (response.body().getData() != null) {
-                            String email, id, fname,lname, photo,phone,dob,address,landmark,sub_location;
+                            String email, id,farm_id, fname,lname, photo,phone,dob,address,landmark,sub_location;
                             for (int i = 0; i < response.body().getData().size(); i++) {
                                 email = response.body().getData().get(i).getEmail();
                                 id = response.body().getData().get(i).getCustomerId();
+                                farm_id = response.body().getData().get(i).getFarm_id();
                                 fname = response.body().getData().get(i).getFname()+" ";
                                 lname = response.body().getData().get(i).getLname()+" ";
                                 photo = response.body().getData().get(i).getPhoto();
@@ -103,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
                                 landmark = response.body().getData().get(i).getLandmark();
                                 sub_location = response.body().getData().get(i).getSubLocation();
                                 phone = response.body().getData().get(i).getPhone();
-                                userSessionManager.createLoginSession(id, email, ed_password.getText().toString(), fname,lname,phone, dob,address,landmark,sub_location,photo);
+                                userSessionManager.createLoginSession(id,farm_id, email, ed_password.getText().toString(), fname,lname,phone, dob,address,landmark,sub_location,photo);
 
                             }
                             //Toast.makeText(LoginActivity.this, "--" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
