@@ -1,4 +1,13 @@
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+
 apply plugin: 'com.android.application'
+
+def getDateTime() {
+    DateFormat df = new SimpleDateFormat("yyyyMMddHHmm");
+
+    return df.format(new Date());
+}
 
 android {
     compileSdkVersion 28
@@ -10,6 +19,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -17,10 +27,17 @@ android {
         }
     }
 
-
     dataBinding {
         enabled = true
     }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            def appName = "app-release"
+            outputFileName = appName+"-${getDateTime()}.apk"
+        }
+    }
+
 }
 
 dependencies {

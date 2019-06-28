@@ -37,6 +37,8 @@ public class ExcerciseListAdapter extends RecyclerView.Adapter<ExcerciseListAdap
     private int layoutId;
     private int TYPE_MAIN = 0;
     private int TYPE_LAST = 1;
+    public int pos=0;
+    public boolean isClickable = false;
 
     public ExcerciseListAdapter(RecyclerView recyclerExercise, ObservableArrayList<ExcercisePojo> exerciseObservableList, int layoutId) {
         this.exerciseObservableList = exerciseObservableList;
@@ -87,6 +89,7 @@ public class ExcerciseListAdapter extends RecyclerView.Adapter<ExcerciseListAdap
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         if (holder instanceof ProjectHolder) {
+            pos=position;
             final ExcercisePojo excercisePojo = exerciseObservableList.get(position);
             if (layoutId == R.layout.layout_choose_exercise_item) {
                 if (exerciseObservableList.size() > 0) {
@@ -107,6 +110,7 @@ public class ExcerciseListAdapter extends RecyclerView.Adapter<ExcerciseListAdap
                     SelectedExerciseItemBinding selectedExerciseItemBinding = (SelectedExerciseItemBinding) ((ProjectHolder) holder).chooseExerciseItemBinding;
                     selectedExerciseItemBinding.setExercise(excercisePojo);
                     selectedExerciseItemBinding.setChooseExerciseListAdapter(this);
+
                     Glide
                             .with(context)
                             .asBitmap()
@@ -153,6 +157,15 @@ public class ExcerciseListAdapter extends RecyclerView.Adapter<ExcerciseListAdap
     }
 
     public boolean onLongClick(View view) {
+
+        /*if(pos>6)
+        {
+            Toast.makeText(context, "can drag", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            Toast.makeText(context, "cannot drag", Toast.LENGTH_SHORT).show();
+        }*/
         ClipData data = ClipData.newPlainText("", "");
         View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
         view.startDrag(data, shadowBuilder, view, 0);

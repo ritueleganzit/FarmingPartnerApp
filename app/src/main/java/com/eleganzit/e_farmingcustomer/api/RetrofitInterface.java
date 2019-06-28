@@ -10,6 +10,7 @@ import com.eleganzit.e_farmingcustomer.model.ManageFarmResponse;
 import com.eleganzit.e_farmingcustomer.model.RegisterResponse;
 import com.eleganzit.e_farmingcustomer.model.UpdateResponse;
 import com.eleganzit.e_farmingcustomer.model.UserDetailsResponse;
+import com.eleganzit.e_farmingcustomer.model.VegetablesResponse;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -121,6 +122,13 @@ public interface RetrofitInterface {
 
 
     );
+
+    @FormUrlEncoded()
+    @POST("/efarming-AdminPanel/efarm-api/vegetablesList")
+    Call<VegetablesResponse> vegetablesList(
+            @Field("farm_id") String farm_id
+    );
+
 
 
 }
