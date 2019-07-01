@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
     private int currentPosition = -1;
     private boolean isExerciseAdded = false;
     public static boolean isFromExercise = false;
+    private String farm_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
         //loadExerciseData();
 
         userSessionManager=new UserSessionManager(this);
+
+        farm_id=getIntent().getStringExtra("farm_id");
 
         progressDialog = new ProgressDialog(MainActivity.this);
         progressDialog.setMessage("Please Wait");
@@ -76,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
         exerciseList = new ObservableArrayList<>();
 
         RetrofitInterface myInterface = RetrofitAPI.getRetrofit().create(RetrofitInterface.class);
-        Call<VegetablesResponse> call=myInterface.vegetablesList("");
+        Call<VegetablesResponse> call=myInterface.vegetablesList(farm_id);
         call.enqueue(new Callback<VegetablesResponse>() {
             @Override
             public void onResponse(Call<VegetablesResponse> call, Response<VegetablesResponse> response) {
@@ -91,9 +94,20 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
                         if (response.body().getData()!=null)
                         {
 
-                            for (int i=0;i<7;i++)
+                            if(response.body().getData().size()>=7)
                             {
-                                exerciseSelectedList.add(new ExcercisePojo(response.body().getData().get(i).getVegetableId(), response.body().getData().get(i).getVegName(), response.body().getData().get(i).getVegImage(),response.body().getData().get(i).getVegCatId(),response.body().getData().get(i).getLocalLanguage()));
+                                for (int i=0;i<7;i++)
+                                {
+                                    exerciseSelectedList.add(new ExcercisePojo(response.body().getData().get(i).getVegetableId(), response.body().getData().get(i).getVegName(), response.body().getData().get(i).getVegImage(),response.body().getData().get(i).getVegCatId(),response.body().getData().get(i).getLocalLanguage()));
+                                }
+                            }
+                            else
+                            {
+                                for (int i=0;i<response.body().getData().size();i++)
+                                {
+                                    exerciseSelectedList.add(new ExcercisePojo(response.body().getData().get(i).getVegetableId(), response.body().getData().get(i).getVegName(), response.body().getData().get(i).getVegImage(),response.body().getData().get(i).getVegCatId(),response.body().getData().get(i).getLocalLanguage()));
+                                }
+
                             }
 
                             for (int i=7;i<response.body().getData().size();i++)
@@ -199,6 +213,7 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
                 Toast.makeText(this, "selected currentPosition : " + currentPosition, Toast.LENGTH_SHORT).show();
                 Toast.makeText(this, "selected newContactPosition : " + newContactPosition, Toast.LENGTH_SHORT).show();
 */
+                Toast.makeText(MainActivity.this, "3 These are required vegetables", Toast.LENGTH_SHORT).show();
 
                 if(exerciseList.size()==0)
                 {
@@ -210,6 +225,8 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
                 }
                 break;
             case DragEvent.ACTION_DRAG_EXITED:
+                Toast.makeText(MainActivity.this, "4 These are required vegetables", Toast.LENGTH_SHORT).show();
+
                 if(exerciseList.size()==0)
                 {
                     mainActivityBinding.noVeg.setVisibility(View.VISIBLE);
@@ -221,20 +238,24 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
                 break;
             case DragEvent.ACTION_DROP:
                 //when Item is dropped off to recyclerview.
+                Toast.makeText(MainActivity.this, "5 These are required vegetables", Toast.LENGTH_SHORT).show();
 
-                if (isFromExercise) {
-                    exerciseSelectedList.add(exerciseToMove);
-                    exerciseList.remove(exerciseToMove);
-                    if(exerciseList.size()==0)
-                    {
-                        mainActivityBinding.noVeg.setVisibility(View.VISIBLE);
+                if(currentPosition>6) {
+                    if (isFromExercise) {
+                        exerciseSelectedList.add(exerciseToMove);
+                        exerciseList.remove(exerciseToMove);
+                        if (exerciseList.size() == 0) {
+                            mainActivityBinding.noVeg.setVisibility(View.VISIBLE);
+                        } else {
+                            mainActivityBinding.noVeg.setVisibility(View.GONE);
+                        }
+                        mainActivityBinding.rcvChooseExercise.getAdapter().notifyItemRemoved(currentPosition);
+                        mainActivityBinding.executePendingBindings();
                     }
-                    else
-                    {
-                        mainActivityBinding.noVeg.setVisibility(View.GONE);
-                    }
-                    mainActivityBinding.rcvChooseExercise.getAdapter().notifyItemRemoved(currentPosition);
-                    mainActivityBinding.executePendingBindings();
+                }
+                else
+                {
+                    Toast.makeText(MainActivity.this, "6 These are required vegetables", Toast.LENGTH_SHORT).show();
                 }
                 //This is to hide/add the container!
                 /*ViewGroup owner = (ViewGroup) (view.getParent());
@@ -257,6 +278,7 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
                 // Reset the visibility for the Contact item's view.
                 // This is done to reset the state in instances where the drag action didn't do anything.
                 selectedView.setVisibility(View.VISIBLE);
+
                 // Boundary condition, scroll to top is moving list item to position 0.
                 if (newContactPosition != -1) {
                     rcvSelected.scrollToPosition(newContactPosition);
@@ -362,8 +384,9 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
                     }
                     else
                     {
-
-                        Toast.makeText(MainActivity.this, "These are required vegetables", Toast.LENGTH_SHORT).show();
+                        if (!isFromExercise) {
+                            Toast.makeText(MainActivity.this, "These are required vegetables", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     break;

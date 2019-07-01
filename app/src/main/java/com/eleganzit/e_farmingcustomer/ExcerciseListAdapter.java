@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -96,14 +97,137 @@ public class ExcerciseListAdapter extends RecyclerView.Adapter<ExcerciseListAdap
                     ChooseExerciseItemBinding chooseExerciseItemBinding = (ChooseExerciseItemBinding) ((ProjectHolder) holder).chooseExerciseItemBinding;
                     chooseExerciseItemBinding.setExercise(excercisePojo);
                     chooseExerciseItemBinding.setChooseExerciseListAdapter(this);
+
                     Glide
                             .with(context)
                             .asBitmap()
-                            .apply(new RequestOptions().transform(new RoundedCorners(8)).placeholder(R.drawable.pr).centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL))
+                            .apply(new RequestOptions().transform(new RoundedCorners(8)).centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL))
                             .load(excercisePojo.img)
                             .thumbnail(.1f)
                             .into(chooseExerciseItemBinding.img);
 
+                    /*chooseExerciseItemBinding.cardd.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Dialog dialog = new Dialog(context);
+                            dialog.setContentView(R.layout.veg_details_dialog);
+
+                            TextView txt_sapling_date,txt_deweeding1,txt_deweeding2,txt_deweeding3,txt_fertilising1,txt_fertilising2,txt_fertilising3,txt_harvesting;
+
+                            txt_sapling_date=dialog.findViewById(R.id.txt_sapling_date);
+                            txt_deweeding1=dialog.findViewById(R.id.txt_deweeding1);
+                            txt_deweeding2=dialog.findViewById(R.id.txt_deweeding2);
+                            txt_deweeding3=dialog.findViewById(R.id.txt_deweeding3);
+                            txt_fertilising1=dialog.findViewById(R.id.txt_fertilising1);
+                            txt_fertilising2=dialog.findViewById(R.id.txt_fertilising2);
+                            txt_fertilising3=dialog.findViewById(R.id.txt_fertilising3);
+                            txt_harvesting=dialog.findViewById(R.id.txt_harvesting);
+
+                            if(excercisePojo.getSaplingDate()!=null)
+                            {
+                                if(excercisePojo.getSaplingDate().isEmpty() || excercisePojo.getSaplingDate()==null)
+                                {
+                                    txt_sapling_date.setText("Not Provided");
+                                }
+                                else
+                                {
+                                    txt_sapling_date.setText(excercisePojo.getSaplingDate()+"");
+                                }
+                            }
+                            else
+                            {
+                                txt_sapling_date.setText("Not Provided");
+                            }
+
+                            if(excercisePojo.getDeweeding1()!=null) {
+                                if (excercisePojo.getDeweeding1().isEmpty() || excercisePojo.getDeweeding1() == null) {
+                                    txt_deweeding1.setText("Not Provided");
+                                } else {
+                                    txt_deweeding1.setText(excercisePojo.getDeweeding1() + "");
+                                }
+                            }
+                            else
+                            {
+                                txt_deweeding1.setText("Not Provided");
+                            }
+                            if(excercisePojo.getDeweeding2()!=null) {
+                                if (excercisePojo.getDeweeding2().isEmpty() || excercisePojo.getDeweeding2() == null) {
+                                    txt_deweeding2.setText("Not Provided");
+                                } else {
+                                    txt_deweeding2.setText(excercisePojo.getDeweeding2() + "");
+                                }
+                            }
+                            else
+                            {
+                                txt_deweeding2.setText("Not Provided");
+                            }
+                            if(excercisePojo.getDeweeding3()!=null) {
+                                if (excercisePojo.getDeweeding3().isEmpty() || excercisePojo.getDeweeding3() == null) {
+                                    txt_deweeding3.setText("Not Provided");
+                                } else {
+                                    txt_deweeding3.setText(excercisePojo.getDeweeding3() + "");
+                                }
+                            }
+                            else
+                            {
+                                txt_deweeding3.setText("Not Provided");
+                            }
+                            if(excercisePojo.getFertilizing1()!=null) {
+                                if (excercisePojo.getFertilizing1().isEmpty() || excercisePojo.getFertilizing1() == null) {
+                                    txt_fertilising1.setText("Not Provided");
+                                } else {
+                                    txt_fertilising1.setText(excercisePojo.getFertilizing1() + "");
+                                }
+                            }
+                            else
+                            {
+                                txt_fertilising1.setText("Not Provided");
+                            }
+                            if(excercisePojo.getFertilizing2()!=null) {
+                                if (excercisePojo.getFertilizing2().isEmpty() || excercisePojo.getFertilizing2() == null) {
+                                    txt_fertilising2.setText("Not Provided");
+                                } else {
+                                    txt_fertilising2.setText(excercisePojo.getFertilizing2() + "");
+                                }
+                            }
+                            else
+                            {
+                                txt_fertilising2.setText("Not Provided");
+                            }
+                            if(excercisePojo.getFertilizing3()!=null) {
+                                if (excercisePojo.getFertilizing3().isEmpty() || excercisePojo.getFertilizing3() == null) {
+                                    txt_fertilising3.setText("Not Provided");
+                                } else {
+                                    txt_fertilising3.setText(excercisePojo.getFertilizing3() + "");
+                                }
+                            }
+                            else
+                            {
+                                txt_fertilising3.setText("Not Provided");
+                            }
+                            if(excercisePojo.getHarvesting()!=null) {
+                                if (excercisePojo.getHarvesting().isEmpty() || excercisePojo.getHarvesting() == null) {
+                                    txt_harvesting.setText("Not Provided");
+                                } else {
+                                    txt_harvesting.setText(excercisePojo.getHarvesting() + "");
+                                }
+                            }
+                            else
+                            {
+                                txt_harvesting.setText("Not Provided");
+                            }
+                            WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                            lp.copyFrom(dialog.getWindow().getAttributes());
+                            lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+                            lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+                            dialog.getWindow().setAttributes(lp);
+                            Window window = dialog.getWindow();
+                            window.setBackgroundDrawableResource(android.R.color.transparent);
+
+                            dialog.show();
+
+                        }
+                    });*/
                 }
             } else if (layoutId == R.layout.layout_selected_exercise_item) {
                 if (exerciseObservableList.size() > 0) {
@@ -192,4 +316,6 @@ public class ExcerciseListAdapter extends RecyclerView.Adapter<ExcerciseListAdap
 
         dialog.show();
     }
+
+
 }

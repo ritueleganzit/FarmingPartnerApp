@@ -174,7 +174,7 @@ public class RegistrationActivity extends AppCompatActivity {
                                 //userSessionManager.createLoginSession(id, email, ed_password.getText().toString(), username, photo);
 
                             }*/
-                            Toast.makeText(RegistrationActivity.this, "Registered successfully" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegistrationActivity.this, "Registered successfully", Toast.LENGTH_SHORT).show();
                             finish();
                         }
                     } else {
