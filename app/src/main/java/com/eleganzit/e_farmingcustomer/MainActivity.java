@@ -1,5 +1,6 @@
 package com.eleganzit.e_farmingcustomer;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableArrayList;
@@ -9,6 +10,9 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.DragEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.eleganzit.e_farmingcustomer.adapters.AvailablePlotsAdapter;
@@ -18,6 +22,8 @@ import com.eleganzit.e_farmingcustomer.databinding.MainActivityBinding;
 import com.eleganzit.e_farmingcustomer.model.AvailablePlotsData;
 import com.eleganzit.e_farmingcustomer.model.AvailablePlotsResponse;
 import com.eleganzit.e_farmingcustomer.model.VegetablesResponse;
+import com.eleganzit.e_farmingcustomer.utils.ClickListener;
+import com.eleganzit.e_farmingcustomer.utils.RecyclerTouchListener;
 import com.eleganzit.e_farmingcustomer.utils.UserSessionManager;
 
 import java.util.ArrayList;
@@ -63,6 +69,136 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
         mainActivityBinding.rcvChooseExercise.setOnDragListener(new MyDragInsideRcvListener());
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.scale_3dp);
         mainActivityBinding.rcvSelectedExercise.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
+
+        mainActivityBinding.rcvChooseExercise.addOnItemTouchListener(new RecyclerTouchListener(this, mainActivityBinding.rcvChooseExercise, new ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+
+                ExcercisePojo excercisePojo=((ExcerciseListAdapter)mainActivityBinding.rcvChooseExercise.getAdapter()).getItem(position);
+                Dialog dialog = new Dialog(MainActivity.this);
+                dialog.setContentView(R.layout.veg_details_dialog);
+
+                TextView txt_sapling_date,txt_deweeding1,txt_deweeding2,txt_deweeding3,txt_fertilising1,txt_fertilising2,txt_fertilising3,txt_harvesting;
+
+                txt_sapling_date=dialog.findViewById(R.id.txt_sapling_date);
+                txt_deweeding1=dialog.findViewById(R.id.txt_deweeding1);
+                txt_deweeding2=dialog.findViewById(R.id.txt_deweeding2);
+                txt_deweeding3=dialog.findViewById(R.id.txt_deweeding3);
+                txt_fertilising1=dialog.findViewById(R.id.txt_fertilising1);
+                txt_fertilising2=dialog.findViewById(R.id.txt_fertilising2);
+                txt_fertilising3=dialog.findViewById(R.id.txt_fertilising3);
+                txt_harvesting=dialog.findViewById(R.id.txt_harvesting);
+
+                if(excercisePojo.getSaplingDate()!=null)
+                {
+                    if(excercisePojo.getSaplingDate().isEmpty() || excercisePojo.getSaplingDate()==null)
+                    {
+                        txt_sapling_date.setText("Not Provided");
+                    }
+                    else
+                    {
+                        txt_sapling_date.setText(excercisePojo.getSaplingDate()+"");
+                    }
+                }
+                else
+                {
+                    txt_sapling_date.setText("Not Provided");
+                }
+
+                if(excercisePojo.getDeweeding1()!=null) {
+                    if (excercisePojo.getDeweeding1().isEmpty() || excercisePojo.getDeweeding1() == null) {
+                        txt_deweeding1.setText("Not Provided");
+                    } else {
+                        txt_deweeding1.setText(excercisePojo.getDeweeding1() + "");
+                    }
+                }
+                else
+                {
+                    txt_deweeding1.setText("Not Provided");
+                }
+                if(excercisePojo.getDeweeding2()!=null) {
+                    if (excercisePojo.getDeweeding2().isEmpty() || excercisePojo.getDeweeding2() == null) {
+                        txt_deweeding2.setText("Not Provided");
+                    } else {
+                        txt_deweeding2.setText(excercisePojo.getDeweeding2() + "");
+                    }
+                }
+                else
+                {
+                    txt_deweeding2.setText("Not Provided");
+                }
+                if(excercisePojo.getDeweeding3()!=null) {
+                    if (excercisePojo.getDeweeding3().isEmpty() || excercisePojo.getDeweeding3() == null) {
+                        txt_deweeding3.setText("Not Provided");
+                    } else {
+                        txt_deweeding3.setText(excercisePojo.getDeweeding3() + "");
+                    }
+                }
+                else
+                {
+                    txt_deweeding3.setText("Not Provided");
+                }
+                if(excercisePojo.getFertilizing1()!=null) {
+                    if (excercisePojo.getFertilizing1().isEmpty() || excercisePojo.getFertilizing1() == null) {
+                        txt_fertilising1.setText("Not Provided");
+                    } else {
+                        txt_fertilising1.setText(excercisePojo.getFertilizing1() + "");
+                    }
+                }
+                else
+                {
+                    txt_fertilising1.setText("Not Provided");
+                }
+                if(excercisePojo.getFertilizing2()!=null) {
+                    if (excercisePojo.getFertilizing2().isEmpty() || excercisePojo.getFertilizing2() == null) {
+                        txt_fertilising2.setText("Not Provided");
+                    } else {
+                        txt_fertilising2.setText(excercisePojo.getFertilizing2() + "");
+                    }
+                }
+                else
+                {
+                    txt_fertilising2.setText("Not Provided");
+                }
+                if(excercisePojo.getFertilizing3()!=null) {
+                    if (excercisePojo.getFertilizing3().isEmpty() || excercisePojo.getFertilizing3() == null) {
+                        txt_fertilising3.setText("Not Provided");
+                    } else {
+                        txt_fertilising3.setText(excercisePojo.getFertilizing3() + "");
+                    }
+                }
+                else
+                {
+                    txt_fertilising3.setText("Not Provided");
+                }
+                if(excercisePojo.getHarvesting()!=null) {
+                    if (excercisePojo.getHarvesting().isEmpty() || excercisePojo.getHarvesting() == null) {
+                        txt_harvesting.setText("Not Provided");
+                    } else {
+                        txt_harvesting.setText(excercisePojo.getHarvesting() + "");
+                    }
+                }
+                else
+                {
+                    txt_harvesting.setText("Not Provided");
+                }
+                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                lp.copyFrom(dialog.getWindow().getAttributes());
+                lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+                lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+                dialog.getWindow().setAttributes(lp);
+                Window window = dialog.getWindow();
+                window.setBackgroundDrawableResource(android.R.color.transparent);
+
+                dialog.show();
+
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+                //Toast.makeText(MainActivity.this, ""+((ExcerciseListAdapter)mainActivityBinding.rcvChooseExercise.getAdapter()).getItem(position).name, Toast.LENGTH_SHORT).show();
+            }
+        }));
 
         mainActivityBinding.back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -209,11 +345,9 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
                 break;
             case DragEvent.ACTION_DRAG_ENTERED:
 /*
-
                 Toast.makeText(this, "selected currentPosition : " + currentPosition, Toast.LENGTH_SHORT).show();
                 Toast.makeText(this, "selected newContactPosition : " + newContactPosition, Toast.LENGTH_SHORT).show();
 */
-                Toast.makeText(MainActivity.this, "3 These are required vegetables", Toast.LENGTH_SHORT).show();
 
                 if(exerciseList.size()==0)
                 {
@@ -225,7 +359,6 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
                 }
                 break;
             case DragEvent.ACTION_DRAG_EXITED:
-                Toast.makeText(MainActivity.this, "4 These are required vegetables", Toast.LENGTH_SHORT).show();
 
                 if(exerciseList.size()==0)
                 {
@@ -238,7 +371,6 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
                 break;
             case DragEvent.ACTION_DROP:
                 //when Item is dropped off to recyclerview.
-                Toast.makeText(MainActivity.this, "5 These are required vegetables", Toast.LENGTH_SHORT).show();
 
                 if(currentPosition>6) {
                     if (isFromExercise) {
@@ -255,7 +387,7 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
                 }
                 else
                 {
-                    Toast.makeText(MainActivity.this, "6 These are required vegetables", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "These are required vegetables", Toast.LENGTH_SHORT).show();
                 }
                 //This is to hide/add the container!
                 /*ViewGroup owner = (ViewGroup) (view.getParent());

@@ -33,6 +33,7 @@
                 android:ellipsize="end"
                 android:fontFamily="@font/poppins_regular"
                 android:singleLine="true"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                 android:text="Sapling Date"
                 android:textColor="@color/colorBlack" />
 
@@ -43,6 +44,7 @@
                 android:ellipsize="end"
                 android:fontFamily="@font/poppins_regular"
                 android:gravity="end"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                 android:singleLine="true"
                 android:text="20/04/2019"
                 android:textColor="@color/colorBlack" />
@@ -57,6 +59,7 @@
                 android:layout_weight="50"
                 android:ellipsize="end"
                 android:fontFamily="@font/poppins_regular"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                 android:singleLine="true"
                 android:text="Deweeding1 Date"
                 android:textColor="@color/colorBlack" />
@@ -67,6 +70,7 @@
                 android:layout_weight="50"
                 android:ellipsize="end"
                 android:gravity="end"
+                android:fontFamily="@font/poppins_regular"
                 android:singleLine="true"
                 android:text="20/04/2019"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
@@ -84,6 +88,7 @@
                 android:ellipsize="end"
                 android:fontFamily="@font/poppins_regular"
                 android:singleLine="true"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                 android:text="Deweeding2 Date"
                 android:textColor="@color/colorBlack" />
 
@@ -93,6 +98,7 @@
                 android:layout_weight="50"
                 android:ellipsize="end"
                 android:gravity="end"
+                android:fontFamily="@font/poppins_regular"
                 android:singleLine="true"
                 android:text="20/04/2019"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
@@ -107,6 +113,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="50"
                 android:ellipsize="end"
+                android:fontFamily="@font/poppins_regular"
                 android:singleLine="true"
                 android:text="Deweeding3 Date"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
@@ -118,6 +125,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="50"
                 android:ellipsize="end"
+                android:fontFamily="@font/poppins_regular"
                 android:gravity="end"
                 android:singleLine="true"
                 android:text="20/04/2019"
@@ -133,6 +141,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="50"
                 android:ellipsize="end"
+                android:fontFamily="@font/poppins_regular"
                 android:singleLine="true"
                 android:text="Fertilising1 Date"
                 android:textColor="@color/colorBlack" />
@@ -141,6 +150,7 @@
                 android:id="@+id/txt_fertilising1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
                 android:layout_weight="50"
                 android:ellipsize="end"
                 android:gravity="end"
@@ -170,6 +180,7 @@
                 android:layout_weight="50"
                 android:ellipsize="end"
                 android:gravity="end"
+                android:fontFamily="@font/poppins_regular"
                 android:singleLine="true"
                 android:text="20/04/2019"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
@@ -183,6 +194,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="50"
+                android:fontFamily="@font/poppins_regular"
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:text="Fertilising3 Date"
@@ -194,6 +206,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="50"
                 android:ellipsize="end"
+                android:fontFamily="@font/poppins_regular"
                 android:gravity="end"
                 android:singleLine="true"
                 android:text="20/04/2019"
@@ -209,6 +222,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="50"
                 android:ellipsize="end"
+                android:fontFamily="@font/poppins_regular"
                 android:singleLine="true"
                 android:text="Harvesting Date"
                 android:textColor="@color/colorBlack" />
@@ -219,6 +233,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="50"
                 android:ellipsize="end"
+                android:fontFamily="@font/poppins_regular"
                 android:gravity="end"
                 android:singleLine="true"
                 android:text="20/04/2019"

@@ -303,6 +303,7 @@ public class ExcerciseListAdapter extends RecyclerView.Adapter<ExcerciseListAdap
     }
 
     public void onListItemClick(View view) {
+/*
         Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.veg_details_dialog);
 
@@ -314,7 +315,11 @@ public class ExcerciseListAdapter extends RecyclerView.Adapter<ExcerciseListAdap
         Window window = dialog.getWindow();
         window.setBackgroundDrawableResource(android.R.color.transparent);
 
-        dialog.show();
+        dialog.show();*/
+    }
+
+    public ExcercisePojo getItem(int position) {
+        return exerciseObservableList.get(position);
     }
 
 
