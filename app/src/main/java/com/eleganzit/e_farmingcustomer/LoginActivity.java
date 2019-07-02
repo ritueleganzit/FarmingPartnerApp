@@ -147,7 +147,7 @@ public class LoginActivity extends AppCompatActivity {
             ed_email.requestFocus();
             return false;
         }
-        else  if (ed_password.getText().toString().equals("") || ed_password.getText().toString().length()<6) {
+        else  if (ed_password.getText().toString().trim().equals("") || ed_password.getText().toString().trim().length()<6) {
 
             ed_password.setError("Password must contain atleast 6 characters");
 

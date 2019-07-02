@@ -245,6 +245,10 @@ public class MyProfileFragment extends Fragment {
                                         .load(photo).apply(new RequestOptions().placeholder(R.drawable.pr))
                                         .into(profile_pic);
 
+                                Glide
+                                        .with(getActivity())
+                                        .load(photo)
+                                        .apply(new RequestOptions().placeholder(R.drawable.pr).transforms(new CircleCrop())).into(NavHomeActivity.profile_image);
 
                             }
                             //Toast.makeText(getActivity(), "--" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -295,23 +299,30 @@ public class MyProfileFragment extends Fragment {
 
                     if (response.body().getStatus().toString().equalsIgnoreCase("1")) {
 
-                        photo = response.body().getData().get(0).getPhoto();
+                        if(photo!=null)
+                        {
+                            photo = response.body().getData().get(0).getPhoto();
 
-                        Log.d("responseseeeepppp", "" + photo);
+                            Log.d("responseseeeepppp", "" + photo);
 
-                        if(mActivity!=null)
+                            if(mActivity!=null)
+                                Glide
+                                        .with(getActivity())
+                                        .load(photo)
+                                        .apply(new RequestOptions().placeholder(R.drawable.pr).transforms(new CircleCrop())).into(profile_pic);
+
                             Glide
                                     .with(getActivity())
                                     .load(photo)
-                                    .apply(new RequestOptions().placeholder(R.drawable.pr).transforms(new CircleCrop())).into(profile_pic);
+                                    .apply(new RequestOptions().placeholder(R.drawable.pr).transforms(new CircleCrop())).into(NavHomeActivity.profile_image);
+                            userSessionManager.updateProfilePic(photo);
+                            Toast.makeText(getActivity(), "Profile picture updated", Toast.LENGTH_SHORT).show();
 
-                        Glide
-                                .with(getActivity())
-                                .load(photo)
-                                .apply(new RequestOptions().placeholder(R.drawable.pr).transforms(new CircleCrop())).into(NavHomeActivity.profile_image);
-                        userSessionManager.updateProfilePic(photo);
-                        Toast.makeText(getActivity(), "Profile picture updated", Toast.LENGTH_SHORT).show();
-
+                        }
+                        else
+                        {
+                            Toast.makeText(getActivity(), "Please try again", Toast.LENGTH_SHORT).show();
+                        }
 
                     } else {
 

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +43,8 @@ public class ManageFarmFragment extends Fragment {
     UserSessionManager userSessionManager;
     ProgressDialog progressDialog;
     TextView txt_no_farms;
+    ImageView reload;
+
     public ManageFarmFragment() {
         // Required empty public constructor
     }
@@ -64,6 +67,7 @@ public class ManageFarmFragment extends Fragment {
 
         rc_farms=v.findViewById(R.id.rc_farms);
         txt_no_farms=v.findViewById(R.id.txt_no_farms);
+        reload=v.findViewById(R.id.reload);
 
 
 
@@ -74,11 +78,19 @@ public class ManageFarmFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         manageFarm();
+
+        reload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                manageFarm();
+            }
+        });
+
     }
 
     private void manageFarm() {
         progressDialog.show();
-
+        reload.setVisibility(View.GONE);
         RetrofitInterface myInterface = RetrofitAPI.getRetrofit().create(RetrofitInterface.class);
         Call<ManageFarmResponse> call=myInterface.manageFarm(userSessionManager.getUserDetails().get(UserSessionManager.KEY_USER_ID));
         call.enqueue(new Callback<ManageFarmResponse>() {
@@ -132,7 +144,7 @@ public class ManageFarmFragment extends Fragment {
             @Override
             public void onFailure(Call<ManageFarmResponse> call, Throwable t) {
                 progressDialog.dismiss();
-
+                reload.setVisibility(View.VISIBLE);
                 Toast.makeText(getActivity(), "Server or Internet Error", Toast.LENGTH_SHORT).show();
 
             }

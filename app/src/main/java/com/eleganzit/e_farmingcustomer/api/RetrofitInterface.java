@@ -4,10 +4,13 @@ package com.eleganzit.e_farmingcustomer.api;
 import com.eleganzit.e_farmingcustomer.model.AvailablePlotsResponse;
 import com.eleganzit.e_farmingcustomer.model.ContactOfficeResponse;
 import com.eleganzit.e_farmingcustomer.model.FarmDetailsResponse;
+import com.eleganzit.e_farmingcustomer.model.FarmSlotsResponse;
+import com.eleganzit.e_farmingcustomer.model.ForgotPasswordResponse;
 import com.eleganzit.e_farmingcustomer.model.InstructFarmerResponse;
 import com.eleganzit.e_farmingcustomer.model.LoginRespose;
 import com.eleganzit.e_farmingcustomer.model.ManageFarmResponse;
 import com.eleganzit.e_farmingcustomer.model.RegisterResponse;
+import com.eleganzit.e_farmingcustomer.model.SlotDetailsResponse;
 import com.eleganzit.e_farmingcustomer.model.UpdateResponse;
 import com.eleganzit.e_farmingcustomer.model.UserDetailsResponse;
 import com.eleganzit.e_farmingcustomer.model.VegetablesResponse;
@@ -17,9 +20,11 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Query;
 
 /**
  * Created by eleganz on 30/4/19.
@@ -90,7 +95,7 @@ public interface RetrofitInterface {
     );
 
     @FormUrlEncoded()
-    @POST("/efarming-AdminPanel/efarm-api/manageFarm")
+    @POST("/efarming-AdminPanel/efarm-api/manageCustomerfarm")
     Call<ManageFarmResponse> manageFarm(
             @Field("customer_id") String customer_id
     );
@@ -129,6 +134,35 @@ public interface RetrofitInterface {
             @Field("farm_id") String farm_id
     );
 
+    @GET("/efarming-AdminPanel/api-forgotpassword.php")
+    Call<ForgotPasswordResponse> sendCode(@Query("email") String email);
 
+
+    @FormUrlEncoded()
+    @POST("/efarming-AdminPanel/efarm-api/customerForgotpassword")
+    Call<ForgotPasswordResponse> matchOtp(
+            @Field("email") String email,
+            @Field("sentcode") String sentcode
+    );
+
+    @FormUrlEncoded()
+    @POST("/efarming-AdminPanel/efarm-api/customerUpdatepassword")
+    Call<ForgotPasswordResponse> resetPassword(
+            @Field("email") String email,
+            @Field("password") String password
+    );
+
+    @FormUrlEncoded()
+    @POST("/efarming-AdminPanel/efarm-api/getcustomerSlots")
+    Call<FarmSlotsResponse> getcustomerSlots(
+            @Field("customer_plot_id") String customer_plot_id
+    );
+
+    @FormUrlEncoded()
+    @POST("/efarming-AdminPanel/efarm-api/vegetablesPopup")
+    Call<SlotDetailsResponse> vegetablesDetails(
+            @Field("farm_id") String farm_id,
+            @Field("vegetable_id") String vegetable_id
+    );
 
 }

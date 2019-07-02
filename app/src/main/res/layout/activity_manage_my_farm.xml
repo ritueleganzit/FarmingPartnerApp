@@ -65,5 +65,25 @@
             android:orientation="vertical"/>
 
 
+        <TextView
+            android:id="@+id/txt_no_slots"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/colorBlack"
+            android:text="No Slots Available"
+            android:visibility="gone"
+            android:layout_centerInParent="true"/>
+
+
+        <ImageView
+            android:id="@+id/reload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:src="@mipmap/reload_icon"
+            android:visibility="gone"
+            android:layout_centerInParent="true"/>
+
     </RelativeLayout>
 </RelativeLayout>

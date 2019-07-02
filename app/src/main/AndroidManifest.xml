@@ -14,47 +14,43 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".ChangePasswordActivity"></activity>
+        <activity android:name=".OTPActivity" />
 
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-        <activity android:name=".NotificationsActivity"
+        <activity
+            android:name=".NotificationsActivity"
             android:screenOrientation="portrait" />
-
-        <activity android:name=".ViewFarmActivity"
+        <activity
+            android:name=".ViewFarmActivity"
             android:screenOrientation="portrait" />
-
-        <activity android:name=".ManageMyFarmActivity"
+        <activity
+            android:name=".ManageMyFarmActivity"
             android:screenOrientation="portrait" />
-
-        <activity android:name=".SelectVegetablesActivity"
+        <activity
+            android:name=".SelectVegetablesActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".EditProfileActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ForgotPasswordActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".RegistrationActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".NavHomeActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".SplashActivity"
             android:screenOrientation="portrait">

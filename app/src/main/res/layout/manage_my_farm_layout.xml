@@ -84,7 +84,8 @@
 
                 </TableRow>
 
-                <TableRow android:layout_marginBottom="5dp">
+                <TableRow android:layout_marginBottom="5dp"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="0dp"

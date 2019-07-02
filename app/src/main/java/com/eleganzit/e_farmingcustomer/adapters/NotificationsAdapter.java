@@ -13,7 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.eleganzit.e_farmingcustomer.ManageMyFarmActivity;
@@ -61,12 +63,17 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         LinearLayout cardviewdashboard;
+        ImageView img_farm;
+        TextView txt_title,txt_status;
 
         public MyViewHolder(@NonNull View itemView) {
 
             super(itemView);
 
             cardviewdashboard=itemView.findViewById(R.id.cardviewdashboard);
+            img_farm=itemView.findViewById(R.id.img_farm);
+            txt_title=itemView.findViewById(R.id.txt_title);
+            txt_status=itemView.findViewById(R.id.txt_status);
 
         }
     }

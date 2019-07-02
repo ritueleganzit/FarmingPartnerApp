@@ -74,6 +74,7 @@ public class RegistrationActivity extends AppCompatActivity {
         ed_sub_location = findViewById(R.id.ed_sub_location);
         ed_email = findViewById(R.id.ed_email);
         ed_ccode = findViewById(R.id.ed_ccode);
+        ed_ccode.setClickable(false);
         ed_phone = findViewById(R.id.ed_phone);
         ed_referral_code = findViewById(R.id.ed_referral_code);
         ed_password = findViewById(R.id.ed_password);
@@ -88,6 +89,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
         Calendar c = Calendar.getInstance();
         final int mYear = c.get(Calendar.YEAR);
         final int mMonth = c.get(Calendar.MONTH);
@@ -194,8 +196,7 @@ public class RegistrationActivity extends AppCompatActivity {
         });
 
     }
-
-
+    
     public boolean isValid() {
         final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
         Pattern pattern;
@@ -203,35 +204,35 @@ public class RegistrationActivity extends AppCompatActivity {
         pattern = Pattern.compile(EMAIL_PATTERN);
         matcher = pattern.matcher(ed_email.getText().toString());
 
-        if (ed_fname.getText().toString().equals("")) {
+        if (ed_fname.getText().toString().trim().equals("")) {
 
             ed_fname.setError("First name is mandatory");
 
             ed_fname.requestFocus();
 
             return false;
-        } else if (ed_lname.getText().toString().equals("")) {
+        } else if (ed_lname.getText().toString().trim().equals("")) {
 
             ed_lname.setError("Last name is mandatory");
 
             ed_lname.requestFocus();
 
             return false;
-        } else if (ed_address.getText().toString().equals("")) {
+        } else if (ed_address.getText().toString().trim().equals("")) {
 
             ed_address.setError("Address is mandatory");
 
             ed_address.requestFocus();
 
             return false;
-        } else if (ed_landmark.getText().toString().equals("")) {
+        } else if (ed_landmark.getText().toString().trim().equals("")) {
 
             ed_landmark.setError("Landmark is mandatory");
 
             ed_landmark.requestFocus();
 
             return false;
-        } else if (ed_sub_location.getText().toString().equals("")) {
+        } else if (ed_sub_location.getText().toString().trim().equals("")) {
 
             ed_sub_location.setError("Sub Location is mandatory");
 
@@ -243,29 +244,29 @@ public class RegistrationActivity extends AppCompatActivity {
 
             ed_email.requestFocus();
             return false;
-        } else if (ed_phone.getText().toString().equals("")) {
+        } else if (ed_phone.getText().toString().trim().equals("") || ed_phone.getText().toString().trim().length()<10) {
 
-            ed_phone.setError("Phone is mandatory");
+            ed_phone.setError("Phone number must contain atleast 10 digits");
 
             ed_phone.requestFocus();
 
             return false;
         }
-        else if (ed_password.getText().toString().equals("") || ed_password.getText().toString().length() < 6) {
+        else if (ed_password.getText().toString().trim().equals("") || ed_password.getText().toString().trim().length() < 6) {
 
             ed_password.setError("Password must contain atleast 6 characters");
 
             ed_password.requestFocus();
 
             return false;
-        } else if (!ed_password.getText().toString().equals(ed_cpassword.getText().toString())) {
+        } else if (!ed_password.getText().toString().trim().equals(ed_cpassword.getText().toString())) {
 
             ed_cpassword.setError("Password doesn't match");
 
             ed_cpassword.requestFocus();
 
             return false;
-        } else if (ed_phone.getText().toString().equals("")) {
+        } else if (ed_phone.getText().toString().trim().equals("")) {
 
             ed_phone.setError("Phone is mandatory");
 

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +39,8 @@ public class AvailablePlotsFragment extends Fragment {
     UserSessionManager userSessionManager;
     ProgressDialog progressDialog;
     TextView txt_no_plots;
+    ImageView reload;
+
     public AvailablePlotsFragment() {
         // Required empty public constructor
     }
@@ -60,8 +63,7 @@ public class AvailablePlotsFragment extends Fragment {
 
         rc_plots=v.findViewById(R.id.rc_plots);
         txt_no_plots=v.findViewById(R.id.txt_no_plots);
-
-
+        reload=v.findViewById(R.id.reload);
 
         return v;
     }
@@ -70,11 +72,19 @@ public class AvailablePlotsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         availablePlots();
+
+        reload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                availablePlots();
+            }
+        });
+
     }
 
     private void availablePlots() {
         progressDialog.show();
-
+        reload.setVisibility(View.GONE);
         RetrofitInterface myInterface = RetrofitAPI.getRetrofit().create(RetrofitInterface.class);
         Call<AvailablePlotsResponse> call=myInterface.availablePlots("");
         call.enqueue(new Callback<AvailablePlotsResponse>() {
@@ -130,7 +140,7 @@ public class AvailablePlotsFragment extends Fragment {
             @Override
             public void onFailure(Call<AvailablePlotsResponse> call, Throwable t) {
                 progressDialog.dismiss();
-
+                reload.setVisibility(View.VISIBLE);
                 Toast.makeText(getActivity(), "Server or Internet Error", Toast.LENGTH_SHORT).show();
 
             }

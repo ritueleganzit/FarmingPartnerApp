@@ -293,7 +293,6 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
 
     }
 
-
     public void loadExerciseData() {
 
         /*exerciseList.add(new ExcercisePojo(1, "Vegetable " + 1, "https://c.ndtvimg.com/2018-09/4a6d49go_vegetables_625x300_26_September_18.jpg"));
@@ -372,7 +371,7 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
             case DragEvent.ACTION_DROP:
                 //when Item is dropped off to recyclerview.
 
-                if(currentPosition>6) {
+                /*if(currentPosition>6) {*/
                     if (isFromExercise) {
                         exerciseSelectedList.add(exerciseToMove);
                         exerciseList.remove(exerciseToMove);
@@ -384,11 +383,11 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
                         mainActivityBinding.rcvChooseExercise.getAdapter().notifyItemRemoved(currentPosition);
                         mainActivityBinding.executePendingBindings();
                     }
-                }
+                /*}
                 else
                 {
                     Toast.makeText(MainActivity.this, "These are required vegetables", Toast.LENGTH_SHORT).show();
-                }
+                }*/
                 //This is to hide/add the container!
                 /*ViewGroup owner = (ViewGroup) (view.getParent());
                 if (owner != null) {

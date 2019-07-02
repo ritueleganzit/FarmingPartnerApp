@@ -3,6 +3,7 @@ package com.eleganzit.e_farmingcustomer.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
@@ -58,7 +59,7 @@ public class ManageFarmAdapter extends RecyclerView.Adapter<ManageFarmAdapter.My
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
 
-        ManageFarmData manageFarmData=arrayList.get(i);
+        final ManageFarmData manageFarmData=arrayList.get(i);
         
         Glide
                 .with(context)
@@ -67,6 +68,14 @@ public class ManageFarmAdapter extends RecyclerView.Adapter<ManageFarmAdapter.My
                 .load(manageFarmData.getFarmPhoto())
                 .thumbnail(.1f)
                 .into(myViewHolder.img_farm);
+
+        myViewHolder.lin_view_map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("http://maps.google.co.in/maps?q=" + manageFarmData.getSubLocation()));
+                context.startActivity(i);
+            }
+        });
 
         if(manageFarmData.getFarmName().equalsIgnoreCase(""))
         {
@@ -77,12 +86,12 @@ public class ManageFarmAdapter extends RecyclerView.Adapter<ManageFarmAdapter.My
             myViewHolder.txt_farm_name.setText(manageFarmData.getFarmName());
         }
         //myViewHolder.txt_price.setText("");
-        if(manageFarmData.getFarmAddress().equalsIgnoreCase(""))
+        if(manageFarmData.getAddress().equalsIgnoreCase(""))
         {
             myViewHolder.txt_address.setText("Not Provided");
         }
         else {
-            myViewHolder.txt_address.setText(manageFarmData.getFarmAddress());
+            myViewHolder.txt_address.setText(manageFarmData.getAddress());
         }
         //myViewHolder.txt_plot_capacity.setText(manageFarmData.getFarmName());
         /*if(manageFarmData.getPlotCapacity().equalsIgnoreCase(""))
@@ -92,20 +101,20 @@ public class ManageFarmAdapter extends RecyclerView.Adapter<ManageFarmAdapter.My
         else {
             myViewHolder.txt_plot_capacity.setText(manageFarmData.getPlotCapacity());
         }*/
-        if(manageFarmData.getFarmingPartnerName().equalsIgnoreCase(""))
+        if(manageFarmData.getFname().equalsIgnoreCase(""))
         {
             myViewHolder.txt_owner_name.setText("Not Provided");
         }
         else {
-            myViewHolder.txt_owner_name.setText(manageFarmData.getFarmingPartnerName());
+            myViewHolder.txt_owner_name.setText(manageFarmData.getFname()+" "+manageFarmData.getLname());
         }
 
-        if(manageFarmData.getRegisterDate().equalsIgnoreCase(""))
+        if(manageFarmData.getPaymentDate().equalsIgnoreCase(""))
         {
             myViewHolder.txt_purchased_on.setText("Not Provided");
         }
         else {
-            myViewHolder.txt_purchased_on.setText(parseDateToddMMyyyy(manageFarmData.getRegisterDate()));
+            myViewHolder.txt_purchased_on.setText(parseDateToddMMyyyy(manageFarmData.getPaymentDate()));
         }
 
         myViewHolder.cardviewdashboard.setOnClickListener(new View.OnClickListener() {
@@ -113,7 +122,9 @@ public class ManageFarmAdapter extends RecyclerView.Adapter<ManageFarmAdapter.My
             public void onClick(View view) {
 
                 //((FragmentActivity)context).getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                context.startActivity(new Intent(context, ManageMyFarmActivity.class));
+                context.startActivity(new Intent(context, ManageMyFarmActivity.class)
+                        .putExtra("customer_plot_id",manageFarmData.getCustomer_plot_id())
+                        .putExtra("farm_id",manageFarmData.getFarmId()));
                 ((FragmentActivity)context).overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
             }
         });
@@ -148,7 +159,7 @@ public class ManageFarmAdapter extends RecyclerView.Adapter<ManageFarmAdapter.My
     }
 
     public String parseDateToddMMyyyy(String time) {
-        String inputPattern = "yyyy-MM-dd HH:mm:ss";
+        String inputPattern = "yyyy-MM-dd";
         String outputPattern = "MMM dd,yyyy";
         SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
         SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);

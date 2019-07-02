@@ -60,7 +60,7 @@ public class InstructFarmerFragment extends Fragment {
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!ed_message.getText().toString().isEmpty())
+                if(!ed_message.getText().toString().trim().isEmpty())
                 {
                      instructFarmer();
                 }

@@ -1,19 +1,37 @@
 package com.eleganzit.e_farmingcustomer;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.databinding.ObservableArrayList;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.eleganzit.e_farmingcustomer.api.RetrofitAPI;
+import com.eleganzit.e_farmingcustomer.api.RetrofitInterface;
+import com.eleganzit.e_farmingcustomer.model.AvailablePlotsData;
+import com.eleganzit.e_farmingcustomer.model.SlotDetailsResponse;
+import com.eleganzit.e_farmingcustomer.model.VegetablesResponse;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ViewFarmActivity extends AppCompatActivity {
 
     Button btn_sell,btn_walk,btn_set;
     TextView txt_slot_number,txt_vegetable,txt_sapling_date,txt_deweeding1,txt_deweeding2,txt_deweeding3,txt_fertilising1,txt_fertilising2,txt_fertilising3,txt_harvesting;
+    String vegetable_id,farm_id,slot_number,veg_name;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +46,16 @@ public class ViewFarmActivity extends AppCompatActivity {
             }
         });
 
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please Wait");
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
+
+        vegetable_id=getIntent().getStringExtra("vegetable_id");
+        farm_id=getIntent().getStringExtra("farm_id");
+        slot_number=getIntent().getStringExtra("slot_number");
+        veg_name=getIntent().getStringExtra("veg_name");
+
         btn_sell=findViewById(R.id.btn_sell);
         btn_walk=findViewById(R.id.btn_walk);
         btn_set=findViewById(R.id.btn_set);
@@ -41,7 +69,6 @@ public class ViewFarmActivity extends AppCompatActivity {
         txt_fertilising2=findViewById(R.id.txt_fertilising2);
         txt_fertilising3=findViewById(R.id.txt_fertilising3);
         txt_harvesting=findViewById(R.id.txt_harvesting);
-
 
         final Dialog dialog=new Dialog(ViewFarmActivity.this);
         dialog.setContentView(R.layout.update_soon_dialog);
@@ -86,8 +113,178 @@ public class ViewFarmActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
+        if(slot_number!=null)
+        {
+            if(slot_number.isEmpty())
+            {
+                txt_slot_number.setText("Not Provided");
+            }
+            else
+            {
+                txt_slot_number.setText(slot_number+"");
+            }
+        }
+        else
+        {
+            txt_slot_number.setText("Not Provided");
+        }
+
+        if(veg_name!=null)
+        {
+            if(veg_name.isEmpty())
+            {
+                txt_vegetable.setText("Not Provided");
+            }
+            else
+            {
+                txt_vegetable.setText(veg_name+"");
+            }
+        }
+        else
+        {
+            txt_vegetable.setText("Not Provided");
+        }
+
+        vegetablesDetails();
 
     }
+
+    private void vegetablesDetails() {
+        progressDialog.show();
+
+        RetrofitInterface myInterface = RetrofitAPI.getRetrofit().create(RetrofitInterface.class);
+        Call<SlotDetailsResponse> call=myInterface.vegetablesDetails(farm_id,vegetable_id);
+        call.enqueue(new Callback<SlotDetailsResponse>() {
+            @Override
+            public void onResponse(Call<SlotDetailsResponse> call, Response<SlotDetailsResponse> response) {
+                progressDialog.dismiss();
+
+                if (response.isSuccessful())
+                {
+
+                    ArrayList<AvailablePlotsData> arrayList=new ArrayList<>();
+                    if (response.body().getStatus().toString().equalsIgnoreCase("1"))
+                    {
+
+                        if(response.body().getData().get(0).getSaplingDate()!=null)
+                        {
+                            if(response.body().getData().get(0).getSaplingDate().isEmpty() || response.body().getData().get(0).getSaplingDate().equalsIgnoreCase("0000-00-00"))
+                            {
+                                txt_sapling_date.setText("Not Provided");
+                            }
+                            else
+                            {
+                                txt_sapling_date.setText(response.body().getData().get(0).getSaplingDate()+"");
+                            }
+                        }
+                        else
+                        {
+                            txt_sapling_date.setText("Not Provided");
+                        }
+
+                        if(response.body().getData().get(0).getDeweeding1()!=null) {
+                            if (response.body().getData().get(0).getDeweeding1().isEmpty() || response.body().getData().get(0).getDeweeding1().equalsIgnoreCase("0000-00-00")) {
+                                txt_deweeding1.setText("Not Provided");
+                            } else {
+                                txt_deweeding1.setText(response.body().getData().get(0).getDeweeding1() + "");
+                            }
+                        }
+                        else
+                        {
+                            txt_deweeding1.setText("Not Provided");
+                        }
+                        if(response.body().getData().get(0).getDeweeding2()!=null) {
+                            if (response.body().getData().get(0).getDeweeding2().isEmpty() || response.body().getData().get(0).getDeweeding2().equalsIgnoreCase("0000-00-00")) {
+                                txt_deweeding2.setText("Not Provided");
+                            } else {
+                                txt_deweeding2.setText(response.body().getData().get(0).getDeweeding2() + "");
+                            }
+                        }
+                        else
+                        {
+                            txt_deweeding2.setText("Not Provided");
+                        }
+                        if(response.body().getData().get(0).getDeweeding3()!=null) {
+                            if (response.body().getData().get(0).getDeweeding3().isEmpty() || response.body().getData().get(0).getDeweeding3().equalsIgnoreCase("0000-00-00")) {
+                                txt_deweeding3.setText("Not Provided");
+                            } else {
+                                txt_deweeding3.setText(response.body().getData().get(0).getDeweeding3() + "");
+                            }
+                        }
+                        else
+                        {
+                            txt_deweeding3.setText("Not Provided");
+                        }
+                        if(response.body().getData().get(0).getFertilizing1()!=null) {
+                            if (response.body().getData().get(0).getFertilizing1().isEmpty() || response.body().getData().get(0).getFertilizing1().equalsIgnoreCase("0000-00-00")) {
+                                txt_fertilising1.setText("Not Provided");
+                            } else {
+                                txt_fertilising1.setText(response.body().getData().get(0).getFertilizing1() + "");
+                            }
+                        }
+                        else
+                        {
+                            txt_fertilising1.setText("Not Provided");
+                        }
+                        if(response.body().getData().get(0).getFertilizing2()!=null) {
+                            if (response.body().getData().get(0).getFertilizing2().isEmpty() || response.body().getData().get(0).getFertilizing2().equalsIgnoreCase("0000-00-00")) {
+                                txt_fertilising2.setText("Not Provided");
+                            } else {
+                                txt_fertilising2.setText(response.body().getData().get(0).getFertilizing2() + "");
+                            }
+                        }
+                        else
+                        {
+                            txt_fertilising2.setText("Not Provided");
+                        }
+                        if(response.body().getData().get(0).getFertilizing3()!=null) {
+                            if (response.body().getData().get(0).getFertilizing3().isEmpty() || response.body().getData().get(0).getFertilizing3().equalsIgnoreCase("0000-00-00")) {
+                                txt_fertilising3.setText("Not Provided");
+                            } else {
+                                txt_fertilising3.setText(response.body().getData().get(0).getFertilizing3() + "");
+                            }
+                        }
+                        else
+                        {
+                            txt_fertilising3.setText("Not Provided");
+                        }
+                        if(response.body().getData().get(0).getHarvesting()!=null) {
+                            if (response.body().getData().get(0).getHarvesting().isEmpty() || response.body().getData().get(0).getHarvesting().equalsIgnoreCase("0000-00-00")) {
+                                txt_harvesting.setText("Not Provided");
+                            } else {
+                                txt_harvesting.setText(response.body().getData().get(0).getHarvesting() + "");
+                            }
+                        }
+                        else
+                        {
+                            txt_harvesting.setText("Not Provided");
+                        }
+
+                    }
+                    else
+                    {
+                    }
+                }
+                else
+                {
+
+                    Toast.makeText(ViewFarmActivity.this, "Server or Internet Error", Toast.LENGTH_SHORT).show();
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<SlotDetailsResponse> call, Throwable t) {
+                progressDialog.dismiss();
+
+                Toast.makeText(ViewFarmActivity.this, "Server or Internet Error", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+    }
+
 
     @Override
     public void onBackPressed() {

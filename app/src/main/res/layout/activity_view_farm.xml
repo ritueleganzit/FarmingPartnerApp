@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".SelectVegetablesActivity">
 
-
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -94,7 +93,6 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="end"
                         android:singleLine="true"
-                        android:text="Slot0001"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/colorBlack" />
 
@@ -108,9 +106,9 @@
                         android:layout_weight="50"
                         android:ellipsize="end"
                         android:fontFamily="@font/poppins_regular"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:singleLine="true"
                         android:text="Vegetable"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/colorBlack" />
 
                     <TextView
@@ -120,7 +118,7 @@
                         android:ellipsize="end"
                         android:gravity="end"
                         android:singleLine="true"
-                        android:text="Tomato"
+                        android:fontFamily="@font/poppins_regular"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/colorBlack" />
 
@@ -147,7 +145,6 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="end"
                         android:singleLine="true"
-                        android:text="20/04/2019"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/colorBlack" />
 
@@ -173,7 +170,7 @@
                         android:ellipsize="end"
                         android:gravity="end"
                         android:singleLine="true"
-                        android:text="20/04/2019"
+                        android:fontFamily="@font/poppins_regular"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/colorBlack" />
 
@@ -200,7 +197,7 @@
                         android:ellipsize="end"
                         android:gravity="end"
                         android:singleLine="true"
-                        android:text="20/04/2019"
+                        android:fontFamily="@font/poppins_regular"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/colorBlack" />
 
@@ -215,6 +212,7 @@
                         android:ellipsize="end"
                         android:singleLine="true"
                         android:text="Deweeding3 Date"
+                        android:fontFamily="@font/poppins_regular"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/colorBlack" />
 
@@ -226,7 +224,7 @@
                         android:ellipsize="end"
                         android:gravity="end"
                         android:singleLine="true"
-                        android:text="20/04/2019"
+                        android:fontFamily="@font/poppins_regular"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/colorBlack" />
 
@@ -241,6 +239,7 @@
                         android:ellipsize="end"
                         android:singleLine="true"
                         android:text="Fertilising1 Date"
+                        android:fontFamily="@font/poppins_regular"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/colorBlack" />
 
@@ -252,7 +251,7 @@
                         android:ellipsize="end"
                         android:gravity="end"
                         android:singleLine="true"
-                        android:text="20/04/2019"
+                        android:fontFamily="@font/poppins_regular"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/colorBlack" />
 
@@ -279,7 +278,7 @@
                         android:ellipsize="end"
                         android:gravity="end"
                         android:singleLine="true"
-                        android:text="20/04/2019"
+                        android:fontFamily="@font/poppins_regular"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/colorBlack" />
 
@@ -294,6 +293,7 @@
                         android:ellipsize="end"
                         android:singleLine="true"
                         android:text="Fertilising3 Date"
+                        android:fontFamily="@font/poppins_regular"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/colorBlack" />
 
@@ -305,7 +305,7 @@
                         android:ellipsize="end"
                         android:gravity="end"
                         android:singleLine="true"
-                        android:text="20/04/2019"
+                        android:fontFamily="@font/poppins_regular"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/colorBlack" />
 
@@ -320,6 +320,7 @@
                         android:ellipsize="end"
                         android:singleLine="true"
                         android:text="Harvesting Date"
+                        android:fontFamily="@font/poppins_regular"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/colorBlack" />
 
@@ -331,7 +332,7 @@
                         android:ellipsize="end"
                         android:gravity="end"
                         android:singleLine="true"
-                        android:text="20/04/2019"
+                        android:fontFamily="@font/poppins_regular"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/colorBlack" />
 

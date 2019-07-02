@@ -3,6 +3,7 @@ package com.eleganzit.e_farmingcustomer.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -45,7 +46,8 @@ public class ViewAvailablePlotsFragment extends Fragment {
     LinearLayout lin_view_map;
     UserSessionManager userSessionManager;
     ProgressDialog progressDialog;
-    String farm_id;
+    String farm_id,location="";
+
     public ViewAvailablePlotsFragment() {
         // Required empty public constructor
     }
@@ -87,6 +89,13 @@ public class ViewAvailablePlotsFragment extends Fragment {
             }
         });
 
+        lin_view_map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("http://maps.google.co.in/maps?q=" + location));
+                startActivity(i);
+            }
+        });
         return v;
     }
 
@@ -117,6 +126,8 @@ public class ViewAvailablePlotsFragment extends Fragment {
                                     .load(response.body().getData().get(0).getFarmPhoto())
                                     .thumbnail(.1f)
                                     .into(img_farm);
+
+                            location=response.body().getData().get(0).getFarmLocation();
 
                             if(response.body().getData().get(0).getFarmingPartnerName().equalsIgnoreCase(""))
                             {

@@ -63,6 +63,7 @@ public class EditProfileActivity extends AppCompatActivity {
         ed_sub_location=findViewById(R.id.ed_sub_location);
         ed_email=findViewById(R.id.ed_email);
         ed_ccode=findViewById(R.id.ed_ccode);
+        ed_ccode.setClickable(false);
         ed_phone=findViewById(R.id.ed_phone);
         ed_referral_code=findViewById(R.id.ed_referral_code);
         ed_password=findViewById(R.id.ed_password);
@@ -78,8 +79,8 @@ public class EditProfileActivity extends AppCompatActivity {
         ed_email.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_EMAIL));
         ed_phone.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_PHONE));
         ed_birthdate.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_DOB));
-        ed_password.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_PASSWORD));
-        ed_cpassword.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_PASSWORD));
+        /*ed_password.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_PASSWORD));
+        ed_cpassword.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_PASSWORD));*/
 
         Calendar c = Calendar.getInstance();
         final int mYear = c.get(Calendar.YEAR);
@@ -106,20 +107,20 @@ public class EditProfileActivity extends AppCompatActivity {
                 {
                     updateProfile();
                 }
+
             }
         });
 
     }
 
-
     private void updateProfile() {
 
         progressDialog.show();
         RetrofitInterface myInterface = RetrofitAPI.getRetrofit().create(RetrofitInterface.class);
-        Call<UpdateResponse> call = myInterface.updateProfile(userSessionManager.getUserDetails().get(UserSessionManager.KEY_USER_ID),ed_fname.getText().toString(), ed_lname.getText().toString(),
+        Call<UpdateResponse> call = myInterface.updateProfile(userSessionManager.getUserDetails().get(UserSessionManager.KEY_USER_ID),ed_fname.getText().toString().trim(), ed_lname.getText().toString().trim(),
                 ed_address.getText().toString(), ed_landmark.getText().toString(),ed_sub_location.getText().toString(),
-                ed_phone.getText().toString(), ed_birthdate.getText().toString(),
-                ed_cpassword.getText().toString());
+                ed_phone.getText().toString().trim(), ed_birthdate.getText().toString().trim(),
+                ed_cpassword.getText().toString().trim());
         call.enqueue(new Callback<UpdateResponse>() {
             @Override
             public void onResponse(Call<UpdateResponse> call, Response<UpdateResponse> response) {
@@ -157,7 +158,7 @@ public class EditProfileActivity extends AppCompatActivity {
         pattern = Pattern.compile(EMAIL_PATTERN);
         matcher = pattern.matcher(ed_email.getText().toString());
 
-        if (ed_fname.getText().toString().equals("")) {
+        if (ed_fname.getText().toString().trim().equals("")) {
 
             ed_fname.setError("First name is mandatory");
 
@@ -165,7 +166,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
             return false;
         }
-        else  if (ed_lname.getText().toString().equals("")) {
+        else  if (ed_lname.getText().toString().trim().equals("")) {
 
             ed_lname.setError("Last name is mandatory");
 
@@ -173,7 +174,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
             return false;
         }
-        else  if (ed_address.getText().toString().equals("")) {
+        else  if (ed_address.getText().toString().trim().equals("")) {
 
             ed_address.setError("Address is mandatory");
 
@@ -181,7 +182,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
             return false;
         }
-        else  if (ed_landmark.getText().toString().equals("")) {
+        else  if (ed_landmark.getText().toString().trim().equals("")) {
 
             ed_landmark.setError("Landmark is mandatory");
 
@@ -189,7 +190,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
             return false;
         }
-        else  if (ed_sub_location.getText().toString().equals("")) {
+        else  if (ed_sub_location.getText().toString().trim().equals("")) {
 
             ed_sub_location.setError("Sub Location is mandatory");
 
@@ -203,27 +204,11 @@ public class EditProfileActivity extends AppCompatActivity {
             ed_email.requestFocus();
             return false;
         }
-        else  if (ed_phone.getText().toString().equals("")) {
+        else  if (ed_phone.getText().toString().trim().equals("")) {
 
             ed_phone.setError("Phone is mandatory");
 
             ed_phone.requestFocus();
-
-            return false;
-        }
-        else  if (ed_password.getText().toString().equals("") || ed_password.getText().toString().length()<6) {
-
-            ed_password.setError("Password must contain atleast 6 characters");
-
-            ed_password.requestFocus();
-
-            return false;
-        }
-        else  if (!ed_password.getText().toString().equals(ed_cpassword.getText().toString())) {
-
-            ed_cpassword.setError("Password doesn't match");
-
-            ed_cpassword.requestFocus();
 
             return false;
         }

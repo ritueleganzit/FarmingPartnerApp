@@ -18,6 +18,9 @@ import com.eleganzit.e_farmingcustomer.api.RetrofitInterface;
 import com.eleganzit.e_farmingcustomer.model.ContactOfficeResponse;
 import com.eleganzit.e_farmingcustomer.utils.UserSessionManager;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -61,19 +64,26 @@ public class ContactOfficeFragment extends Fragment {
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(ed_fullname.getText().toString().isEmpty()) {
+
+                final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+                Pattern pattern;
+                Matcher matcher;
+                pattern = Pattern.compile(EMAIL_PATTERN);
+                matcher = pattern.matcher(ed_email.getText().toString());
+
+                if(ed_fullname.getText().toString().trim().isEmpty()) {
                     ed_fullname.setError("Please enter full name");
                     ed_fullname.requestFocus();
                 }
-                else if(ed_email.getText().toString().isEmpty()) {
-                    ed_email.setError("Please enter email address");
+                else if(!matcher.matches()) {
+                    ed_email.setError("Please enter valid email address");
                     ed_email.requestFocus();
                 }
-                else if(ed_subject.getText().toString().isEmpty()) {
+                else if(ed_subject.getText().toString().trim().isEmpty()) {
                     ed_subject.setError("Please enter subject");
                     ed_subject.requestFocus();
                 }
-                else if(ed_message.getText().toString().isEmpty()) {
+                else if(ed_message.getText().toString().trim().isEmpty()) {
                     ed_message.setError("Please enter message");
                     ed_message.requestFocus();
                 }

@@ -23,18 +23,22 @@ import com.eleganzit.e_farmingcustomer.ViewFarmActivity;
 import com.eleganzit.e_farmingcustomer.fragments.AvailablePlotsFragment;
 import com.eleganzit.e_farmingcustomer.fragments.ViewAvailablePlotsFragment;
 import com.eleganzit.e_farmingcustomer.model.AvailablePlotsData;
+import com.eleganzit.e_farmingcustomer.model.FarmSlotsData;
+import com.eleganzit.e_farmingcustomer.model.FarmSlotsResponse;
 import com.eleganzit.e_farmingcustomer.model.ManageFarmData;
 
 import java.util.ArrayList;
 
 public class ManageMyFarmAdapter extends RecyclerView.Adapter<ManageMyFarmAdapter.MyViewHolder> {
 
-    ArrayList<ManageFarmData> arrayList;
+    ArrayList<FarmSlotsData> arrayList;
     Context context;
+    String farm_id;
 
-    public ManageMyFarmAdapter(ArrayList<ManageFarmData> arrayList, Context context) {
+    public ManageMyFarmAdapter(ArrayList<FarmSlotsData> arrayList, Context context,String farm_id) {
         this.arrayList = arrayList;
         this.context = context;
+        this.farm_id = farm_id;
     }
 
     @NonNull
@@ -51,17 +55,44 @@ public class ManageMyFarmAdapter extends RecyclerView.Adapter<ManageMyFarmAdapte
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
 
+        final FarmSlotsData farmSlotsData=arrayList.get(i);
+
         myViewHolder.cardviewdashboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 //((FragmentActivity)context).getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                context.startActivity(new Intent(context, ViewFarmActivity.class));
+                context.startActivity(new Intent(context, ViewFarmActivity.class)
+                .putExtra("farm_id",farm_id)
+                .putExtra("slot_number",farmSlotsData.getSlot())
+                .putExtra("veg_name",farmSlotsData.getVegetableName())
+                .putExtra("vegetable_id",farmSlotsData.getVegetable_id()));
                 ((FragmentActivity)context).overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
             }
         });
 
+        if(farmSlotsData.getSlot()!=null)
+        if(farmSlotsData.getSlot().equalsIgnoreCase(""))
+        {
+            myViewHolder.txt_slot_number.setText("Not Provided");
+        }
+        else
+        {
+            myViewHolder.txt_slot_number.setText(farmSlotsData.getSlot());
+        }
+        else
+            myViewHolder.txt_slot_number.setText("Not Provided");
 
+        if(farmSlotsData.getVegetableName()!=null)
+        if(farmSlotsData.getVegetableName().equalsIgnoreCase(""))
+        {
+            myViewHolder.txt_cultivated.setText("Not Provided");
+        }
+        else {
+            myViewHolder.txt_cultivated.setText(farmSlotsData.getVegetableName());
+        }
+        else
+            myViewHolder.txt_cultivated.setText("Not Provided");
     }
 
     @Override

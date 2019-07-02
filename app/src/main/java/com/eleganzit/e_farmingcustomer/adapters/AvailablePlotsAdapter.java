@@ -1,6 +1,8 @@
 package com.eleganzit.e_farmingcustomer.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
@@ -54,7 +56,6 @@ public class AvailablePlotsAdapter extends RecyclerView.Adapter<AvailablePlotsAd
 
         final AvailablePlotsData availablePlotsData=arrayList.get(i);
 
-
         Glide
                 .with(context)
                 .asBitmap()
@@ -62,6 +63,14 @@ public class AvailablePlotsAdapter extends RecyclerView.Adapter<AvailablePlotsAd
                 .load(availablePlotsData.getFarmPhoto())
                 .thumbnail(.1f)
                 .into(myViewHolder.img_farm);
+
+        myViewHolder.lin_view_map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("http://maps.google.co.in/maps?q=" + availablePlotsData.getFarmLocation()));
+                context.startActivity(i);
+            }
+        });
 
         if(availablePlotsData.getFarmName().equalsIgnoreCase(""))
         {
