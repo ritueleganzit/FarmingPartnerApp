@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:onClick="@{chooseExerciseListAdapter.onListItemClick}"
+        android:onClick="@{chooseExerciseListAdapter::onListItemClick}"
         android:onLongClick="@{chooseExerciseListAdapter::onLongClick}">
 
         <android.support.v7.widget.CardView
