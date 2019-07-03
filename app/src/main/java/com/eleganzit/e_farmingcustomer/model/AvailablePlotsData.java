@@ -44,8 +44,11 @@ public class AvailablePlotsData {
     @SerializedName("plot_capacity")
     @Expose
     private String plotCapacity;
+    @SerializedName("remain_capacity")
+    @Expose
+    private String remain_capacity;
 
-    public AvailablePlotsData(String farmingPartnerId, String farmingPartnerName, String email, String phone, String calender, String registerDate, String farmId, String farmName, String farmPhoto, String farmDescription, String farmAddress, String farmLocation, String plotCapacity) {
+    public AvailablePlotsData(String farmingPartnerId, String farmingPartnerName, String email, String phone, String calender, String registerDate, String farmId, String farmName, String farmPhoto, String farmDescription, String farmAddress, String farmLocation, String plotCapacity, String remain_capacity) {
         this.farmingPartnerId = farmingPartnerId;
         this.farmingPartnerName = farmingPartnerName;
         this.email = email;
@@ -59,6 +62,7 @@ public class AvailablePlotsData {
         this.farmAddress = farmAddress;
         this.farmLocation = farmLocation;
         this.plotCapacity = plotCapacity;
+        this.remain_capacity = remain_capacity;
     }
 
     public String getFarmingPartnerId() {
@@ -165,5 +169,11 @@ public class AvailablePlotsData {
         this.plotCapacity = plotCapacity;
     }
 
+    public String getRemain_capacity() {
+        return remain_capacity;
+    }
 
+    public void setRemain_capacity(String remain_capacity) {
+        this.remain_capacity = remain_capacity;
+    }
 }

@@ -1,18 +1,23 @@
 package com.eleganzit.e_farmingcustomer;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Looper;
 import android.os.StrictMode;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +25,8 @@ import com.eleganzit.e_farmingcustomer.api.RetrofitAPI;
 import com.eleganzit.e_farmingcustomer.api.RetrofitInterface;
 import com.eleganzit.e_farmingcustomer.model.LoginRespose;
 import com.eleganzit.e_farmingcustomer.model.RegisterResponse;
+import com.eleganzit.e_farmingcustomer.model.SubLocationData;
+import com.eleganzit.e_farmingcustomer.model.SubLocationResponse;
 import com.eleganzit.e_farmingcustomer.utils.UserSessionManager;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.rilixtech.CountryCodePicker;
@@ -27,7 +34,9 @@ import com.rilixtech.CountryCodePicker;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -45,6 +54,9 @@ public class RegistrationActivity extends AppCompatActivity {
     UserSessionManager userSessionManager;
     CountryCodePicker ed_ccode;
     private String devicetoken;
+    List<String> sublocationList=new ArrayList<>();
+    List<SubLocationData> msublocationList=new ArrayList<>();
+    private String state_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +117,13 @@ public class RegistrationActivity extends AppCompatActivity {
                     }
                 }, mYear, mMonth, mDay);
                 datePickerDialog.show();
+            }
+        });
+
+        ed_sub_location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getSublocations();
             }
         });
 
@@ -196,7 +215,52 @@ public class RegistrationActivity extends AppCompatActivity {
         });
 
     }
-    
+
+    private void getSublocations() {
+
+        progressDialog.show();
+        RetrofitInterface myInterface = RetrofitAPI.getRetrofit().create(RetrofitInterface.class);
+        Call<SubLocationResponse> call = myInterface.getSublocations("");
+        call.enqueue(new Callback<SubLocationResponse>() {
+            @Override
+            public void onResponse(Call<SubLocationResponse> call, Response<SubLocationResponse> response) {
+                progressDialog.dismiss();
+                if (response.isSuccessful()) {
+                    if (response.body().getStatus().toString().equalsIgnoreCase("1")) {
+                        if (response.body().getData() != null) {
+
+                                for(int i=0;i<response.body().getData().size();i++)
+                                {
+                                    sublocationList.add(response.body().getData().get(i).getSublocationName());
+                                    msublocationList.add(response.body().getData().get(i));
+                                }
+                                showLocationDialog();
+
+                        }
+                    }
+                    else
+                    {
+                        Toast.makeText(RegistrationActivity.this, "Please try again", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+                else
+                {
+                    Toast.makeText(RegistrationActivity.this, ""+response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<SubLocationResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(RegistrationActivity.this, "Server or Internet Error", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
     public boolean isValid() {
         final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
         Pattern pattern;
@@ -259,16 +323,16 @@ public class RegistrationActivity extends AppCompatActivity {
             ed_password.requestFocus();
 
             return false;
-        } else if (!ed_password.getText().toString().trim().equals(ed_cpassword.getText().toString())) {
+        } else if (!ed_password.getText().toString().trim().equals(ed_cpassword.getText().toString().trim())) {
 
             ed_cpassword.setError("Password doesn't match");
 
             ed_cpassword.requestFocus();
 
             return false;
-        } else if (ed_phone.getText().toString().trim().equals("")) {
+        } else  if (ed_phone.getText().toString().trim().equals("") || ed_phone.getText().toString().trim().length()<10) {
 
-            ed_phone.setError("Phone is mandatory");
+            ed_phone.setError("Phone number must contain 10 digits");
 
             ed_phone.requestFocus();
 
@@ -277,6 +341,28 @@ public class RegistrationActivity extends AppCompatActivity {
 
 
         return true;
+    }
+
+    void showLocationDialog() {
+
+        final ListAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_single_choice, android.R.id.text1, sublocationList);
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.AlertDialogCustom));
+
+        builder.setSingleChoiceItems(adapter, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+
+                ed_sub_location.setText(msublocationList.get(i).getSublocationName());
+
+                state_id=msublocationList.get(i).getLocationId();
+
+            }
+        });
+
+        builder.show();
+
     }
 
     @Override

@@ -13,14 +13,11 @@ import com.eleganzit.e_farmingcustomer.api.RetrofitAPI;
 import com.eleganzit.e_farmingcustomer.api.RetrofitInterface;
 import com.eleganzit.e_farmingcustomer.model.ForgotPasswordResponse;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ChangePasswordActivity extends AppCompatActivity {
+public class ResetPasswordActivity extends AppCompatActivity {
 
     EditText ed_password,ed_cpassword;
     Button btn_submit;
@@ -30,8 +27,8 @@ public class ChangePasswordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_change_password);
-        progressDialog = new ProgressDialog(ChangePasswordActivity.this);
+        setContentView(R.layout.activity_reset_password);
+        progressDialog = new ProgressDialog(ResetPasswordActivity.this);
         progressDialog.setMessage("Please Wait");
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
@@ -64,8 +61,8 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 {
                     if (response.body().getStatus().toString().equalsIgnoreCase("1")) 
                     {
-                        Toast.makeText(ChangePasswordActivity.this, "Password has been reset successfully", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(ChangePasswordActivity.this, LoginActivity.class)
+                        Toast.makeText(ResetPasswordActivity.this, "Password has been reset successfully", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(ResetPasswordActivity.this, LoginActivity.class)
                                         .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
 
@@ -80,7 +77,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ForgotPasswordResponse> call, Throwable t) {
                 progressDialog.dismiss();
-                Toast.makeText(ChangePasswordActivity.this, "Server or Internet Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ResetPasswordActivity.this, "Server or Internet Error", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -19,6 +19,12 @@
         <item name="tabSelectedTextColor">@color/colorBlack</item>
     </style>
 
+    <style name="AlertDialogCustom" parent="@android:style/Animation.Dialog">
+        <item name="android:typeface">sans</item>
+
+
+    </style>
+
     <style name="MyCustomTabText" parent="TextAppearance.AppCompat.Button">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/colorAccent</item>

@@ -1,25 +1,40 @@
 package com.eleganzit.e_farmingcustomer;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.ContextThemeWrapper;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.Toast;
 
 import com.eleganzit.e_farmingcustomer.api.RetrofitAPI;
 import com.eleganzit.e_farmingcustomer.api.RetrofitInterface;
+import com.eleganzit.e_farmingcustomer.model.ForgotPasswordResponse;
 import com.eleganzit.e_farmingcustomer.model.LoginRespose;
+import com.eleganzit.e_farmingcustomer.model.SubLocationData;
+import com.eleganzit.e_farmingcustomer.model.SubLocationResponse;
 import com.eleganzit.e_farmingcustomer.model.UpdateResponse;
 import com.eleganzit.e_farmingcustomer.utils.UserSessionManager;
 import com.rilixtech.CountryCodePicker;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,11 +45,15 @@ import retrofit2.Response;
 public class EditProfileActivity extends AppCompatActivity {
 
     TextInputEditText ed_birthdate;
-    EditText ed_fname,ed_lname,ed_address,ed_landmark,ed_sub_location,ed_email,ed_phone,ed_referral_code,ed_password,ed_cpassword;
+    EditText ed_fname,ed_lname,ed_address,ed_landmark,ed_sub_location,ed_email,ed_phone,ed_referral_code;
     Button btn_submit;
     ProgressDialog progressDialog;
     UserSessionManager userSessionManager;
     CountryCodePicker ed_ccode;
+    LinearLayout lin_change_password;
+    List<String> sublocationList=new ArrayList<>();
+    List<SubLocationData> msublocationList=new ArrayList<>();
+    private String state_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,9 +85,8 @@ public class EditProfileActivity extends AppCompatActivity {
         ed_ccode.setClickable(false);
         ed_phone=findViewById(R.id.ed_phone);
         ed_referral_code=findViewById(R.id.ed_referral_code);
-        ed_password=findViewById(R.id.ed_password);
-        ed_cpassword=findViewById(R.id.ed_cpassword);
         btn_submit=findViewById(R.id.btn_submit);
+        lin_change_password=findViewById(R.id.lin_change_password);
         //ed_ccode.registerPhoneNumberTextView(ed_phone);
 
         ed_fname.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_FNAME).trim());
@@ -100,6 +118,13 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
 
+        ed_sub_location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getSublocations();
+            }
+        });
+
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -111,16 +136,172 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
 
+        lin_change_password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Dialog dialog=new Dialog(EditProfileActivity.this);
+                dialog.setContentView(R.layout.change_password_dialog);
+
+                Button btn_ok=dialog.findViewById(R.id.btn_ok);
+                final EditText ed_crntpassword=dialog.findViewById(R.id.ed_crntpassword);
+                final EditText ed_newpassword=dialog.findViewById(R.id.ed_newpassword);
+                final EditText ed_cpassword=dialog.findViewById(R.id.ed_cpassword);
+
+                btn_ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        if (ed_crntpassword.getText().toString().trim().equals("") || ed_crntpassword.getText().toString().trim().length() < 6) {
+
+                            ed_crntpassword.setError("Please enter valid password");
+
+                            ed_crntpassword.requestFocus();
+
+                        } else if (ed_newpassword.getText().toString().trim().equals("") || ed_newpassword.getText().toString().trim().length() < 6) {
+
+                            ed_newpassword.setError("Please enter valid new password");
+
+                            ed_newpassword.requestFocus();
+
+                        } else if (!ed_newpassword.getText().toString().trim().equals(ed_cpassword.getText().toString().trim())) {
+
+                            ed_cpassword.setError("Password doesn't match");
+
+                            ed_cpassword.requestFocus();
+
+                        }
+                        else
+                        {
+                            changePassword(dialog,userSessionManager.getUserDetails().get(UserSessionManager.KEY_EMAIL),ed_crntpassword.getText().toString(),ed_newpassword.getText().toString());
+                        }
+
+                    }
+                });
+
+                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                lp.copyFrom(dialog.getWindow().getAttributes());
+                lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+                lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+                dialog.getWindow().setAttributes(lp);
+                Window window = dialog.getWindow();
+                window.setBackgroundDrawableResource(android.R.color.transparent);
+
+                dialog.show();
+            }
+        });
+
     }
+
+
+    private void getSublocations() {
+
+        progressDialog.show();
+        RetrofitInterface myInterface = RetrofitAPI.getRetrofit().create(RetrofitInterface.class);
+        Call<SubLocationResponse> call = myInterface.getSublocations("");
+        call.enqueue(new Callback<SubLocationResponse>() {
+            @Override
+            public void onResponse(Call<SubLocationResponse> call, Response<SubLocationResponse> response) {
+                progressDialog.dismiss();
+                if (response.isSuccessful()) {
+                    if (response.body().getStatus().toString().equalsIgnoreCase("1")) {
+                        if (response.body().getData() != null) {
+
+                            for(int i=0;i<response.body().getData().size();i++)
+                            {
+                                sublocationList.add(response.body().getData().get(i).getSublocationName());
+                                msublocationList.add(response.body().getData().get(i));
+                            }
+                            showLocationDialog();
+
+                        }
+                    }
+                    else
+                    {
+                        Toast.makeText(EditProfileActivity.this, "Please try again", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+                else
+                {
+                    Toast.makeText(EditProfileActivity.this, ""+response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<SubLocationResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(EditProfileActivity.this, "Server or Internet Error", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    void showLocationDialog() {
+
+        final ListAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_single_choice, android.R.id.text1, sublocationList);
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.AlertDialogCustom));
+
+        builder.setSingleChoiceItems(adapter, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+
+                ed_sub_location.setText(msublocationList.get(i).getSublocationName());
+
+                state_id=msublocationList.get(i).getLocationId();
+
+            }
+        });
+
+        builder.show();
+
+    }
+
+    private void changePassword(final Dialog dialog, String email, String old_password, final String new_password) {
+
+        progressDialog.show();
+        RetrofitInterface myInterface = RetrofitAPI.getRetrofit().create(RetrofitInterface.class);
+        Call<ForgotPasswordResponse> call=myInterface.changePassword(email,old_password,new_password);
+        call.enqueue(new Callback<ForgotPasswordResponse>() {
+            @Override
+            public void onResponse(Call<ForgotPasswordResponse> call, Response<ForgotPasswordResponse> response) {
+                progressDialog.dismiss();
+                if (response.isSuccessful())
+                {
+                    if (response.body().getStatus().toString().equalsIgnoreCase("1"))
+                    {
+                        userSessionManager.updatePassword(new_password);
+                        dialog.dismiss();
+                        Toast.makeText(EditProfileActivity.this, "Password has been changed successfully", Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                    {
+                        Toast.makeText(EditProfileActivity.this, "Please try again", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ForgotPasswordResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(EditProfileActivity.this, "Server or Internet Error", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 
     private void updateProfile() {
 
         progressDialog.show();
         RetrofitInterface myInterface = RetrofitAPI.getRetrofit().create(RetrofitInterface.class);
-        Call<UpdateResponse> call = myInterface.updateProfile(userSessionManager.getUserDetails().get(UserSessionManager.KEY_USER_ID),ed_fname.getText().toString().trim(), ed_lname.getText().toString().trim(),
+        Call<UpdateResponse> call = myInterface.updateProfile(userSessionManager.getUserDetails().get(UserSessionManager.KEY_USER_ID),
+                ed_fname.getText().toString().trim(), ed_lname.getText().toString().trim(),
                 ed_address.getText().toString(), ed_landmark.getText().toString(),ed_sub_location.getText().toString(),
-                ed_phone.getText().toString().trim(), ed_birthdate.getText().toString().trim(),
-                ed_cpassword.getText().toString().trim());
+                ed_phone.getText().toString().trim(), ed_birthdate.getText().toString().trim());
+
         call.enqueue(new Callback<UpdateResponse>() {
             @Override
             public void onResponse(Call<UpdateResponse> call, Response<UpdateResponse> response) {
@@ -128,7 +309,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     if (response.body().getStatus().toString().equalsIgnoreCase("1")) {
 
-                        userSessionManager.updateUserData(ed_password.getText().toString(), ed_fname.getText().toString(),ed_lname.getText().toString(),ed_phone.getText().toString(), ed_birthdate.getText().toString(),ed_address.getText().toString(),ed_landmark.getText().toString(),ed_sub_location.getText().toString(),userSessionManager.getUserDetails().get(UserSessionManager.KEY_PHOTO));
+                        userSessionManager.updateUserData(userSessionManager.getUserDetails().get(UserSessionManager.KEY_PASSWORD), ed_fname.getText().toString(),ed_lname.getText().toString(),ed_phone.getText().toString(), ed_birthdate.getText().toString(),ed_address.getText().toString(),ed_landmark.getText().toString(),ed_sub_location.getText().toString(),userSessionManager.getUserDetails().get(UserSessionManager.KEY_PHOTO));
                         Toast.makeText(EditProfileActivity.this, "Successfully updated", Toast.LENGTH_SHORT).show();
                         finish();
 
@@ -204,9 +385,9 @@ public class EditProfileActivity extends AppCompatActivity {
             ed_email.requestFocus();
             return false;
         }
-        else  if (ed_phone.getText().toString().trim().equals("")) {
+        else  if (ed_phone.getText().toString().trim().equals("") || ed_phone.getText().toString().trim().length()<10) {
 
-            ed_phone.setError("Phone is mandatory");
+            ed_phone.setError("Phone number must contain 10 digits");
 
             ed_phone.requestFocus();
 

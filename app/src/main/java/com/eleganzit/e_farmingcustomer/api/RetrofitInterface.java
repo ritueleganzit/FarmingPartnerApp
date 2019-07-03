@@ -11,6 +11,7 @@ import com.eleganzit.e_farmingcustomer.model.LoginRespose;
 import com.eleganzit.e_farmingcustomer.model.ManageFarmResponse;
 import com.eleganzit.e_farmingcustomer.model.RegisterResponse;
 import com.eleganzit.e_farmingcustomer.model.SlotDetailsResponse;
+import com.eleganzit.e_farmingcustomer.model.SubLocationResponse;
 import com.eleganzit.e_farmingcustomer.model.UpdateResponse;
 import com.eleganzit.e_farmingcustomer.model.UserDetailsResponse;
 import com.eleganzit.e_farmingcustomer.model.VegetablesResponse;
@@ -75,8 +76,7 @@ public interface RetrofitInterface {
             @Field("landmark") String landmark,
             @Field("sub_location") String sub_location,
             @Field("phone") String phone,
-            @Field("dob") String dob,
-            @Field("password") String password
+            @Field("dob") String dob
 
     );
 
@@ -91,6 +91,12 @@ public interface RetrofitInterface {
     @FormUrlEncoded()
     @POST("/efarming-AdminPanel/efarm-api/availablePlots")
     Call<AvailablePlotsResponse> availablePlots(
+            @Field("dummy") String dummy
+    );
+
+    @FormUrlEncoded()
+    @POST("/efarming-AdminPanel/efarm-api/getSublocations")
+    Call<SubLocationResponse> getSublocations(
             @Field("dummy") String dummy
     );
 
@@ -163,6 +169,14 @@ public interface RetrofitInterface {
     Call<SlotDetailsResponse> vegetablesDetails(
             @Field("farm_id") String farm_id,
             @Field("vegetable_id") String vegetable_id
+    );
+
+    @FormUrlEncoded()
+    @POST("/efarming-AdminPanel/efarm-api/customerNewpassword")
+    Call<ForgotPasswordResponse> changePassword(
+            @Field("email") String email,
+            @Field("old_password") String old_password,
+            @Field("new_password") String new_password
     );
 
 }

@@ -74,14 +74,14 @@ public class OTPActivity extends AppCompatActivity {
                     if (response.body().getStatus().toString().equalsIgnoreCase("1")) 
                     {
 
-                        startActivity(new Intent(OTPActivity.this, ChangePasswordActivity.class)
+                        startActivity(new Intent(OTPActivity.this, ResetPasswordActivity.class)
                                 .putExtra("email", email));
                         finish();
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     }
                     else
                     {
-                        Toast.makeText(OTPActivity.this, "OTP doesn't match" , Toast.LENGTH_SHORT).show();
+                        Toast.makeText(OTPActivity.this, "Please enter valid OTP" , Toast.LENGTH_SHORT).show();
                     }
                 }
             }

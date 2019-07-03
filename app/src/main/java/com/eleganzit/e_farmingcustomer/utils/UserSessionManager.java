@@ -123,6 +123,14 @@ public class UserSessionManager {
         editor.commit();
     }
 
+    public void updatePassword(String password)
+    {
+        editor.putString(KEY_PASSWORD, password);
+
+        // commit changes
+        editor.commit();
+    }
+
     /**
      * Check login method wil check user login status
      * If false it will redirect user to login page
