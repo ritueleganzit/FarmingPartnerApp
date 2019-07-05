@@ -21,6 +21,9 @@ import com.eleganzit.e_farmingcustomer.api.RetrofitInterface;
 import com.eleganzit.e_farmingcustomer.databinding.MainActivityBinding;
 import com.eleganzit.e_farmingcustomer.model.AvailablePlotsData;
 import com.eleganzit.e_farmingcustomer.model.AvailablePlotsResponse;
+import com.eleganzit.e_farmingcustomer.model.ForgotPasswordResponse;
+import com.eleganzit.e_farmingcustomer.model.SubmitPlotResponse;
+import com.eleganzit.e_farmingcustomer.model.UpdateResponse;
 import com.eleganzit.e_farmingcustomer.model.VegetablesResponse;
 import com.eleganzit.e_farmingcustomer.utils.ClickListener;
 import com.eleganzit.e_farmingcustomer.utils.RecyclerTouchListener;
@@ -45,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
     private int currentPosition = -1;
     private boolean isExerciseAdded = false;
     public static boolean isFromExercise = false;
-    private String farm_id;
+    private String farm_id, farm_name, farm_desc,farm_address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +59,9 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
         userSessionManager=new UserSessionManager(this);
 
         farm_id=getIntent().getStringExtra("farm_id");
+        farm_name=getIntent().getStringExtra("farm_name");
+        farm_desc=getIntent().getStringExtra("farm_desc");
+        farm_address=getIntent().getStringExtra("farm_address");
 
         progressDialog = new ProgressDialog(MainActivity.this);
         progressDialog.setMessage("Please Wait");
@@ -63,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
         progressDialog.setCanceledOnTouchOutside(false);
 
         getVegetables();
+
         mainActivityBinding.setMainActivity(this);
         mainActivityBinding.rcvSelectedExercise.setOnDragListener(this);
 
@@ -207,7 +214,82 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
             }
         });
 
+        mainActivityBinding.btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendVegetables();
+            }
+        });
+
     }
+
+
+    private void sendVegetables() {
+
+        StringBuilder sb = new StringBuilder();
+        for(int i=0;i<exerciseSelectedList.size();i++)
+        {
+            Log.d("productsssssssss",exerciseSelectedList.get(i)+"");
+            if (i==exerciseSelectedList.size()-1)
+            {
+                sb.append(exerciseSelectedList.get(i).getVegetableId()).append("");
+            }
+            else {
+                sb.append(exerciseSelectedList.get(i).getVegetableId()).append(",");
+
+            }
+        }
+
+        Log.d("uuuuuuuuuuu",sb.toString()+"  "+userSessionManager.getUserDetails().get(UserSessionManager.KEY_SUB_LOCATION)+"   "+farm_id+"    "+farm_name+"    "+farm_desc);
+
+        progressDialog.show();
+        RetrofitInterface myInterface = RetrofitAPI.getRetrofit().create(RetrofitInterface.class);
+        Call<SubmitPlotResponse> call = myInterface.sendVegetables(
+                userSessionManager.getUserDetails().get(UserSessionManager.KEY_USER_ID),
+                farm_id,
+                farm_name,
+                farm_desc,
+                "",
+                "",
+                farm_address,
+                "",
+                "",
+                "HDFC Bank loan",
+                "500",
+                sb.toString());
+
+        call.enqueue(new Callback<SubmitPlotResponse>() {
+            @Override
+            public void onResponse(Call<SubmitPlotResponse> call, Response<SubmitPlotResponse> response) {
+                progressDialog.dismiss();
+                if (response.isSuccessful()) {
+                    if (response.body().getStatus().toString().equalsIgnoreCase("1")) {
+
+                        Toast.makeText(MainActivity.this, "Submitted Successfully "+response.body().getData().get(0).getPlotName(), Toast.LENGTH_SHORT).show();
+                        finish();
+
+                    } else {
+
+                        Toast.makeText(MainActivity.this, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+
+                }
+                else {
+                    Toast.makeText(MainActivity.this, "Submitted "+response.message(), Toast.LENGTH_SHORT).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SubmitPlotResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(MainActivity.this, "Server or Internet Error" + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
 
     private void getVegetables() {
         progressDialog.show();

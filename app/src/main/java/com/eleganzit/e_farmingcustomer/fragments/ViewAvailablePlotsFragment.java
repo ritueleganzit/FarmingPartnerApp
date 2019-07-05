@@ -46,7 +46,7 @@ public class ViewAvailablePlotsFragment extends Fragment {
     LinearLayout lin_view_map;
     UserSessionManager userSessionManager;
     ProgressDialog progressDialog;
-    String farm_id,location="";
+    String farm_id,farm_name,farm_desc,farm_address,location="";
 
     public ViewAvailablePlotsFragment() {
         // Required empty public constructor
@@ -58,7 +58,9 @@ public class ViewAvailablePlotsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v=inflater.inflate(R.layout.fragment_view_available_plots, container, false);
+
         farm_id=getArguments().getString("farm_id");
+
         userSessionManager=new UserSessionManager(getActivity());
 
         progressDialog = new ProgressDialog(getActivity());
@@ -84,7 +86,11 @@ public class ViewAvailablePlotsFragment extends Fragment {
         btn_continue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), MainActivity.class).putExtra("farm_id",farm_id));
+                startActivity(new Intent(getActivity(), MainActivity.class)
+                        .putExtra("farm_id",farm_id)
+                        .putExtra("farm_name",farm_name)
+                        .putExtra("farm_address",farm_address)
+                        .putExtra("farm_desc",farm_desc));
                 getActivity().overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
             }
         });
@@ -117,7 +123,9 @@ public class ViewAvailablePlotsFragment extends Fragment {
                     if (response.body().getStatus().toString().equalsIgnoreCase("1")) {
                         if (response.body().getData() != null) {
 
-
+                            farm_desc=response.body().getData().get(0).getFarmDescription();
+                            farm_name=response.body().getData().get(0).getPlot_name();
+                            farm_address=response.body().getData().get(0).getFarmAddress();
 
                             Glide
                                     .with(getActivity())

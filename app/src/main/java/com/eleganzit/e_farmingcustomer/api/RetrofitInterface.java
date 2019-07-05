@@ -12,6 +12,7 @@ import com.eleganzit.e_farmingcustomer.model.ManageFarmResponse;
 import com.eleganzit.e_farmingcustomer.model.RegisterResponse;
 import com.eleganzit.e_farmingcustomer.model.SlotDetailsResponse;
 import com.eleganzit.e_farmingcustomer.model.SubLocationResponse;
+import com.eleganzit.e_farmingcustomer.model.SubmitPlotResponse;
 import com.eleganzit.e_farmingcustomer.model.UpdateResponse;
 import com.eleganzit.e_farmingcustomer.model.UserDetailsResponse;
 import com.eleganzit.e_farmingcustomer.model.VegetablesResponse;
@@ -178,5 +179,24 @@ public interface RetrofitInterface {
             @Field("old_password") String old_password,
             @Field("new_password") String new_password
     );
+
+    @FormUrlEncoded()
+    @POST("/efarming-AdminPanel/efarm-api/addcustomerSlots")
+    Call<SubmitPlotResponse> sendVegetables(
+            @Field("customer_id") String customer_id,
+            @Field("farm_id") String farm_id,
+            @Field("plot_name") String plot_name,
+            @Field("plot_description") String plot_description,
+            @Field("sub_location") String sub_location,
+            @Field("landmark") String landmark,
+            @Field("address") String address,
+            @Field("referal_code") String referal_code,
+            @Field("payment_date") String payment_date,
+            @Field("payment_referance") String payment_referance,
+            @Field("amount") String amount,
+            @Field("veg_list") String veg_list
+
+    );
+
 
 }

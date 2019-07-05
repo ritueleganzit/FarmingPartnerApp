@@ -3,8 +3,7 @@ package com.eleganzit.e_farmingcustomer.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class FarmDetailsData {
-
+public class SubmitPlotData {
     @SerializedName("farming_partner_id")
     @Expose
     private String farmingPartnerId;
@@ -46,7 +45,7 @@ public class FarmDetailsData {
     private String plotCapacity;
     @SerializedName("plot_name")
     @Expose
-    private String plot_name;
+    private String plotName;
 
     public String getFarmingPartnerId() {
         return farmingPartnerId;
@@ -152,11 +151,11 @@ public class FarmDetailsData {
         this.plotCapacity = plotCapacity;
     }
 
-    public String getPlot_name() {
-        return plot_name;
+    public String getPlotName() {
+        return plotName;
     }
 
-    public void setPlot_name(String plot_name) {
-        this.plot_name = plot_name;
+    public void setPlotName(String plotName) {
+        this.plotName = plotName;
     }
 }

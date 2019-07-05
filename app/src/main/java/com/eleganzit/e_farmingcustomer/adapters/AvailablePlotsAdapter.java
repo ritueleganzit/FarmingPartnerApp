@@ -111,6 +111,8 @@ public class AvailablePlotsAdapter extends RecyclerView.Adapter<AvailablePlotsAd
                 ViewAvailablePlotsFragment viewAvailablePlotsFragment= new ViewAvailablePlotsFragment();
                 Bundle bundle=new Bundle();
                 bundle.putString("farm_id", availablePlotsData.getFarmId());
+                bundle.putString("farm_name", availablePlotsData.getFarmId());
+                bundle.putString("farm_desc", availablePlotsData.getFarmId());
                 viewAvailablePlotsFragment.setArguments(bundle);
                 FragmentTransaction fragmentTransaction = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.addToBackStack("NavHomeActivity");

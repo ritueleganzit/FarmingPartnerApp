@@ -62,6 +62,7 @@ public class UserSessionManager {
     /**
      * Create login session
      * */
+
     public void createLoginSession(String user_id,String farm_id, String email, String password, String fname, String lname, String phone, String dob, String address, String landmark, String sub_location, String photo){
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
