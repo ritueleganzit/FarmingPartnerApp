@@ -265,7 +265,7 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
                 if (response.isSuccessful()) {
                     if (response.body().getStatus().toString().equalsIgnoreCase("1")) {
 
-                        Toast.makeText(MainActivity.this, "Submitted Successfully "+response.body().getData().get(0).getPlotName(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Submitted Successfully ", Toast.LENGTH_SHORT).show();
                         finish();
 
                     } else {

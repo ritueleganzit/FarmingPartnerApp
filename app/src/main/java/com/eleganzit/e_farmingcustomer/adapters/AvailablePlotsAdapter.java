@@ -1,6 +1,9 @@
 package com.eleganzit.e_farmingcustomer.adapters;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,12 +13,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,21 +29,35 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
+import com.eleganzit.e_farmingcustomer.EditProfileActivity;
 import com.eleganzit.e_farmingcustomer.R;
+import com.eleganzit.e_farmingcustomer.api.RetrofitAPI;
+import com.eleganzit.e_farmingcustomer.api.RetrofitInterface;
 import com.eleganzit.e_farmingcustomer.fragments.AvailablePlotsFragment;
 import com.eleganzit.e_farmingcustomer.fragments.ViewAvailablePlotsFragment;
 import com.eleganzit.e_farmingcustomer.model.AvailablePlotsData;
+import com.eleganzit.e_farmingcustomer.model.PlotListData;
+import com.eleganzit.e_farmingcustomer.model.PlotListResponse;
+import com.eleganzit.e_farmingcustomer.model.SubLocationResponse;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AvailablePlotsAdapter extends RecyclerView.Adapter<AvailablePlotsAdapter.MyViewHolder> {
 
     ArrayList<AvailablePlotsData> arrayList;
     Context context;
+    ProgressDialog progressDialog;
+    ArrayList<String> plotList=new ArrayList<>();
+    ArrayList<PlotListData> mplotList=new ArrayList<>();
 
-    public AvailablePlotsAdapter(ArrayList<AvailablePlotsData> arrayList, Context context) {
+    public AvailablePlotsAdapter(ArrayList<AvailablePlotsData> arrayList, Context context, ProgressDialog progressDialog) {
         this.arrayList = arrayList;
         this.context = context;
+        this.progressDialog = progressDialog;
     }
 
     @NonNull
@@ -108,20 +128,91 @@ public class AvailablePlotsAdapter extends RecyclerView.Adapter<AvailablePlotsAd
             public void onClick(View view) {
 
                 //((FragmentActivity)context).getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+                farmPlotlist(availablePlotsData.getFarmId(),availablePlotsData.getFarmDescription());
+
+            }
+        });
+
+    }
+
+
+    void showPlotsDialog(final String farm_id, final String farm_desc) {
+
+        final ListAdapter adapter = new ArrayAdapter(context, android.R.layout.simple_list_item_1, android.R.id.text1, plotList);
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(context, R.style.AlertDialogCustom));
+
+        builder.setTitle("Select Plot");
+
+        builder.setSingleChoiceItems(adapter, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+
                 ViewAvailablePlotsFragment viewAvailablePlotsFragment= new ViewAvailablePlotsFragment();
                 Bundle bundle=new Bundle();
-                bundle.putString("farm_id", availablePlotsData.getFarmId());
-                bundle.putString("farm_name", availablePlotsData.getFarmId());
-                bundle.putString("farm_desc", availablePlotsData.getFarmId());
+                bundle.putString("farm_id", farm_id);
+                bundle.putString("farm_name", plotList.get(i));
+                bundle.putString("farm_desc", farm_desc);
                 viewAvailablePlotsFragment.setArguments(bundle);
                 FragmentTransaction fragmentTransaction = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.addToBackStack("NavHomeActivity");
                 fragmentTransaction.replace(R.id.container, viewAvailablePlotsFragment, "TAG");
                 fragmentTransaction.commit();
+
+            }
+        });
+
+        builder.show();
+
+    }
+
+    private void farmPlotlist(final String farm_id,final String farm_desc) {
+
+        progressDialog.show();
+        RetrofitInterface myInterface = RetrofitAPI.getRetrofit().create(RetrofitInterface.class);
+        Call<PlotListResponse> call = myInterface.farmPlotlist(farm_id);
+        call.enqueue(new Callback<PlotListResponse>() {
+            @Override
+            public void onResponse(Call<PlotListResponse> call, Response<PlotListResponse> response) {
+                progressDialog.dismiss();
+                if (response.isSuccessful()) {
+                    if (response.body().getStatus().toString().equalsIgnoreCase("1")) {
+                        if (response.body().getData() != null) {
+
+                            for(int i=0;i<response.body().getData().size();i++)
+                            {
+                                plotList.add(response.body().getData().get(i).getPlotName());
+                                mplotList.add(response.body().getData().get(i));
+                            }
+                            showPlotsDialog(farm_id,farm_desc);
+
+                        }
+                    }
+                    else
+                    {
+                        Toast.makeText(context, "Please try again", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+                else
+                {
+                    Toast.makeText(context, ""+response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<PlotListResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(context, "Server or Internet Error", Toast.LENGTH_SHORT).show();
             }
         });
 
     }
+
 
     @Override
     public int getItemCount() {

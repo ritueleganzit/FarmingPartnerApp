@@ -112,7 +112,7 @@ public class AvailablePlotsFragment extends Fragment {
 
 
 
-                            rc_plots.setAdapter(new AvailablePlotsAdapter(arrayList,getActivity()));
+                            rc_plots.setAdapter(new AvailablePlotsAdapter(arrayList,getActivity(),progressDialog));
 
 
                         }

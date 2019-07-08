@@ -9,6 +9,8 @@ import com.eleganzit.e_farmingcustomer.model.ForgotPasswordResponse;
 import com.eleganzit.e_farmingcustomer.model.InstructFarmerResponse;
 import com.eleganzit.e_farmingcustomer.model.LoginRespose;
 import com.eleganzit.e_farmingcustomer.model.ManageFarmResponse;
+import com.eleganzit.e_farmingcustomer.model.PlotListData;
+import com.eleganzit.e_farmingcustomer.model.PlotListResponse;
 import com.eleganzit.e_farmingcustomer.model.RegisterResponse;
 import com.eleganzit.e_farmingcustomer.model.SlotDetailsResponse;
 import com.eleganzit.e_farmingcustomer.model.SubLocationResponse;
@@ -196,6 +198,12 @@ public interface RetrofitInterface {
             @Field("amount") String amount,
             @Field("veg_list") String veg_list
 
+    );
+
+    @FormUrlEncoded()
+    @POST("/efarming-AdminPanel/efarm-api/farmPlotlist")
+    Call<PlotListResponse> farmPlotlist(
+            @Field("farm_id") String farm_id
     );
 
 

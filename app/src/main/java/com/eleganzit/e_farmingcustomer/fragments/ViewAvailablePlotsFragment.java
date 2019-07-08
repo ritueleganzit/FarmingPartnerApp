@@ -60,6 +60,7 @@ public class ViewAvailablePlotsFragment extends Fragment {
         View v=inflater.inflate(R.layout.fragment_view_available_plots, container, false);
 
         farm_id=getArguments().getString("farm_id");
+        farm_name=getArguments().getString("farm_name");
 
         userSessionManager=new UserSessionManager(getActivity());
 
@@ -124,7 +125,6 @@ public class ViewAvailablePlotsFragment extends Fragment {
                         if (response.body().getData() != null) {
 
                             farm_desc=response.body().getData().get(0).getFarmDescription();
-                            farm_name=response.body().getData().get(0).getPlot_name();
                             farm_address=response.body().getData().get(0).getFarmAddress();
 
                             Glide
