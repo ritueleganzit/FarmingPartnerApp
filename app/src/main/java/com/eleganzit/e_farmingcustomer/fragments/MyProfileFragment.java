@@ -146,9 +146,27 @@ public class MyProfileFragment extends Fragment {
             txt_dob.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_DOB));
         }
 
-        txt_address.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_ADDRESS));
-        txt_landmark.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_LANDMARK));
-        txt_sublocation.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_SUB_LOCATION));
+        if(userSessionManager.getUserDetails().get(UserSessionManager.KEY_ADDRESS).equalsIgnoreCase(""))
+        {
+            txt_address.setText("Not Provided");
+        }
+        else {
+            txt_address.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_ADDRESS));
+        }
+        if(userSessionManager.getUserDetails().get(UserSessionManager.KEY_LANDMARK).equalsIgnoreCase(""))
+        {
+            txt_landmark.setText("Not Provided");
+        }
+        else {
+            txt_landmark.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_LANDMARK));
+        }
+        if(userSessionManager.getUserDetails().get(UserSessionManager.KEY_SUB_LOCATION).equalsIgnoreCase(""))
+        {
+            txt_sublocation.setText("Not Provided");
+        }
+        else {
+            txt_sublocation.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_SUB_LOCATION));
+        }
         Glide
                 .with(this)
                 .load(photo).apply(new RequestOptions().placeholder(R.drawable.pr))
@@ -216,8 +234,20 @@ public class MyProfileFragment extends Fragment {
                                 photo = response.body().getData().get(i).getPhoto();
                                 dob = response.body().getData().get(i).getDob();
                                 address = response.body().getData().get(i).getAddress();
+                                if(address==null)
+                                {
+                                    address="";
+                                }
                                 landmark = response.body().getData().get(i).getLandmark();
+                                if(landmark==null)
+                                {
+                                    landmark="";
+                                }
                                 sub_location = response.body().getData().get(i).getSubLocation();
+                                if(sub_location==null)
+                                {
+                                    sub_location="";
+                                }
                                 phone = response.body().getData().get(i).getPhone();
 
                                 userSessionManager.updateUserData(userSessionManager.getUserDetails().get(UserSessionManager.KEY_PASSWORD), fname,lname,phone, dob,address,landmark,sub_location,photo);
@@ -236,10 +266,27 @@ public class MyProfileFragment extends Fragment {
                                     txt_dob.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_DOB));
                                 }
 
-                                txt_address.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_ADDRESS));
-                                txt_landmark.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_LANDMARK));
-                                txt_sublocation.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_SUB_LOCATION));
-
+                                if(userSessionManager.getUserDetails().get(UserSessionManager.KEY_ADDRESS).equalsIgnoreCase(""))
+                                {
+                                    txt_address.setText("Not Provided");
+                                }
+                                else {
+                                    txt_address.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_ADDRESS));
+                                }
+                                if(userSessionManager.getUserDetails().get(UserSessionManager.KEY_LANDMARK).equalsIgnoreCase(""))
+                                {
+                                    txt_landmark.setText("Not Provided");
+                                }
+                                else {
+                                    txt_landmark.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_LANDMARK));
+                                }
+                                if(userSessionManager.getUserDetails().get(UserSessionManager.KEY_SUB_LOCATION).equalsIgnoreCase(""))
+                                {
+                                    txt_sublocation.setText("Not Provided");
+                                }
+                                else {
+                                    txt_sublocation.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_SUB_LOCATION));
+                                }
                                 Glide
                                         .with(getActivity())
                                         .load(photo).apply(new RequestOptions().placeholder(R.drawable.pr))

@@ -135,10 +135,47 @@ public class NavHomeActivity extends AppCompatActivity
 
         user_name.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_FNAME)+" "+userSessionManager.getUserDetails().get(UserSessionManager.KEY_LNAME));
 
-        AvailablePlotsFragment availablePlotsFragment= new AvailablePlotsFragment();
-        getSupportFragmentManager().beginTransaction()//
-                .replace(R.id.container, availablePlotsFragment, "TAG")
-                .commit();
+
+        if(getIntent()!=null)
+        {
+            if(getIntent().getStringExtra("from")!=null)
+            {
+                if(getIntent().getStringExtra("from").equalsIgnoreCase("select_veg"))
+                {
+                    ManageFarmFragment manageFarmFragment= new ManageFarmFragment();
+                    getSupportFragmentManager().beginTransaction()//
+                            .replace(R.id.container, manageFarmFragment, "TAG")
+                            .commit();
+
+                }
+                else
+                {
+                    AvailablePlotsFragment availablePlotsFragment= new AvailablePlotsFragment();
+                    getSupportFragmentManager().beginTransaction()//
+                            .replace(R.id.container, availablePlotsFragment, "TAG")
+                            .commit();
+
+                }
+            }
+            else
+            {
+                AvailablePlotsFragment availablePlotsFragment= new AvailablePlotsFragment();
+                getSupportFragmentManager().beginTransaction()//
+                        .replace(R.id.container, availablePlotsFragment, "TAG")
+                        .commit();
+
+            }
+        }
+        else
+        {
+            AvailablePlotsFragment availablePlotsFragment= new AvailablePlotsFragment();
+            getSupportFragmentManager().beginTransaction()//
+                    .replace(R.id.container, availablePlotsFragment, "TAG")
+                    .commit();
+
+        }
+
+
         navigationView.setNavigationItemSelectedListener(this);
         drawer.setViewScale(Gravity.START, 0.9f);
         drawer.setRadius(Gravity.START, 15);

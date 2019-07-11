@@ -2,6 +2,7 @@ package com.eleganzit.e_farmingcustomer;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableArrayList;
 import android.os.Bundle;
@@ -266,6 +267,13 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
                     if (response.body().getStatus().toString().equalsIgnoreCase("1")) {
 
                         Toast.makeText(MainActivity.this, "Submitted Successfully ", Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(MainActivity.this, NavHomeActivity.class).putExtra("from","select_veg");
+                        // Closing all the Activities
+
+                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        // Staring Login Activity
+                        startActivity(i);
+                        overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
                         finish();
 
                     } else {

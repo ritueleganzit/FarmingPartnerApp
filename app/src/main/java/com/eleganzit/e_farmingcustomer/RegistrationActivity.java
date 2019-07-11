@@ -116,6 +116,8 @@ public class RegistrationActivity extends AppCompatActivity {
                         ed_birthdate.setText(i2 + "-" + (i1 + 1) + "-" + i);
                     }
                 }, mYear, mMonth, mDay);
+                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+
                 datePickerDialog.show();
             }
         });
@@ -186,15 +188,43 @@ public class RegistrationActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     if (response.body().getStatus().toString().equalsIgnoreCase("1")) {
                         if (response.body().getData() != null) {
-                            String email, id, username, photo;
-                            /*for (int i = 0; i < response.body().getData().size(); i++) {
-                                email = response.body().getData().get(i).getVendorEmail();
-                                id = response.body().getData().get(i).getVendorId();
-                                username = response.body().getData().get(i).getVendorName();
-                                photo = response.body().getData().get(i).getVendorStartTime();
-                                //userSessionManager.createLoginSession(id, email, ed_password.getText().toString(), username, photo);
+                            String email="", id="",farm_id="", fname="",lname="", photo="",phone="",dob="",address="",landmark="",sub_location="";
 
-                            }*/
+                            for (int i = 0; i < response.body().getData().size(); i++) {
+                                email = response.body().getData().get(i).getEmail();
+                                id = String.valueOf(response.body().getData().get(i).getCustomerId());
+                                //farm_id = response.body().getData().get(i).getFarm_id();
+                                fname = response.body().getData().get(i).getFname()+" ";
+                                lname = response.body().getData().get(i).getLname()+" ";
+                                //photo = response.body().getData().get(i).getPhoto();
+                                if(photo==null)
+                                {
+                                    photo="";
+                                }
+                                dob = response.body().getData().get(i).getDob();
+                                if(dob==null)
+                                {
+                                    dob="";
+                                }
+                                address = response.body().getData().get(i).getAddress();
+                                if(address==null)
+                                {
+                                    address="";
+                                }
+                                landmark = response.body().getData().get(i).getLandmark();
+                                if(landmark==null)
+                                {
+                                    landmark="";
+                                }
+                                sub_location = response.body().getData().get(i).getSubLocation();
+                                if(sub_location==null)
+                                {
+                                    sub_location="";
+                                }
+                                phone = response.body().getData().get(i).getPhone();
+                                userSessionManager.createLoginSession(id,farm_id, email, ed_password.getText().toString(), fname,lname,phone, dob,address,landmark,sub_location,photo);
+
+                            }
                             Toast.makeText(RegistrationActivity.this, "Registered successfully", Toast.LENGTH_SHORT).show();
                             finish();
                         }

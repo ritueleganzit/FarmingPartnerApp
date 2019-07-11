@@ -114,6 +114,8 @@ public class EditProfileActivity extends AppCompatActivity {
                         ed_birthdate.setText(i+"-"+(i1+1)+"-"+i2);
                     }
                 }, mYear,mMonth,mDay);
+                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+
                 datePickerDialog.show();
             }
         });
