@@ -320,25 +320,18 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
                         if (response.body().getData()!=null)
                         {
 
-                            if(response.body().getData().size()>=7)
+                            for (int i=0;i<response.body().getAdminVegList().size();i++)
                             {
-                                for (int i=0;i<7;i++)
-                                {
-                                    exerciseSelectedList.add(new ExcercisePojo(response.body().getData().get(i).getVegetableId(), response.body().getData().get(i).getVegName(), response.body().getData().get(i).getVegImage(),response.body().getData().get(i).getVegCatId(),response.body().getData().get(i).getLocalLanguage()));
-                                }
-                            }
-                            else
-                            {
-                                for (int i=0;i<response.body().getData().size();i++)
-                                {
-                                    exerciseSelectedList.add(new ExcercisePojo(response.body().getData().get(i).getVegetableId(), response.body().getData().get(i).getVegName(), response.body().getData().get(i).getVegImage(),response.body().getData().get(i).getVegCatId(),response.body().getData().get(i).getLocalLanguage()));
-                                }
-
+                                exerciseSelectedList.add(new ExcercisePojo(response.body().getAdminVegList().get(i).getVegetableId(), response.body().getData().get(i).getVegName(), response.body().getData().get(i).getVegImage(),response.body().getData().get(i).getVegCatId(),response.body().getData().get(i).getLocalLanguage()));
                             }
 
-                            for (int i=7;i<response.body().getData().size();i++)
+                            for (int i=0;i<response.body().getData().size();i++)
                             {
-                                exerciseList.add(new ExcercisePojo(response.body().getData().get(i).getVegetableId(), response.body().getData().get(i).getVegName(), response.body().getData().get(i).getVegImage(),response.body().getData().get(i).getVegCatId(),response.body().getData().get(i).getLocalLanguage()));
+                                if(!exerciseSelectedList.contains(new ExcercisePojo(response.body().getData().get(i).getVegetableId(), response.body().getData().get(i).getVegName(), response.body().getData().get(i).getVegImage(),response.body().getData().get(i).getVegCatId(),response.body().getData().get(i).getLocalLanguage())))
+                                {
+                                    exerciseList.add(new ExcercisePojo(response.body().getData().get(i).getVegetableId(), response.body().getData().get(i).getVegName(), response.body().getData().get(i).getVegImage(),response.body().getData().get(i).getVegCatId(),response.body().getData().get(i).getLocalLanguage()));
+                                }
+
                             }
 
                             Log.d("certecccc","  "+exerciseSelectedList.size()+"   "+exerciseList.size());

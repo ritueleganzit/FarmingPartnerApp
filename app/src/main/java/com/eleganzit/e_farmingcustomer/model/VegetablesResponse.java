@@ -17,6 +17,9 @@ public class VegetablesResponse {
     @SerializedName("data")
     @Expose
     private List<ExcercisePojo> data = null;
+    @SerializedName("admin_vegetablelist")
+    @Expose
+    private List<ExcercisePojo> admin_vegetablelist = null;
 
     public Integer getStatus() {
         return status;
@@ -40,5 +43,13 @@ public class VegetablesResponse {
 
     public void setData(List<ExcercisePojo> data) {
         this.data = data;
+    }
+
+    public List<ExcercisePojo> getAdminVegList() {
+        return admin_vegetablelist;
+    }
+
+    public void setAdminVegList(List<ExcercisePojo> data) {
+        this.admin_vegetablelist = data;
     }
 }
