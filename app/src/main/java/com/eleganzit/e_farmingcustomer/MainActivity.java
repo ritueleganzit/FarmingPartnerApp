@@ -327,13 +327,11 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
 
                             for (int i=0;i<response.body().getData().size();i++)
                             {
-                                if(!exerciseSelectedList.contains(new ExcercisePojo(response.body().getData().get(i).getVegetableId(), response.body().getData().get(i).getVegName(), response.body().getData().get(i).getVegImage(),response.body().getData().get(i).getVegCatId(),response.body().getData().get(i).getLocalLanguage())))
-                                {
-                                    exerciseList.add(new ExcercisePojo(response.body().getData().get(i).getVegetableId(), response.body().getData().get(i).getVegName(), response.body().getData().get(i).getVegImage(),response.body().getData().get(i).getVegCatId(),response.body().getData().get(i).getLocalLanguage()));
-                                }
+
+                                exerciseList.add(new ExcercisePojo(response.body().getData().get(i).getVegetableId(), response.body().getData().get(i).getVegName(), response.body().getData().get(i).getVegImage(),response.body().getData().get(i).getVegCatId(),response.body().getData().get(i).getLocalLanguage()));
 
                             }
-
+                            exerciseList.removeAll(exerciseSelectedList);
                             Log.d("certecccc","  "+exerciseSelectedList.size()+"   "+exerciseList.size());
 
                             if(exerciseList.size()==0)

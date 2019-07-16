@@ -51,8 +51,6 @@ public class AvailablePlotsAdapter extends RecyclerView.Adapter<AvailablePlotsAd
     ArrayList<AvailablePlotsData> arrayList;
     Context context;
     ProgressDialog progressDialog;
-    ArrayList<String> plotList=new ArrayList<>();
-    ArrayList<PlotListData> mplotList=new ArrayList<>();
 
     public AvailablePlotsAdapter(ArrayList<AvailablePlotsData> arrayList, Context context, ProgressDialog progressDialog) {
         this.arrayList = arrayList;
@@ -137,7 +135,7 @@ public class AvailablePlotsAdapter extends RecyclerView.Adapter<AvailablePlotsAd
     }
 
 
-    void showPlotsDialog(final String farm_id, final String farm_desc) {
+    void showPlotsDialog(final ArrayList<String> plotList, final String farm_id, final String farm_desc) {
 
         final ListAdapter adapter = new ArrayAdapter(context, android.R.layout.simple_list_item_1, android.R.id.text1, plotList);
 
@@ -177,6 +175,9 @@ public class AvailablePlotsAdapter extends RecyclerView.Adapter<AvailablePlotsAd
             @Override
             public void onResponse(Call<PlotListResponse> call, Response<PlotListResponse> response) {
                 progressDialog.dismiss();
+                ArrayList<String> plotList=new ArrayList<>();
+                ArrayList<PlotListData> mplotList=new ArrayList<>();
+
                 if (response.isSuccessful()) {
                     if (response.body().getStatus().toString().equalsIgnoreCase("1")) {
                         if (response.body().getData() != null) {
@@ -186,7 +187,7 @@ public class AvailablePlotsAdapter extends RecyclerView.Adapter<AvailablePlotsAd
                                 plotList.add(response.body().getData().get(i).getPlotName());
                                 mplotList.add(response.body().getData().get(i));
                             }
-                            showPlotsDialog(farm_id,farm_desc);
+                            showPlotsDialog(plotList,farm_id,farm_desc);
 
                         }
                     }

@@ -146,7 +146,7 @@ public class ViewAvailablePlotsFragment extends Fragment {
                                 txt_owner_name.setText(response.body().getData().get(0).getFarmingPartnerName());
                             }
 
-                            //txt_plot_number.setText("");
+                            txt_plot_number.setText(response.body().getData().get(0).getPlot_name());
                             //txt_plot_price.setText("");
                             if(response.body().getData().get(0).getPhone().equalsIgnoreCase(""))
                             {

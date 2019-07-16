@@ -193,5 +193,20 @@ public class ExcercisePojo {
     public void setHarvesting(String harvesting) {
         this.harvesting = harvesting;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ExcercisePojo)) return false;
+
+        ExcercisePojo class1 = (ExcercisePojo) o;
+
+        return exerciseId.equals(class1.exerciseId);
+    }
+
+    @Override
+    public int hashCode() {
+        return exerciseId.hashCode();
+    }
 }
 
