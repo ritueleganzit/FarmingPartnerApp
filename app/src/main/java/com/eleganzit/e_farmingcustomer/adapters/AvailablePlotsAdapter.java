@@ -112,7 +112,7 @@ public class AvailablePlotsAdapter extends RecyclerView.Adapter<AvailablePlotsAd
             myViewHolder.txt_total_capacity.setText("Not Provided");
         }
         else {
-            myViewHolder.txt_total_capacity.setText(availablePlotsData.getPlotCapacity()+"/"+availablePlotsData.getPlotCapacity());
+            myViewHolder.txt_total_capacity.setText(availablePlotsData.getRemain_capacity()+"/"+availablePlotsData.getPlotCapacity());
         }
         if(availablePlotsData.getFarmingPartnerName().equalsIgnoreCase(""))
         {

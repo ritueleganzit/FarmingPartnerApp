@@ -14,8 +14,10 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ResetPasswordActivity"></activity>
-        <activity android:name=".OTPActivity" />
+        <activity android:name=".ResetPasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".OTPActivity"
+            android:screenOrientation="portrait" />
 
         <uses-library
             android:name="org.apache.http.legacy"

@@ -284,7 +284,7 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
 
                 }
                 else {
-                    Toast.makeText(MainActivity.this, "Submitted "+response.message(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, ""+response.message(), Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -305,6 +305,7 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
         exerciseList = new ObservableArrayList<>();
 
         RetrofitInterface myInterface = RetrofitAPI.getRetrofit().create(RetrofitInterface.class);
+        Log.d("iddddsdas", farm_id+"");
         Call<VegetablesResponse> call=myInterface.vegetablesList(farm_id);
         call.enqueue(new Callback<VegetablesResponse>() {
             @Override
@@ -322,17 +323,20 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
 
                             for (int i=0;i<response.body().getAdminVegList().size();i++)
                             {
-                                exerciseSelectedList.add(new ExcercisePojo(response.body().getAdminVegList().get(i).getVegetableId(), response.body().getData().get(i).getVegName(), response.body().getData().get(i).getVegImage(),response.body().getData().get(i).getVegCatId(),response.body().getData().get(i).getLocalLanguage()));
+                                exerciseSelectedList.add(new ExcercisePojo(response.body().getAdminVegList().get(i).getVegetableId(), response.body().getAdminVegList().get(i).getVegName(), response.body().getAdminVegList().get(i).getVegImage(),response.body().getAdminVegList().get(i).getVegCatId(),response.body().getAdminVegList().get(i).getLocalLanguage()));
+                                Log.d("certecccc","1  "+response.body().getAdminVegList().get(i).exerciseId+"   ");
+
                             }
 
                             for (int i=0;i<response.body().getData().size();i++)
                             {
 
                                 exerciseList.add(new ExcercisePojo(response.body().getData().get(i).getVegetableId(), response.body().getData().get(i).getVegName(), response.body().getData().get(i).getVegImage(),response.body().getData().get(i).getVegCatId(),response.body().getData().get(i).getLocalLanguage()));
+                                Log.d("certecccc","2  "+"   "+response.body().getData().get(i).exerciseId);
 
                             }
+
                             exerciseList.removeAll(exerciseSelectedList);
-                            Log.d("certecccc","  "+exerciseSelectedList.size()+"   "+exerciseList.size());
 
                             if(exerciseList.size()==0)
                             {
