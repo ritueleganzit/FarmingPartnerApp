@@ -182,6 +182,8 @@ public interface RetrofitInterface {
             @Field("new_password") String new_password
     );
 
+
+    //->add plot id
     @FormUrlEncoded()
     @POST("/efarming-AdminPanel/efarm-api/addcustomerSlots")
     Call<SubmitPlotResponse> sendVegetables(

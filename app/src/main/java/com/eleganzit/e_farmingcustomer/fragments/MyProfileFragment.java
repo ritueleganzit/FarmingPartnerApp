@@ -326,7 +326,7 @@ public class MyProfileFragment extends Fragment {
 
 
     public void updatePhoto() {
-        Log.d("responseseeeepppp", "" + mediapath);
+        Log.d("responseseeeepppp", "" + mediapath+" "+userSessionManager.getUserDetails().get(UserSessionManager.KEY_USER_ID));
         progressDialog.show();
 
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), "" + userSessionManager.getUserDetails().get(UserSessionManager.KEY_USER_ID));
@@ -342,7 +342,7 @@ public class MyProfileFragment extends Fragment {
             public void onResponse(Call<UpdateResponse> call, final Response<UpdateResponse> response) {
                 progressDialog.dismiss();
                 if (response.isSuccessful()) {
-                    Log.d("responseseeee", "" + response.body().toString());
+                    Log.d("responseseeee", "--" + response.body().toString());
 
                     if (response.body().getStatus().toString().equalsIgnoreCase("1")) {
 

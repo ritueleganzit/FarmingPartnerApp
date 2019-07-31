@@ -77,7 +77,7 @@ public class ManageMyFarmActivity extends AppCompatActivity {
     private void getcustomerSlots() {
         reload.setVisibility(View.GONE);
         progressDialog.show();
-
+Log.d("customer_plot_id",customer_plot_id);
         RetrofitInterface myInterface = RetrofitAPI.getRetrofit().create(RetrofitInterface.class);
         Call<FarmSlotsResponse> call=myInterface.getcustomerSlots(customer_plot_id);
         call.enqueue(new Callback<FarmSlotsResponse>() {

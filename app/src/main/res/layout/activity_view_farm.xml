@@ -355,13 +355,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:maxLines="2"
+
                     android:background="@drawable/gradient_btn_bg"
                     android:fontFamily="@font/poppins_medium"
-                    android:text="SELL"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:text="SELL VEGETABLES"
+android:textSize="12sp"
                     android:textColor="#ffffff" />
 
                 <Button
+                    android:maxLines="2"
                     android:id="@+id/btn_walk"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -369,11 +372,12 @@
                     android:background="@drawable/gradient_btn_bg"
                     android:layout_marginLeft="15dp"
                     android:fontFamily="@font/poppins_medium"
-                    android:text="WALK"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:text="WALK IN HARVEST"
+                    android:textSize="12sp"
                     android:textColor="#ffffff" />
 
                 <Button
+                    android:maxLines="2"
                     android:id="@+id/btn_set"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -383,8 +387,8 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:layout_marginLeft="15dp"
-                    android:text="SET FOR DELIVERY"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:text="HOME DELIVERY"
+                    android:textSize="12sp"
                     android:textColor="#ffffff" />
 
             </LinearLayout>

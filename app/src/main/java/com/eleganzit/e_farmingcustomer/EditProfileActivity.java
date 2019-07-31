@@ -114,7 +114,6 @@ public class EditProfileActivity extends AppCompatActivity {
                         ed_birthdate.setText(i+"-"+(i1+1)+"-"+i2);
                     }
                 }, mYear,mMonth,mDay);
-                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
 
                 datePickerDialog.show();
             }
@@ -382,7 +381,7 @@ public class EditProfileActivity extends AppCompatActivity {
             return false;
         }
         else if (!matcher.matches()) {
-            ed_email.setError("Please enter valid email");
+            ed_email.setError("Please enter a Valid e-mail id");
 
             ed_email.requestFocus();
             return false;

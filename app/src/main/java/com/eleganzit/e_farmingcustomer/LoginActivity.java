@@ -162,7 +162,7 @@ public class LoginActivity extends AppCompatActivity {
         matcher = pattern.matcher(ed_email.getText().toString());
 
         if (!matcher.matches()) {
-            ed_email.setError("Please enter valid email");
+            ed_email.setError("Please enter a Valid e-mail id");
 
             ed_email.requestFocus();
             return false;

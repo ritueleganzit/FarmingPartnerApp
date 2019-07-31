@@ -323,15 +323,28 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
 
                             for (int i=0;i<response.body().getAdminVegList().size();i++)
                             {
-                                exerciseSelectedList.add(new ExcercisePojo(response.body().getAdminVegList().get(i).getVegetableId(), response.body().getAdminVegList().get(i).getVegName(), response.body().getAdminVegList().get(i).getVegImage(),response.body().getAdminVegList().get(i).getVegCatId(),response.body().getAdminVegList().get(i).getLocalLanguage()));
+
+                                ExcercisePojo excercisePojo=new ExcercisePojo(response.body().getAdminVegList().get(i).getVegetableId(), response.body().getAdminVegList().get(i).getVegName(), response.body().getAdminVegList().get(i).getVegImage(),response.body().getAdminVegList().get(i).getVegCatId(),response.body().getAdminVegList().get(i).getLocalLanguage());
+
+                                exerciseSelectedList.add(excercisePojo);
                                 Log.d("certecccc","1  "+response.body().getAdminVegList().get(i).exerciseId+"   ");
 
                             }
 
                             for (int i=0;i<response.body().getData().size();i++)
                             {
+                                Log.d("dsfsfs",""+response.body().getData().get(i).getSaplingDate());
 
-                                exerciseList.add(new ExcercisePojo(response.body().getData().get(i).getVegetableId(), response.body().getData().get(i).getVegName(), response.body().getData().get(i).getVegImage(),response.body().getData().get(i).getVegCatId(),response.body().getData().get(i).getLocalLanguage()));
+                                ExcercisePojo excercisePojo=new ExcercisePojo(response.body().getData().get(i).getVegetableId(), response.body().getData().get(i).getVegName(), response.body().getData().get(i).getVegImage(),response.body().getData().get(i).getVegCatId(),response.body().getData().get(i).getLocalLanguage());
+                                excercisePojo.setSaplingDate(response.body().getData().get(i).getSaplingDate());
+                                excercisePojo.setDeweeding1(response.body().getData().get(i).getDeweeding1());
+                                excercisePojo.setDeweeding2(response.body().getData().get(i).getDeweeding2());
+                                excercisePojo.setDeweeding3(response.body().getData().get(i).getDeweeding3());
+                                excercisePojo.setFertilizing1(response.body().getData().get(i).getFertilizing1());
+                                excercisePojo.setFertilizing2(response.body().getData().get(i).getFertilizing2());
+                                excercisePojo.setFertilizing3(response.body().getData().get(i).getFertilizing3());
+                                excercisePojo.setHarvesting(response.body().getData().get(i).getHarvesting());
+                                exerciseList.add(excercisePojo);
                                 Log.d("certecccc","2  "+"   "+response.body().getData().get(i).exerciseId);
 
                             }
