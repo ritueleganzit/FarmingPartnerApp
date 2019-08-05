@@ -43,6 +43,21 @@ public class UserDetailsData {
     @SerializedName("address")
     @Expose
     private String address;
+  @SerializedName("house_no")
+    @Expose
+    private String house_no;
+
+    public String getHouse_no() {
+        return house_no;
+    }
+
+    public void setHouse_no(String house_no) {
+        this.house_no = house_no;
+    }
+
+    @SerializedName("region")
+    @Expose
+    private String region;
     @SerializedName("payment_date")
     @Expose
     private String paymentDate;
@@ -82,6 +97,14 @@ public class UserDetailsData {
     @SerializedName("device_token")
     @Expose
     private String deviceToken;
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
 
     public String getCustomerId() {
         return customerId;

@@ -127,7 +127,17 @@ public class AvailablePlotsAdapter extends RecyclerView.Adapter<AvailablePlotsAd
 
                 //((FragmentActivity)context).getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
-                farmPlotlist(availablePlotsData.getFarmId(),availablePlotsData.getFarmDescription());
+                ViewAvailablePlotsFragment viewAvailablePlotsFragment= new ViewAvailablePlotsFragment();
+                Bundle bundle=new Bundle();
+                bundle.putString("farm_id", availablePlotsData.getFarmId());
+                bundle.putString("farm_name", availablePlotsData.getFarmName());
+                bundle.putString("farm_desc", availablePlotsData.getFarmDescription());
+                viewAvailablePlotsFragment.setArguments(bundle);
+                FragmentTransaction fragmentTransaction = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.addToBackStack("NavHomeActivity");
+                fragmentTransaction.replace(R.id.container, viewAvailablePlotsFragment, "TAG");
+                fragmentTransaction.commit();
+                //farmPlotlist(availablePlotsData.getFarmId(),availablePlotsData.getFarmDescription());
 
             }
         });

@@ -6,9 +6,11 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.view.Window;
@@ -26,10 +28,17 @@ import com.eleganzit.e_farmingcustomer.api.RetrofitAPI;
 import com.eleganzit.e_farmingcustomer.api.RetrofitInterface;
 import com.eleganzit.e_farmingcustomer.model.ForgotPasswordResponse;
 import com.eleganzit.e_farmingcustomer.model.LoginRespose;
+import com.eleganzit.e_farmingcustomer.model.RegionResponse;
 import com.eleganzit.e_farmingcustomer.model.SubLocationData;
 import com.eleganzit.e_farmingcustomer.model.SubLocationResponse;
 import com.eleganzit.e_farmingcustomer.model.UpdateResponse;
 import com.eleganzit.e_farmingcustomer.utils.UserSessionManager;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.model.LatLng;
 import com.rilixtech.CountryCodePicker;
 
 import java.util.ArrayList;
@@ -45,15 +54,18 @@ import retrofit2.Response;
 public class EditProfileActivity extends AppCompatActivity {
 
     TextInputEditText ed_birthdate;
-    EditText ed_fname,ed_lname,ed_address,ed_landmark,ed_sub_location,ed_email,ed_phone,ed_referral_code;
+    EditText ed_fname,ed_lname,ed_address,ed_landmark,ed_sub_location,ed_email,ed_phone,ed_referral_code,search_address,ed_region,ed_flatno;
     Button btn_submit;
     ProgressDialog progressDialog;
     UserSessionManager userSessionManager;
     CountryCodePicker ed_ccode;
     LinearLayout lin_change_password;
-    List<String> sublocationList=new ArrayList<>();
-    List<SubLocationData> msublocationList=new ArrayList<>();
+    List<String> sublocationList;
+    List<String> regionlocationList;
+    List<SubLocationData> msublocationList;
     private String state_id;
+    private static final int PLACE_PICKER_REQUEST2 = 1001;
+    private String TAG="EditProfileAct";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,11 +73,17 @@ public class EditProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_profile);
 
         userSessionManager=new UserSessionManager(this);
+       String param = getIntent().getStringExtra("add");
+
+        // Get a result somewhere.
+
+
 
         progressDialog = new ProgressDialog(EditProfileActivity.this);
         progressDialog.setMessage("Please Wait");
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
+        search_address = findViewById(R.id.search_address);
 
         ImageView back=findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
@@ -75,8 +93,10 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
         ed_birthdate=findViewById(R.id.ed_birthdate);
+        ed_flatno=findViewById(R.id.ed_flatno);
         ed_fname=findViewById(R.id.ed_fname);
         ed_lname=findViewById(R.id.ed_lname);
+        ed_region=findViewById(R.id.ed_region);
         ed_address=findViewById(R.id.ed_address);
         ed_landmark=findViewById(R.id.ed_landmark);
         ed_sub_location=findViewById(R.id.ed_sub_location);
@@ -88,7 +108,23 @@ public class EditProfileActivity extends AppCompatActivity {
         btn_submit=findViewById(R.id.btn_submit);
         lin_change_password=findViewById(R.id.lin_change_password);
         //ed_ccode.registerPhoneNumberTextView(ed_phone);
-
+        search_address.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(EditProfileActivity.this,AddressSelectionActivity.class));
+finish();
+               /* Intent intent = null;
+                try {
+                    intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
+                            .build(EditProfileActivity.this);
+                } catch (GooglePlayServicesRepairableException e) {
+                    e.printStackTrace();
+                } catch (GooglePlayServicesNotAvailableException e) {
+                    e.printStackTrace();
+                }
+                startActivityForResult(intent, PLACE_PICKER_REQUEST2);*/
+            }
+        });
         ed_fname.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_FNAME).trim());
         ed_lname.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_LNAME).trim());
         ed_address.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_ADDRESS));
@@ -96,10 +132,15 @@ public class EditProfileActivity extends AppCompatActivity {
         ed_sub_location.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_SUB_LOCATION));
         ed_email.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_EMAIL));
         ed_phone.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_PHONE));
+        ed_region.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_REGION));
+        ed_flatno.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_HOUSE));
         ed_birthdate.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_DOB));
         /*ed_password.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_PASSWORD));
         ed_cpassword.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_PASSWORD));*/
-
+if (param!=null && !(param.isEmpty()))
+        {
+            ed_address.setText(param);
+        }
         Calendar c = Calendar.getInstance();
         final int mYear = c.get(Calendar.YEAR);
         final int mMonth = c.get(Calendar.MONTH);
@@ -137,6 +178,13 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
 
+        ed_region.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                getRegions();
+            }
+        });
         lin_change_password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -160,7 +208,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
                         } else if (ed_newpassword.getText().toString().trim().equals("") || ed_newpassword.getText().toString().trim().length() < 6) {
 
-                            ed_newpassword.setError("Please enter valid new password");
+                            ed_newpassword.setError("Password must contain atleast 6 characters");
 
                             ed_newpassword.requestFocus();
 
@@ -192,13 +240,112 @@ public class EditProfileActivity extends AppCompatActivity {
         });
 
     }
+    private void getRegions() {
+        regionlocationList=new ArrayList<>();
+        progressDialog.show();
+        RetrofitInterface myInterface = RetrofitAPI.getRetrofit().create(RetrofitInterface.class);
+        Call<RegionResponse> call = myInterface.getRegions();
+        call.enqueue(new Callback<RegionResponse>() {
+            @Override
+            public void onResponse(Call<RegionResponse> call, Response<RegionResponse> response) {
+                progressDialog.dismiss();
+                if (response.isSuccessful()) {
+                    if (response.body().getStatus().toString().equalsIgnoreCase("1")) {
+                        if (response.body().getData() != null) {
 
+                            for(int i=0;i<response.body().getData().size();i++)
+                            {
+                                regionlocationList.add(response.body().getData().get(i).getSublocationName());
+                            }
+                            showRegionLocationDialog();
+
+                        }
+                    }
+                    else
+                    {
+                        Toast.makeText(EditProfileActivity.this, "Please try again", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+                else
+                {
+                    Toast.makeText(EditProfileActivity.this, ""+response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<RegionResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(EditProfileActivity.this, "Server or Internet Error", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+    void showRegionLocationDialog() {
+
+        final ListAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_single_choice, android.R.id.text1, regionlocationList);
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.AlertDialogCustom));
+
+        builder.setSingleChoiceItems(adapter, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+
+                ed_region.setText(regionlocationList.get(i));
+                ed_sub_location.setText("");
+
+                // state_id=msublocationList.get(i).getLocationId();
+
+            }
+        });
+
+        builder.show();
+
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PLACE_PICKER_REQUEST2) {
+            if (resultCode == RESULT_OK) {
+
+                Place place = PlacePicker.getPlace(data, this);
+                String toastMsg = String.format("%s", place.getName());
+                LatLng latLng=place.getLatLng();
+
+
+                Log.d(TAG,""+latLng.latitude);
+                Log.d(TAG,""+latLng.longitude);
+                if (toastMsg.equalsIgnoreCase(""))
+                {
+
+                }
+                else {
+                    ed_address.setText(toastMsg);
+                }
+
+
+
+            }
+            else {
+
+                //    Toast.makeText(this, "Close", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+    }
 
     private void getSublocations() {
+        sublocationList=new ArrayList<>();
+        msublocationList=new ArrayList<>();
 
         progressDialog.show();
         RetrofitInterface myInterface = RetrofitAPI.getRetrofit().create(RetrofitInterface.class);
-        Call<SubLocationResponse> call = myInterface.getSublocations("");
+        Call<SubLocationResponse> call = myInterface.getSublocations(ed_region.getText().toString());
         call.enqueue(new Callback<SubLocationResponse>() {
             @Override
             public void onResponse(Call<SubLocationResponse> call, Response<SubLocationResponse> response) {
@@ -280,7 +427,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     }
                     else
                     {
-                        Toast.makeText(EditProfileActivity.this, "Please try again", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditProfileActivity.this, "Current password is wrong", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -296,11 +443,13 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private void updateProfile() {
 
+        Log.d("sssss",""+ed_region.getText().toString());
+
         progressDialog.show();
         RetrofitInterface myInterface = RetrofitAPI.getRetrofit().create(RetrofitInterface.class);
         Call<UpdateResponse> call = myInterface.updateProfile(userSessionManager.getUserDetails().get(UserSessionManager.KEY_USER_ID),
                 ed_fname.getText().toString().trim(), ed_lname.getText().toString().trim(),
-                ed_address.getText().toString(), ed_landmark.getText().toString(),ed_sub_location.getText().toString(),
+                ed_address.getText().toString(),ed_flatno.getText().toString(),ed_region.getText().toString(), ed_landmark.getText().toString(),ed_sub_location.getText().toString(),
                 ed_phone.getText().toString().trim(), ed_birthdate.getText().toString().trim());
 
         call.enqueue(new Callback<UpdateResponse>() {
@@ -310,7 +459,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     if (response.body().getStatus().toString().equalsIgnoreCase("1")) {
 
-                        userSessionManager.updateUserData(userSessionManager.getUserDetails().get(UserSessionManager.KEY_PASSWORD), ed_fname.getText().toString(),ed_lname.getText().toString(),ed_phone.getText().toString(), ed_birthdate.getText().toString(),ed_address.getText().toString(),ed_landmark.getText().toString(),ed_sub_location.getText().toString(),userSessionManager.getUserDetails().get(UserSessionManager.KEY_PHOTO));
+                        userSessionManager.updateUserData(ed_region.getText().toString(),userSessionManager.getUserDetails().get(UserSessionManager.KEY_PASSWORD), ed_fname.getText().toString(),ed_lname.getText().toString(),ed_phone.getText().toString(), ed_birthdate.getText().toString(),ed_address.getText().toString(),ed_landmark.getText().toString(),ed_sub_location.getText().toString(),userSessionManager.getUserDetails().get(UserSessionManager.KEY_PHOTO),ed_flatno.getText().toString());
                         Toast.makeText(EditProfileActivity.this, "Successfully updated", Toast.LENGTH_SHORT).show();
                         finish();
 
@@ -363,6 +512,13 @@ public class EditProfileActivity extends AppCompatActivity {
             ed_address.requestFocus();
 
             return false;
+        } else if (ed_flatno.getText().toString().trim().equals("")) {
+
+            ed_flatno.setError("House No is mandatory");
+
+            ed_flatno.requestFocus();
+
+            return false;
         }
         else  if (ed_landmark.getText().toString().trim().equals("")) {
 
@@ -405,4 +561,5 @@ public class EditProfileActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
     }
+
 }

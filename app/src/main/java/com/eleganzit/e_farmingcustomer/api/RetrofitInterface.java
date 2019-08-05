@@ -11,6 +11,7 @@ import com.eleganzit.e_farmingcustomer.model.LoginRespose;
 import com.eleganzit.e_farmingcustomer.model.ManageFarmResponse;
 import com.eleganzit.e_farmingcustomer.model.PlotListData;
 import com.eleganzit.e_farmingcustomer.model.PlotListResponse;
+import com.eleganzit.e_farmingcustomer.model.RegionResponse;
 import com.eleganzit.e_farmingcustomer.model.RegisterResponse;
 import com.eleganzit.e_farmingcustomer.model.SlotDetailsResponse;
 import com.eleganzit.e_farmingcustomer.model.SubLocationResponse;
@@ -40,7 +41,7 @@ public interface RetrofitInterface {
     @POST("/efarming-AdminPanel/efarm-api/loginCustomer")
     Call<LoginRespose> loginUser(
             @Field("email") String email,
-            @Field("password") String password
+                @Field("password") String password
 
     );
 
@@ -49,6 +50,9 @@ public interface RetrofitInterface {
     Call<UserDetailsResponse> getCustomer(
             @Field("customer_id") String customer_id
     );
+    @POST("/efarming-AdminPanel/efarm-api/getRegions")
+    Call<RegionResponse> getRegions(
+    );
 
     @FormUrlEncoded()
     @POST("/efarming-AdminPanel/efarm-api/addCustomer")
@@ -56,11 +60,13 @@ public interface RetrofitInterface {
             @Field("fname") String fname,
             @Field("lname") String lname,
             @Field("address") String address,
+            @Field("house_no") String house_no,
+            @Field("region") String region,
             @Field("landmark") String landmark,
             @Field("sub_location") String sub_location,
             @Field("email") String email,
             @Field("phone") String phone,
-            @Field("dob") String dob,
+                @Field("dob") String dob,
             @Field("referal_code") String referal_code,
             @Field("password") String password,
             @Field("device_id") String device_id,
@@ -76,6 +82,8 @@ public interface RetrofitInterface {
             @Field("fname") String fname,
             @Field("lname") String lname,
             @Field("address") String address,
+            @Field("house_no") String house_no,
+            @Field("region") String region,
             @Field("landmark") String landmark,
             @Field("sub_location") String sub_location,
             @Field("phone") String phone,
@@ -100,7 +108,7 @@ public interface RetrofitInterface {
     @FormUrlEncoded()
     @POST("/efarming-AdminPanel/efarm-api/getSublocations")
     Call<SubLocationResponse> getSublocations(
-            @Field("dummy") String dummy
+            @Field("region") String region
     );
 
     @FormUrlEncoded()
@@ -127,7 +135,7 @@ public interface RetrofitInterface {
     );
 
     @FormUrlEncoded()
-    @POST("/efarming-AdminPanel/efarm-api/contactOffice")
+    @POST("/efarming-AdminPanel/contact_data_mail.php")
     Call<ContactOfficeResponse> contactOffice(
             @Field("customer_id") String customer_id,
             @Field("fullname") String fullname,

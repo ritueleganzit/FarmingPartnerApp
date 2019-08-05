@@ -5,6 +5,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableArrayList;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +15,7 @@ import android.view.DragEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -264,6 +267,19 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
             public void onResponse(Call<SubmitPlotResponse> call, Response<SubmitPlotResponse> response) {
                 progressDialog.dismiss();
                 if (response.isSuccessful()) {
+                    Log.d("sdsd",""+response.body().getData().get(0).getCalender());
+                    Log.d("sdsd",""+response.body().getData().get(0).getEmail());
+                    Log.d("sdsd",""+response.body().getData().get(0).getFarmAddress());
+                    Log.d("sdsd",""+response.body().getData().get(0).getFarmDescription());
+                    Log.d("sdsd",""+response.body().getData().get(0).getFarmId());
+                    Log.d("sdsd",""+response.body().getData().get(0).getFarmingPartnerId());
+                    Log.d("sdsd",""+response.body().getData().get(0).getFarmingPartnerName());
+                    Log.d("sdsd",""+response.body().getData().get(0).getFarmLocation());
+                    Log.d("sdsd",""+response.body().getData().get(0).getFarmPhoto());
+                    Log.d("sdsd",""+response.body().getData().get(0).getPhone());
+                    Log.d("sdsd",""+response.body().getData().get(0).getPlotName());
+
+                    Log.d("sdsd",""+response.body().getData().get(0).getPlotCapacity());
                     if (response.body().getStatus().toString().equalsIgnoreCase("1")) {
 
                         Toast.makeText(MainActivity.this, "Submitted Successfully ", Toast.LENGTH_SHORT).show();
@@ -292,12 +308,36 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
             @Override
             public void onFailure(Call<SubmitPlotResponse> call, Throwable t) {
                 progressDialog.dismiss();
-                Toast.makeText(MainActivity.this, "Server or Internet Error" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d("dfs",""+t.getMessage());
+                Toast.makeText(MainActivity.this, "Server or Internet Error" , Toast.LENGTH_SHORT).show();
             }
         });
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        final Dialog d=new Dialog(MainActivity.this,
+                R.style.Theme_Dialog);
+        d.setContentView(R.layout.draganddrop);
+
+        TextView ok=d.findViewById(R.id.ok);
+         ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+d.dismiss();
+
+            }
+        });
+
+
+        d.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        if(!isFinishing())
+        {
+            d.show();
+        }
+    }
 
     private void getVegetables() {
         progressDialog.show();

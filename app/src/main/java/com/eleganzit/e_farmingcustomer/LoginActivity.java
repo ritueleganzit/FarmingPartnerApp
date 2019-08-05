@@ -123,8 +123,9 @@ public class LoginActivity extends AppCompatActivity {
                                 {
                                     sub_location="";
                                 }
+                             String   house_no=response.body().getData().get(i).getHouse_no();
                                 phone = response.body().getData().get(i).getPhone();
-                                userSessionManager.createLoginSession(id,farm_id, email, ed_password.getText().toString(), fname,lname,phone, dob,address,landmark,sub_location,photo);
+                                userSessionManager.createLoginSession(""+response.body().getData().get(i).getRegion(),id,farm_id, email, ed_password.getText().toString(), fname,lname,phone, dob,address,landmark,sub_location,photo,house_no);
 
                             }
                             //Toast.makeText(LoginActivity.this, "--" + response.body().getMessage(), Toast.LENGTH_SHORT).show();

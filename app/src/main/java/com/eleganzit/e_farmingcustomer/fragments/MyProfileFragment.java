@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.eleganzit.e_farmingcustomer.EditProfileActivity;
@@ -54,7 +55,7 @@ import static com.eleganzit.e_farmingcustomer.NavHomeActivity.user_name;
  */
 public class MyProfileFragment extends Fragment {
 
-    TextView btn_edit_profile,txt_username,txt_email,txt_phone,txt_dob,txt_address,txt_landmark,txt_sublocation;
+    TextView btn_edit_profile,txt_username,txt_email,txt_phone,txt_dob,txt_address,txt_landmark,txt_sublocation,txt_region;
     ImageView profile_pic;
     private static final int REQUEST_IMAGE2 = 201;
     protected static final int REQUEST_STORAGE_READ_ACCESS_PERMISSION2 = 202;
@@ -96,6 +97,7 @@ public class MyProfileFragment extends Fragment {
         profile_pic=v.findViewById(R.id.profile_pic);
         txt_username=v.findViewById(R.id.txt_username);
         txt_email=v.findViewById(R.id.txt_email);
+        txt_region=v.findViewById(R.id.txt_region);
         txt_phone=v.findViewById(R.id.txt_phone);
         txt_dob=v.findViewById(R.id.txt_dob);
         txt_address=v.findViewById(R.id.txt_address);
@@ -166,6 +168,12 @@ public class MyProfileFragment extends Fragment {
         }
         else {
             txt_sublocation.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_SUB_LOCATION));
+        } if(userSessionManager.getUserDetails().get(UserSessionManager.KEY_REGION).equalsIgnoreCase(""))
+        {
+            txt_region.setText("Not Provided");
+        }
+        else {
+            txt_region.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_REGION));
         }
         Glide
                 .with(this)
@@ -215,6 +223,8 @@ public class MyProfileFragment extends Fragment {
 
     private void getCustomer() {
 
+        Log.d("hjhh",userSessionManager.getUserDetails().get(UserSessionManager.KEY_USER_ID));;
+
         progressDialog.show();
         RetrofitInterface myInterface = RetrofitAPI.getRetrofit().create(RetrofitInterface.class);
 
@@ -226,7 +236,7 @@ public class MyProfileFragment extends Fragment {
                 if (response.isSuccessful()) {
                     if (response.body().getStatus().toString().equalsIgnoreCase("1")) {
                         if (response.body().getData() != null) {
-                            String email, id, fname,lname, photo,phone,dob,address,landmark,sub_location;
+                            String house_no, id, fname,lname, photo,phone,dob,address,landmark,sub_location,region;
                             for (int i = 0; i < response.body().getData().size(); i++) {
 
                                 fname = response.body().getData().get(i).getFname()+" ";
@@ -234,6 +244,8 @@ public class MyProfileFragment extends Fragment {
                                 photo = response.body().getData().get(i).getPhoto();
                                 dob = response.body().getData().get(i).getDob();
                                 address = response.body().getData().get(i).getAddress();
+                                region= response.body().getData().get(i).getRegion();
+                                house_no= response.body().getData().get(i).getHouse_no();
                                 if(address==null)
                                 {
                                     address="";
@@ -247,10 +259,14 @@ public class MyProfileFragment extends Fragment {
                                 if(sub_location==null)
                                 {
                                     sub_location="";
+                                }if(region==null)
+                                {
+                                    region="";
                                 }
+                                txt_region.setText(""+response.body().getData().get(i).getRegion());
                                 phone = response.body().getData().get(i).getPhone();
 
-                                userSessionManager.updateUserData(userSessionManager.getUserDetails().get(UserSessionManager.KEY_PASSWORD), fname,lname,phone, dob,address,landmark,sub_location,photo);
+                                userSessionManager.updateUserData(""+response.body().getData().get(i).getRegion(),userSessionManager.getUserDetails().get(UserSessionManager.KEY_PASSWORD), fname,lname,phone, dob,address,landmark,sub_location,photo,house_no);
                                 photo=userSessionManager.getUserDetails().get(UserSessionManager.KEY_PHOTO);
 
                                 txt_username.setText(userSessionManager.getUserDetails().get(UserSessionManager.KEY_FNAME).trim()+" "+userSessionManager.getUserDetails().get(UserSessionManager.KEY_LNAME).trim());
@@ -361,7 +377,8 @@ public class MyProfileFragment extends Fragment {
                             Glide
                                     .with(getActivity())
                                     .load(photo)
-                                    .apply(new RequestOptions().placeholder(R.drawable.pr).transforms(new CircleCrop())).into(NavHomeActivity.profile_image);
+
+                                    .apply(new RequestOptions().placeholder(R.drawable.pr).dontTransform().diskCacheStrategy(DiskCacheStrategy.ALL).transforms(new CircleCrop())).into(NavHomeActivity.profile_image);
                             userSessionManager.updateProfilePic(photo);
                             Toast.makeText(getActivity(), "Profile picture updated", Toast.LENGTH_SHORT).show();
 

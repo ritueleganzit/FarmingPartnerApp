@@ -42,6 +42,7 @@ public class UserSessionManager {
     public static final String KEY_EMAIL = "email";
 
     public static final String KEY_PASSWORD = "password";
+    public static final String KEY_REGION = "region";
     public static final String KEY_MOBILE = "mobile";
     public static final String KEY_PHOTO = "photo";
     public static final String KEY_DOB = "dob";
@@ -50,6 +51,7 @@ public class UserSessionManager {
     public static final String KEY_SUB_LOCATION = "sub_location";
     public static final String KEY_COUNTRY = "country";
     public static final String KEY_STATE = "state";
+    public static final String KEY_HOUSE = "house_no";
 
     // Constructor
     public UserSessionManager(Context context){
@@ -63,7 +65,7 @@ public class UserSessionManager {
      * Create login session
      * */
 
-    public void createLoginSession(String user_id,String farm_id, String email, String password, String fname, String lname, String phone, String dob, String address, String landmark, String sub_location, String photo){
+    public void createLoginSession(String region,String user_id,String farm_id, String email, String password, String fname, String lname, String phone, String dob, String address, String landmark, String sub_location, String photo,String house_no){
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
 
@@ -72,6 +74,7 @@ public class UserSessionManager {
         editor.putString(KEY_FARM_ID , farm_id);
         // Storing email in pref
         editor.putString(KEY_EMAIL, email);
+        editor.putString(KEY_REGION, region);
 
         editor.putString(KEY_PASSWORD, password);
         editor.putString(KEY_FNAME, fname);
@@ -82,6 +85,7 @@ public class UserSessionManager {
         editor.putString(KEY_ADDRESS, address);
         editor.putString(KEY_LANDMARK, landmark);
         editor.putString(KEY_SUB_LOCATION, sub_location);
+        editor.putString(KEY_HOUSE, house_no);
 
         // commit changes
         editor.commit();
@@ -96,7 +100,7 @@ public class UserSessionManager {
         activity.finish();
     }
 
-    public void updateUserData(String password, String fname, String lname, String phone, String dob, String address, String landmark, String sub_location, String photo){
+    public void updateUserData(String region,String password, String fname, String lname, String phone, String dob, String address, String landmark, String sub_location, String photo,String house_no){
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
 
@@ -105,11 +109,13 @@ public class UserSessionManager {
         editor.putString(KEY_FNAME, fname);
         editor.putString(KEY_LNAME, lname);
         editor.putString(KEY_PHONE, phone);
+        editor.putString(KEY_REGION, region);
         editor.putString(KEY_DOB, dob);
         editor.putString(KEY_ADDRESS, address);
         editor.putString(KEY_LANDMARK, landmark);
         editor.putString(KEY_SUB_LOCATION, sub_location);
         editor.putString(KEY_PHOTO, photo);
+        editor.putString(KEY_HOUSE, house_no);
 
         // commit changes
         editor.commit();
@@ -167,6 +173,7 @@ public class UserSessionManager {
         user.put(KEY_FARM_ID, pref.getString(KEY_FARM_ID , null));
 
         user.put(KEY_FNAME, pref.getString(KEY_FNAME, null));
+        user.put(KEY_REGION, pref.getString(KEY_REGION, null));
         user.put(KEY_LNAME, pref.getString(KEY_LNAME, null));
         user.put(KEY_PHONE, pref.getString(KEY_PHONE, null));
         user.put(KEY_DOB, pref.getString(KEY_DOB, null));
@@ -185,6 +192,7 @@ public class UserSessionManager {
         user.put(KEY_COUNTRY, pref.getString(KEY_COUNTRY, null));
 
         user.put(KEY_STATE, pref.getString(KEY_STATE, null));
+        user.put(KEY_HOUSE, pref.getString(KEY_HOUSE, null));
 
         // return user
         return user;

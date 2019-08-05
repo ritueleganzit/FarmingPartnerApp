@@ -35,6 +35,21 @@ public class LoginData {
     @SerializedName("address")
     @Expose
     private String address;
+    @SerializedName("house_no")
+    @Expose
+    private String house_no;
+
+    public String getHouse_no() {
+        return house_no;
+    }
+
+    public void setHouse_no(String house_no) {
+        this.house_no = house_no;
+    }
+
+    @SerializedName("region")
+    @Expose
+    private String region;
     @SerializedName("dob")
     @Expose
     private String dob;
@@ -54,6 +69,14 @@ public class LoginData {
 
     public void setCustomerId(String customerId) {
         this.customerId = customerId;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
     }
 
     public String getFarm_id() {
