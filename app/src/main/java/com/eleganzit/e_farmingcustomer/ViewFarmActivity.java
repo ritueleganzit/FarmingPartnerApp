@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.eleganzit.e_farmingcustomer.api.RetrofitAPI;
 import com.eleganzit.e_farmingcustomer.api.RetrofitInterface;
 import com.eleganzit.e_farmingcustomer.model.AvailablePlotsData;
@@ -29,9 +30,10 @@ import retrofit2.Response;
 public class ViewFarmActivity extends AppCompatActivity {
 
     Button btn_sell,btn_walk,btn_set;
-    TextView txt_slot_number,txt_vegetable,txt_sapling_date,txt_deweeding1,txt_deweeding2,txt_deweeding3,txt_fertilising1,txt_fertilising2,txt_fertilising3,txt_harvesting;
-    String vegetable_id,farm_id,slot_number,veg_name;
+    TextView txt_vegetable,txt_sapling_date,txt_deweeding1,txt_deweeding2,txt_deweeding3,txt_fertilising1,txt_fertilising2,txt_fertilising3,txt_harvesting;
+    String vegetable_id,farm_id,slotimage,veg_name;
     ProgressDialog progressDialog;
+    ImageView slotimageimg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,13 +55,13 @@ public class ViewFarmActivity extends AppCompatActivity {
 
         vegetable_id=getIntent().getStringExtra("vegetable_id");
         farm_id=getIntent().getStringExtra("farm_id");
-        slot_number=getIntent().getStringExtra("slot_number");
+        slotimage=getIntent().getStringExtra("slotimage");
         veg_name=getIntent().getStringExtra("veg_name");
 
         btn_sell=findViewById(R.id.btn_sell);
         btn_walk=findViewById(R.id.btn_walk);
         btn_set=findViewById(R.id.btn_set);
-        txt_slot_number=findViewById(R.id.txt_slot_number);
+        slotimageimg=findViewById(R.id.slotimageimg);
         txt_vegetable=findViewById(R.id.txt_vegetable);
         txt_sapling_date=findViewById(R.id.txt_sapling_date);
         txt_deweeding1=findViewById(R.id.txt_deweeding1);
@@ -113,20 +115,19 @@ public class ViewFarmActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
-        if(slot_number!=null)
+        if(slotimage!=null)
         {
-            if(slot_number.isEmpty())
+            if(slotimage.isEmpty())
             {
-                txt_slot_number.setText("Not Provided");
             }
             else
             {
-                txt_slot_number.setText(slot_number+"");
+                Glide.with(ViewFarmActivity.this).load(slotimage).into(slotimageimg);
+
             }
         }
         else
         {
-            txt_slot_number.setText("Not Provided");
         }
 
         if(veg_name!=null)
@@ -137,7 +138,8 @@ public class ViewFarmActivity extends AppCompatActivity {
             }
             else
             {
-                txt_vegetable.setText(veg_name+"");
+                String upperString = veg_name.substring(0,1).toUpperCase() + veg_name.substring(1);
+                txt_vegetable.setText(upperString);
             }
         }
         else

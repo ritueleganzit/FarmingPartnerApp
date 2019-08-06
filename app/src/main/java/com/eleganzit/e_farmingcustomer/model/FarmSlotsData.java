@@ -17,6 +17,19 @@ public class FarmSlotsData {
     @Expose
     private String vegetableName;
 
+    @SerializedName("veg_image")
+    @Expose
+    private String veg_image;
+
+
+    public String getVeg_image() {
+        return veg_image;
+    }
+
+    public void setVeg_image(String veg_image) {
+        this.veg_image = veg_image;
+    }
+
     public String getCustomerPlotId() {
         return customerPlotId;
     }

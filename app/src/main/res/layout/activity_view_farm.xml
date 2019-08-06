@@ -73,77 +73,57 @@
                 android:gravity="center_vertical"
                 >
 
-                <TableRow android:layout_marginBottom="15dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="50"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/poppins_regular"
-                        android:singleLine="true"
-                        android:text="Slot Number"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/colorBlack" />
-
-                    <TextView
-                        android:id="@+id/txt_slot_number"
-                        android:layout_width="0dp"
-                        android:layout_weight="50"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/poppins_regular"
-                        android:gravity="end"
-                        android:singleLine="true"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/colorBlack" />
+                <TableRow android:layout_marginBottom="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
 
-                </TableRow>
+                    <LinearLayout android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
 
-                <TableRow android:layout_marginBottom="15dp">
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="50"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/poppins_regular"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:singleLine="true"
-                        android:text="Vegetable"
-                        android:textColor="@color/colorBlack" />
+                        <TextView
+                            android:id="@+id/txt_vegetable"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
 
-                    <TextView
-                        android:id="@+id/txt_vegetable"
-                        android:layout_width="0dp"
-                        android:layout_weight="50"
-                        android:ellipsize="end"
-                        android:gravity="end"
-                        android:singleLine="true"
-                        android:fontFamily="@font/poppins_regular"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/colorBlack" />
+                            android:fontFamily="@font/poppins_regular"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textColor="@color/colorBlack" />
 
+                        <ImageView
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:scaleType="centerCrop"
+                            android:id="@+id/slotimageimg"
+                            />
+
+                    </LinearLayout>
 
                 </TableRow>
 
+
+
                 <TableRow android:layout_marginBottom="15dp">
 
                     <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="50"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:fontFamily="@font/poppins_regular"
                         android:singleLine="true"
-                        android:text="Sapling Date"
+                        android:text="Sapling Date : "
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/colorBlack" />
 
                     <TextView
                         android:id="@+id/txt_sapling_date"
-                        android:layout_width="0dp"
-                        android:layout_weight="50"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:fontFamily="@font/poppins_regular"
-                        android:gravity="end"
                         android:singleLine="true"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/colorBlack" />
@@ -151,7 +131,7 @@
 
                 </TableRow>
 
-                <TableRow android:layout_marginBottom="15dp">
+                <TableRow android:layout_marginBottom="15dp" android:visibility="gone">
 
                     <TextView
                         android:layout_width="0dp"
@@ -177,7 +157,7 @@
 
                 </TableRow>
 
-                <TableRow android:layout_marginBottom="15dp">
+                <TableRow android:layout_marginBottom="15dp" android:visibility="gone">
 
                     <TextView
                         android:layout_width="0dp"
@@ -204,7 +184,7 @@
 
                 </TableRow>
 
-                <TableRow android:layout_marginBottom="15dp">
+                <TableRow android:layout_marginBottom="15dp" android:visibility="gone">
 
                     <TextView
                         android:layout_width="0dp"
@@ -231,7 +211,7 @@
 
                 </TableRow>
 
-                <TableRow android:layout_marginBottom="15dp">
+                <TableRow android:layout_marginBottom="15dp" android:visibility="gone">
 
                     <TextView
                         android:layout_width="0dp"
@@ -258,7 +238,7 @@
 
                 </TableRow>
 
-                <TableRow android:layout_marginBottom="15dp">
+                <TableRow android:layout_marginBottom="15dp" android:visibility="gone">
 
                     <TextView
                         android:layout_width="0dp"
@@ -285,7 +265,7 @@
 
                 </TableRow>
 
-                <TableRow android:layout_marginBottom="15dp">
+                <TableRow android:layout_marginBottom="15dp" android:visibility="gone">
 
                     <TextView
                         android:layout_width="0dp"
@@ -315,20 +295,18 @@
                 <TableRow android:layout_marginBottom="15dp">
 
                     <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="50"
+                        android:layout_width="wrap_content"
                         android:ellipsize="end"
                         android:singleLine="true"
-                        android:text="Harvesting Date"
+                        android:text="Your yields will be ready by : "
                         android:fontFamily="@font/poppins_regular"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/colorBlack" />
 
                     <TextView
                         android:id="@+id/txt_harvesting"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="50"
                         android:ellipsize="end"
                         android:gravity="end"
                         android:singleLine="true"

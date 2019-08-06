@@ -19,20 +19,23 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
             android:textColor="#000000"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:fontFamily="@font/poppins_medium"
             android:layout_gravity="center_horizontal"
-            android:text="Select Vegetables"/>
+            android:text="Select Vegetable Section"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-            android:textColor="#747272"
+            android:textColor="@color/colorBlack"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:fontFamily="@font/poppins_regular"
+
             android:layout_marginTop="10dp"
             android:layout_gravity="center_horizontal"
-            android:text="Please drag and drop vegetables from the below list"/>
+            android:gravity="center"
+            android:text="We have Chosen a set of Vegetables grow in common area. Please drag and drop additional vegetables from below list as per your needs."/>
 
 
 

@@ -13,10 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.eleganzit.e_farmingcustomer.ManageMyFarmActivity;
 import com.eleganzit.e_farmingcustomer.R;
 import com.eleganzit.e_farmingcustomer.ViewFarmActivity;
@@ -64,7 +66,7 @@ public class ManageMyFarmAdapter extends RecyclerView.Adapter<ManageMyFarmAdapte
                 //((FragmentActivity)context).getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 context.startActivity(new Intent(context, ViewFarmActivity.class)
                 .putExtra("farm_id",farm_id)
-                .putExtra("slot_number",farmSlotsData.getSlot())
+                .putExtra("slotimage",farmSlotsData.getVeg_image())
                 .putExtra("veg_name",farmSlotsData.getVegetableName())
                 .putExtra("vegetable_id",farmSlotsData.getVegetable_id()));
                 ((FragmentActivity)context).overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
@@ -72,6 +74,7 @@ public class ManageMyFarmAdapter extends RecyclerView.Adapter<ManageMyFarmAdapte
         });
 
         if(farmSlotsData.getSlot()!=null)
+
         if(farmSlotsData.getSlot().equalsIgnoreCase(""))
         {
             myViewHolder.txt_slot_number.setText("Not Provided");
@@ -89,10 +92,25 @@ public class ManageMyFarmAdapter extends RecyclerView.Adapter<ManageMyFarmAdapte
             myViewHolder.txt_cultivated.setText("Not Provided");
         }
         else {
-            myViewHolder.txt_cultivated.setText(farmSlotsData.getVegetableName());
+            String upperString = farmSlotsData.getVegetableName().substring(0,1).toUpperCase() + farmSlotsData.getVegetableName().substring(1);
+
+            myViewHolder.txt_cultivated.setText(upperString);
         }
         else
             myViewHolder.txt_cultivated.setText("Not Provided");
+
+
+
+        if(farmSlotsData.getVeg_image()!=null)
+
+            if(farmSlotsData.getVeg_image().equalsIgnoreCase(""))
+            {
+            }
+            else
+            {
+                Glide.with(context).load(farmSlotsData.getVeg_image()).into(myViewHolder.vegetableimage);
+            }
+
     }
 
     @Override
@@ -104,12 +122,14 @@ public class ManageMyFarmAdapter extends RecyclerView.Adapter<ManageMyFarmAdapte
 
         LinearLayout cardviewdashboard;
         TextView txt_slot_number,txt_cultivated,txt_last_event;
+        ImageView vegetableimage;
 
         public MyViewHolder(@NonNull View itemView) {
 
             super(itemView);
 
             cardviewdashboard=itemView.findViewById(R.id.cardviewdashboard);
+            vegetableimage=itemView.findViewById(R.id.vegetableimage);
             txt_slot_number=itemView.findViewById(R.id.txt_slot_number);
             txt_cultivated=itemView.findViewById(R.id.txt_cultivated);
             txt_last_event=itemView.findViewById(R.id.txt_last_event);
