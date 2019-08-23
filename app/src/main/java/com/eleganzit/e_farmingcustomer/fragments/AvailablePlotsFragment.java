@@ -59,7 +59,7 @@ public class AvailablePlotsFragment extends Fragment {
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
 
-        NavHomeActivity.home_title.setText("Available Plots");
+        NavHomeActivity.home_title.setText("Rent a Farm");
 
         rc_plots=v.findViewById(R.id.rc_plots);
         txt_no_plots=v.findViewById(R.id.txt_no_plots);

@@ -43,6 +43,7 @@
                 android:layout_toRightOf="@+id/back"
                 android:fontFamily="@font/poppins_medium"
                 android:text="Manage My Farm"
+                android:id="@+id/titlemanagefarm"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="#ffffff" />
 
@@ -60,9 +61,67 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rc_farms"
             android:layout_width="match_parent"
+            android:layout_above="@+id/lin"
             android:layout_height="match_parent"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             android:orientation="vertical"/>
+        <LinearLayout
+            android:layout_below="@+id/tbl"
+            android:id="@+id/lin"
+            android:background="@color/colorPrimaryDark"
+
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="3"
+            android:orientation="horizontal">
+
+
+            <Button
+                android:id="@+id/btn_sellveg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:maxLines="2"
+                android:elevation="0dp"
+                android:hapticFeedbackEnabled="true"
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/poppins_medium"
+                android:text="SELL VEGETABLES"
+                android:textSize="12sp"
+                android:textColor="#ffffff" />
+
+            <Button
+                android:maxLines="2"
+                android:id="@+id/btn_walkiharvest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hapticFeedbackEnabled="true"
+                android:background="@android:color/transparent"
+                android:layout_marginLeft="15dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="WALK IN HARVEST"
+                android:textSize="12sp"
+                android:textColor="#ffffff" />
+
+            <Button
+                android:maxLines="2"
+                android:background="@android:color/transparent"
+                android:id="@+id/btn_setdel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hapticFeedbackEnabled="true"
+                android:fontFamily="@font/poppins_medium"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_marginLeft="15dp"
+                android:text="HOME DELIVERY"
+                android:textSize="12sp"
+                android:textColor="#ffffff" />
+
+        </LinearLayout>
 
 
         <TextView

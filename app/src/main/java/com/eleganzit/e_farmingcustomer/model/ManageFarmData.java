@@ -72,6 +72,17 @@ public class ManageFarmData {
     @SerializedName("plot_name")
     @Expose
     private String plotName;
+ @SerializedName("farming_partner_name")
+    @Expose
+    private String farming_partner_name;
+
+    public String getFarming_partner_name() {
+        return farming_partner_name;
+    }
+
+    public void setFarming_partner_name(String farming_partner_name) {
+        this.farming_partner_name = farming_partner_name;
+    }
 
     public String getCustomerId() {
         return customerId;

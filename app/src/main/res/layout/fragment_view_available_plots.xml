@@ -85,7 +85,7 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:fontFamily="@font/poppins_regular"
                     android:singleLine="true"
-                    android:text="Plot Number"
+                    android:text="Plot Name"
                     android:textColor="@color/colorBlack" />
 
                 <TextView
@@ -96,7 +96,7 @@
                     android:fontFamily="@font/poppins_medium"
                     android:gravity="end"
                     android:singleLine="true"
-                    android:text=" Plot 001"
+                    android:text=" "
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:textColor="@color/colorBlack" />
 

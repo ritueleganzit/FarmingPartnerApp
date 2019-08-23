@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,7 +70,6 @@ public class ViewAvailablePlotsFragment extends Fragment {
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
 
-        NavHomeActivity.home_title.setText("View Available Plots");
 
         btn_continue=v.findViewById(R.id.btn_continue);
         img_farm=v.findViewById(R.id.img_farm);
@@ -114,6 +114,7 @@ public class ViewAvailablePlotsFragment extends Fragment {
 
     private void plotDetails() {
         progressDialog.show();
+        Log.d("ViewAvailableFarm",""+farm_id);
         RetrofitInterface myInterface = RetrofitAPI.getRetrofit().create(RetrofitInterface.class);
         Call<FarmDetailsResponse> call = myInterface.plotDetails(farm_id);
         call.enqueue(new Callback<FarmDetailsResponse>() {
@@ -146,7 +147,10 @@ public class ViewAvailablePlotsFragment extends Fragment {
                                 txt_owner_name.setText(response.body().getData().get(0).getFarmingPartnerName());
                             }
 
-                            txt_plot_number.setText(response.body().getData().get(0).getPlot_name());
+                         //   txt_plot_number.setText(response.body().getData().get(0).getPlot_name());
+                            Log.d("sadasdas",""+response.body().getData().get(0).getPlot_name());
+                            NavHomeActivity.home_title.setText(""+response.body().getData().get(0).getFarmName());
+
                             //txt_plot_price.setText("");
                             if(response.body().getData().get(0).getPhone().equalsIgnoreCase(""))
                             {
@@ -197,7 +201,9 @@ public class ViewAvailablePlotsFragment extends Fragment {
                 }
                 else
                 {
-                    Toast.makeText(getActivity(), "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    if (response.body().getMessage()!=null) {
+                        Toast.makeText(getActivity(), "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
 
                 }
             }

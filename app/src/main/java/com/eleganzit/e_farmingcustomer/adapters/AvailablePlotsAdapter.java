@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -73,6 +74,7 @@ public class AvailablePlotsAdapter extends RecyclerView.Adapter<AvailablePlotsAd
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
 
         final AvailablePlotsData availablePlotsData=arrayList.get(i);
+
 
         Glide
                 .with(context)

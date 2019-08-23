@@ -94,19 +94,19 @@ public class ManageFarmAdapter extends RecyclerView.Adapter<ManageFarmAdapter.My
             myViewHolder.txt_address.setText(manageFarmData.getAddress());
         }
         //myViewHolder.txt_plot_capacity.setText(manageFarmData.getFarmName());
-        /*if(manageFarmData.getPlotCapacity().equalsIgnoreCase(""))
+        if(manageFarmData.getPlotName().equalsIgnoreCase(""))
         {
-            myViewHolder.txt_plot_capacity.setText("Not Provided");
+            myViewHolder.txt_plot_number.setText("Not Provided");
         }
         else {
-            myViewHolder.txt_plot_capacity.setText(manageFarmData.getPlotCapacity());
-        }*/
+            myViewHolder.txt_plot_number.setText(manageFarmData.getPlotName());
+        }
         if(manageFarmData.getFname().equalsIgnoreCase(""))
         {
             myViewHolder.txt_owner_name.setText("Not Provided");
         }
         else {
-            myViewHolder.txt_owner_name.setText(manageFarmData.getFname()+" "+manageFarmData.getLname());
+            myViewHolder.txt_owner_name.setText(manageFarmData.getFarming_partner_name());
         }
 
         if(manageFarmData.getPaymentDate().equalsIgnoreCase(""))
@@ -124,6 +124,7 @@ public class ManageFarmAdapter extends RecyclerView.Adapter<ManageFarmAdapter.My
                 //((FragmentActivity)context).getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 context.startActivity(new Intent(context, ManageMyFarmActivity.class)
                         .putExtra("customer_plot_id",manageFarmData.getCustomer_plot_id())
+                        .putExtra("plotname",manageFarmData.getPlotName())
                         .putExtra("farm_id",manageFarmData.getFarmId()));
                 ((FragmentActivity)context).overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
             }
@@ -140,7 +141,7 @@ public class ManageFarmAdapter extends RecyclerView.Adapter<ManageFarmAdapter.My
 
         LinearLayout cardviewdashboard,lin_view_map;
         ImageView img_farm;
-        TextView txt_farm_name,txt_address,txt_plot_capacity,txt_purchased_on,txt_owner_name;
+        TextView txt_farm_name,txt_address,txt_plot_capacity,txt_purchased_on,txt_owner_name,txt_plot_number;
 
         public MyViewHolder(@NonNull View itemView) {
 
@@ -150,6 +151,7 @@ public class ManageFarmAdapter extends RecyclerView.Adapter<ManageFarmAdapter.My
             lin_view_map=itemView.findViewById(R.id.lin_view_map);
             img_farm=itemView.findViewById(R.id.img_farm);
             txt_farm_name=itemView.findViewById(R.id.txt_farm_name);
+            txt_plot_number=itemView.findViewById(R.id.txt_plot_number);
             txt_address=itemView.findViewById(R.id.txt_address);
             txt_plot_capacity=itemView.findViewById(R.id.txt_plot_capacity);
             txt_purchased_on=itemView.findViewById(R.id.txt_purchased_on);

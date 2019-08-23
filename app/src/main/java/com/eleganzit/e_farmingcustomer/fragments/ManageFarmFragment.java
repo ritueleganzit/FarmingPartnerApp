@@ -63,7 +63,7 @@ public class ManageFarmFragment extends Fragment {
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
 
-        NavHomeActivity.home_title.setText("Manage Farm");
+        NavHomeActivity.home_title.setText("Manage My Farm");
 
         rc_farms=v.findViewById(R.id.rc_farms);
         txt_no_farms=v.findViewById(R.id.txt_no_farms);

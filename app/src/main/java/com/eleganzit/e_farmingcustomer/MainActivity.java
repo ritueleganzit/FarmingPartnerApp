@@ -221,7 +221,39 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
         mainActivityBinding.btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendVegetables();
+
+              //  Toast.makeText(MainActivity.this, ""+exerciseSelectedList.size(), Toast.LENGTH_SHORT).show();
+
+                final Dialog d=new Dialog(MainActivity.this,
+                        R.style.Theme_Dialog);
+                d.setContentView(R.layout.vegetablesubmit);
+
+                TextView ok=d.findViewById(R.id.ok);
+                TextView cancel=d.findViewById(R.id.cancel);
+                TextView vegetablenum=d.findViewById(R.id.vegetablenum);
+                vegetablenum.setText("You have selected "+ exerciseSelectedList.size()+" vegetables. Would you like to submit? ");
+
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        d.dismiss();
+                    }
+                });
+                ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        d.dismiss();
+                        sendVegetables();
+                    }
+                });
+
+
+                d.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                if(!isFinishing())
+                {
+                    d.show();
+                }
+
             }
         });
 
@@ -233,7 +265,7 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
         StringBuilder sb = new StringBuilder();
         for(int i=0;i<exerciseSelectedList.size();i++)
         {
-            Log.d("productsssssssss",exerciseSelectedList.get(i)+"");
+            Log.d("productsssssssss",exerciseSelectedList.get(i).getVegName()+"");
             if (i==exerciseSelectedList.size()-1)
             {
                 sb.append(exerciseSelectedList.get(i).getVegetableId()).append("");
@@ -568,7 +600,30 @@ d.dismiss();
         }
         return true;
     }
+    /*public void loadExerciseData() {
 
+       *//* exerciseList.add(new ExcercisePojo("1", "Vegetable " + 1, "https://c.ndtvimg.com/2018-09/4a6d49go_vegetables_625x300_26_September_18.jpg"));
+        exerciseList.add(new ExcercisePojo("2", "Vegetable " + 2, "https://images-prod.healthline.com/hlcmsresource/images/topic_centers/Food-Nutrition/high-protein-veggies/388x210_potatoes.jpg"));
+        exerciseList.add(new ExcercisePojo("3", "Vegetable " + 3, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHC45t_GzF-5OXLFJoFqt21pVu2fn53z-yi4tJm3Q1i0-ozOZP"));
+        exerciseList.add(new ExcercisePojo("4", "Vegetable " + 4, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQB-4buwvMxmDdc3QlyYvQkR06V_9Ya9fegwGahfMIBFxv4amFLwg"));
+        exerciseList.add(new ExcercisePojo("5", "Vegetable " + 5, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXbpZ09GUV14WRhViNQNLSiZc6qJVV8Ju-ohjFrtdqgOYTJMisyg"));
+        exerciseList.add(new ExcercisePojo("6", "Vegetable " + 1, "https://c.ndtvimg.com/2018-09/4a6d49go_vegetables_625x300_26_September_18.jpg"));
+        exerciseList.add(new ExcercisePojo("7", "Vegetable " + 2, "https://images-prod.healthline.com/hlcmsresource/images/topic_centers/Food-Nutrition/high-protein-veggies/388x210_potatoes.jpg"));
+        exerciseList.add(new ExcercisePojo("8", "Vegetable " + 6, "https://c.ndtvimg.com/2018-09/4a6d49go_vegetables_625x300_26_September_18.jpg"));
+        exerciseList.add(new ExcercisePojo("9", "Vegetable " + 7, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXbpZ09GUV14WRhViNQNLSiZc6qJVV8Ju-ohjFrtdqgOYTJMisyg"));
+        exerciseList.add(new ExcercisePojo("10", "Vegetable " + 8, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQB-4buwvMxmDdc3QlyYvQkR06V_9Ya9fegwGahfMIBFxv4amFLwg"));
+        exerciseList.add(new ExcercisePojo("22", "Vegetable " + 9, "https://images-prod.healthline.com/hlcmsresource/images/topic_centers/Food-Nutrition/high-protein-veggies/388x210_potatoes.jpg"));
+        exerciseList.add(new ExcercisePojo("10", "Vegetable " + 10, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHC45t_GzF-5OXLFJoFqt21pVu2fn53z-yi4tJm3Q1i0-ozOZP"));
+
+        exerciseSelectedList.add(new ExcercisePojo(1, "Vegetable " + 1, "https://c.ndtvimg.com/2018-09/4a6d49go_vegetables_625x300_26_September_18.jpg"));
+        exerciseSelectedList.add(new ExcercisePojo(2, "Vegetable " + 2, "https://images-prod.healthline.com/hlcmsresource/images/topic_centers/Food-Nutrition/high-protein-veggies/388x210_potatoes.jpg"));
+        exerciseSelectedList.add(new ExcercisePojo(3, "Vegetable " + 3, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHC45t_GzF-5OXLFJoFqt21pVu2fn53z-yi4tJm3Q1i0-ozOZP"));
+        exerciseSelectedList.add(new ExcercisePojo(4, "Vegetable " + 4, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQB-4buwvMxmDdc3QlyYvQkR06V_9Ya9fegwGahfMIBFxv4amFLwg"));
+        exerciseSelectedList.add(new ExcercisePojo(5, "Vegetable " + 5, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXbpZ09GUV14WRhViNQNLSiZc6qJVV8Ju-ohjFrtdqgOYTJMisyg"));
+        exerciseSelectedList.add(new ExcercisePojo(6, "Vegetable " + 6, "https://c.ndtvimg.com/2018-09/4a6d49go_vegetables_625x300_26_September_18.jpg"));
+        exerciseSelectedList.add(new ExcercisePojo(7, "Vegetable " + 7, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXbpZ09GUV14WRhViNQNLSiZc6qJVV8Ju-ohjFrtdqgOYTJMisyg"));*//*
+
+    }*/
     /**
      * This listener class is for Vertical Recyclerview.
      */

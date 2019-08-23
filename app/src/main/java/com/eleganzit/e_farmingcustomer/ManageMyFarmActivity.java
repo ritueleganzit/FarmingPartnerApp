@@ -1,11 +1,15 @@
 package com.eleganzit.e_farmingcustomer;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,13 +33,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ManageMyFarmActivity extends AppCompatActivity {
-
+    Button btn_sell,btn_walk,btn_set;
 
     RecyclerView rc_farms;
     TextView txt_no_slots;
     ProgressDialog progressDialog;
-    String customer_plot_id,farm_id;
+    String customer_plot_id,farm_id,plotname;
     ImageView reload;
+    TextView titlemanagefarm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +54,7 @@ public class ManageMyFarmActivity extends AppCompatActivity {
 
         customer_plot_id=getIntent().getStringExtra("customer_plot_id");
         farm_id=getIntent().getStringExtra("farm_id");
+        plotname=getIntent().getStringExtra("plotname");
         reload=findViewById(R.id.reload);
 
         ImageView back=findViewById(R.id.back);
@@ -58,12 +64,56 @@ public class ManageMyFarmActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
+        btn_sell=findViewById(R.id.btn_sellveg);
+        titlemanagefarm=findViewById(R.id.titlemanagefarm);
+        btn_walk=findViewById(R.id.btn_walkiharvest);
+        btn_set=findViewById(R.id.btn_setdel);
         rc_farms=findViewById(R.id.rc_farms);
         txt_no_slots=findViewById(R.id.txt_no_slots);
+        final Dialog dialog=new Dialog(ManageMyFarmActivity.this);
+        dialog.setContentView(R.layout.update_soon_dialog);
+
+        Button btn_ok=dialog.findViewById(R.id.btn_ok);
+        titlemanagefarm.setText("Manage My Farm - "+plotname);
+        btn_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        dialog.getWindow().setAttributes(lp);
+        Window window = dialog.getWindow();
+        window.setBackgroundDrawableResource(android.R.color.transparent);
 
         getcustomerSlots();
+        btn_sell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                dialog.show();
+            }
+        });
+
+        btn_walk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                dialog.show();
+            }
+        });
+
+        btn_set.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                dialog.show();
+            }
+        });
         reload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

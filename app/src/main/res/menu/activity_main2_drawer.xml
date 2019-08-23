@@ -8,10 +8,10 @@
             android:title="MY PROFILE" />
         <item
             android:id="@+id/nav_avlbl_plots"
-            android:title="AVAILABLE PLOTS" />
+            android:title="RENT A FARM" />
         <item
             android:id="@+id/nav_manage_farm"
-            android:title="MANAGE FARM" />
+            android:title="MANAGE MY FARM" />
         <item
             android:id="@+id/nav_instruct_farmer"
             android:title="INSTRUCT FARMER" />

@@ -16,14 +16,6 @@
         android:paddingRight="10dp"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#000000"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:fontFamily="@font/poppins_medium"
-            android:layout_gravity="center_horizontal"
-            android:text="Select Vegetable Section"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -35,8 +27,8 @@
             android:layout_marginTop="10dp"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
-            android:text="We have provided the list of vegetables which suits the soil and climatic conditions. You have option to choose another 6 varieties in addition to the default selection.
-Please drag and drop additional vegetables from below list as per your needs."/>
+            android:text=""
+            android:id="@+id/vegetablenum"/>
 
 
 
@@ -65,7 +57,18 @@ Please drag and drop additional vegetables from below list as per your needs."/>
             android:gravity="center"
             android:padding="15dp"
             android:layout_gravity="center_horizontal"
-            android:text="OK"/>
+            android:text="OK"/><TextView
+            android:id="@+id/cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_weight="1"
+            android:fontFamily="@font/poppins_medium"
+            android:gravity="center"
+            android:padding="15dp"
+            android:layout_gravity="center_horizontal"
+            android:text="CANCEL"/>
 
     </LinearLayout>
 
