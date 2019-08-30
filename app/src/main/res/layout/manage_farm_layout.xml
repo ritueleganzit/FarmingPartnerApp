@@ -258,7 +258,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_centerVertical="true" />
 
-                <com.eleganzit.e_farmingcustomer.utils.VerticalTextView
+                <com.eleganzit.farmingpartner.utils.VerticalTextView
                     android:id="@+id/txtRegister"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"

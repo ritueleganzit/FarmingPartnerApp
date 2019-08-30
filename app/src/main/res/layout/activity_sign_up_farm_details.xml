@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:fillViewport="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="3dp"
+                    android:src="@mipmap/ic_back"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Register"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textColor="@color/colorBlack"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+
+            </LinearLayout>
+            <ImageView
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+
+                android:adjustViewBounds="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/steptwo"/>
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:weightSum="2"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:gravity="center"
+                        android:id="@+id/farm_imagelin"
+                        android:scaleType="centerInside"
+                        android:background="@drawable/dotted_bg"
+                        android:orientation="vertical" >
+
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_gravity="center"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/ic_add" />
+
+                        <TextView
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:textColor="#656565"
+                            android:gravity="center"
+                            android:textSize="12sp"
+                            android:text="Upload Farm Photo"/>
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="110dp"
+                        android:id="@+id/farm_image"
+                        android:layout_height="110dp"/>
+                </FrameLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_weight="1"
+                    >
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/farm_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Farm Name*"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:inputType="textCapWords"/>
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp">
+
+                <android.support.design.widget.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/farming_partner_name"
+                    android:hint="Farming Partner Name*"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:inputType="textCapSentences"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="25dp">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/ed_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Email Address"
+
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:inputType="textEmailAddress"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+
+            </LinearLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/ed_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:hint="Farm Location*"
+                    android:background="@android:color/transparent"
+
+
+                    android:drawableRight="@drawable/ic_loc"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:inputType="textCapSentences"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/ed_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Farm Address*"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:inputType="textCapSentences"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/ed_capacity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:hint="Plot Capacity*"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:inputType="number"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="italic"
+                android:layout_marginLeft="25dp"
+                android:textSize="10sp"
+                android:layout_marginRight="25dp"
+                android:text="Note: Plot Capacity = usage farm size in SQFT/500 SQFT"/>
+
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:passwordToggleEnabled="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp">
+
+                <android.support.design.widget.TextInputEditText
+
+                    android:id="@+id/ed_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Farm Description"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:inputType="textPostalAddress"/>
+            </android.support.design.widget.TextInputLayout>
+             <Button
+                android:id="@+id/btn_signupnext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="NEXT"
+                android:textColor="#ffffff"
+                android:background="@drawable/gradient_btn_bg"
+                android:layout_margin="25dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:fontFamily="@font/poppins_medium"/>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</ScrollView>

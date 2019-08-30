@@ -42,6 +42,35 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:513896447719:android:55d4624327d82e8c",
+        "android_client_info": {
+          "package_name": "com.eleganzit.farmingpartner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "513896447719-p9d2rt75tnru8a6h893ru8ha2q5uebaj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1KdgIFVRAwq1cp-4bVl3-KkK0EfIGyZQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "513896447719-p9d2rt75tnru8a6h893ru8ha2q5uebaj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

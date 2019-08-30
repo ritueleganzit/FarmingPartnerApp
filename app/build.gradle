@@ -12,11 +12,11 @@ def getDateTime() {
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.eleganzit.e_farmingcustomer"
+        applicationId "com.eleganzit.farmingpartner"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode 5
+        versionName "1.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     lintOptions {
@@ -37,7 +37,7 @@ android {
 
     android.applicationVariants.all { variant ->
         variant.outputs.all {
-            def appName = "app-release"
+            def appName = "farmingpartner"
             outputFileName = appName + "-${getDateTime()}.apk"
         }
     }
@@ -45,6 +45,8 @@ android {
 }
 
 dependencies {
+    implementation 'com.karumi:dexter:5.0.0'
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'

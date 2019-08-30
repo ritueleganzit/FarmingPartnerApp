@@ -35,8 +35,7 @@
             android:layout_marginTop="10dp"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
-            android:text="We have provided the list of vegetables which suits the soil and climatic conditions. You have option to choose another 6 varieties in addition to the default selection.
-Please drag and drop additional vegetables from below list as per your needs."/>
+            android:text="We have provided the list of vegetables which suits the soil and climatic conditions. Please drag and drop additional vegetables from below list as per your needs."/>
 
 
 
