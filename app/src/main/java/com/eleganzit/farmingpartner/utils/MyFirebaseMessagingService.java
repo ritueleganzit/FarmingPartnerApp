@@ -35,11 +35,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+        /*if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             sendNotification1(remoteMessage);
         }else{
             sendNotification(remoteMessage);
-        }
+        }*/
     }
     @SuppressLint("LongLogTag")
     private void sendNotification(RemoteMessage remoteMessage) {

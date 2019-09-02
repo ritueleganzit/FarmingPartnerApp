@@ -65,8 +65,8 @@ public class RegistrationAddress extends AppCompatActivity implements OnMapReady
     Criteria cri;
     Button btn_submit;
     EditText ed_address;
-    private String result="",city="",country="",state="";
-    private String address="",postalCode="",knownName="",latitude="",longitude="";
+    private String result="";
+    private String latitude="",longitude="";
     private String TAG="RegistrationAddressData";
 
     @Override
@@ -152,7 +152,10 @@ public class RegistrationAddress extends AppCompatActivity implements OnMapReady
 
                 }
                 else {
-                    ed_address.setText(toastMsg);
+
+                    ed_address.setText(""+toastMsg);
+
+
                 }
 
 
@@ -250,9 +253,11 @@ public class RegistrationAddress extends AppCompatActivity implements OnMapReady
                         final Geocoder geocoder;
                         List<Address> addresses;
                         geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+                        String city="",country="",state="",postalCode="",knownName="",address="";
                         if(geocoder.isPresent()) {
                             addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
                             if (addresses.size()>0) {
+
                                 //  address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
                                 city = addresses.get(0).getLocality();
                                 state = addresses.get(0).getAdminArea();
@@ -265,6 +270,7 @@ public class RegistrationAddress extends AppCompatActivity implements OnMapReady
 
 
                                 StringBuffer str = new StringBuffer();
+                              //  str.setLength(0);
                                 if (addresses.get(0).getLocality()!=null && !(addresses.get(0).getLocality().isEmpty()))
                                 {
                                     str.append(addresses.get(0).getLocality() + ",");
@@ -290,8 +296,11 @@ public class RegistrationAddress extends AppCompatActivity implements OnMapReady
                                     str.append(  addresses.get(0).getCountryCode() + "");
 
                                 }
+                                Log.d("Addressss", "" + str);
+                                String superString = str.toString();
+                                Log.d("superString", "--" + superString);
 
-                                ed_address.setText(""+str);
+                                ed_address.setText(""+superString);
 
                                 Log.d("Addressss", "" + city);
                                 Log.d("Addressss", "" + state);
@@ -361,6 +370,8 @@ public class RegistrationAddress extends AppCompatActivity implements OnMapReady
 
                 JSONObject zero = Results.getJSONObject(0);
                 JSONArray address_components = zero.getJSONArray("address_components");
+                String superString = "";
+                String city="",country="",state="",postalCode="",knownName="",address="";
 
                 for (int i = 0; i < address_components.length(); i++) {
                     JSONObject zero2 = address_components.getJSONObject(i);
@@ -394,7 +405,6 @@ public class RegistrationAddress extends AppCompatActivity implements OnMapReady
                     // Log.e(Type,long_name);
 
 
-                    Log.d("Addressssapic", "" + city);
 
                     Log.d("backkkkk", "called is present");
                     Log.d("Addressssapist", "" + state);
@@ -404,37 +414,41 @@ public class RegistrationAddress extends AppCompatActivity implements OnMapReady
 
 
                     StringBuffer str = new StringBuffer();
-                    if (knownName!=null && !(knownName.isEmpty()))
+                    //str.setLength(0);
+                    if (knownName!=null && !knownName.isEmpty())
                     {
                         str.append(knownName + ",");
 
                     }
-                    if (address!=null && !(address.isEmpty()))
+                    if (address!=null && !address.isEmpty())
                     {
                         str.append(address + ",");
 
                     }
-                    if (city!=null && !(city.isEmpty()))
+                    if (city!=null && !city.isEmpty())
                     {
                         str.append(  city + ",");
 
                     }
-                    if (state!=null && !(state.isEmpty()))
+                    if (state!=null && !state.isEmpty())
                     {
                         str.append( state + ",");
 
                     }
-                    if (country!=null && !(country.isEmpty()))
+                    if (country!=null && !country.isEmpty())
                     {
                         str.append(  country + "");
 
                     }
+                    superString= str.toString();
+
+                    Log.d("superString", "--->" + superString);
 
 
-                    ed_address.setText(str);
-                    progressDialog.dismiss();
 
                 }
+                ed_address.setText("" + superString);
+                progressDialog.dismiss();
             } catch (JSONException e) {
                 e.printStackTrace();
                 progressDialog.dismiss();

@@ -18,10 +18,12 @@ import com.eleganzit.farmingpartner.RegistrationActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+import com.rilixtech.CountryCodePicker;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -32,6 +34,7 @@ public class SignUpActivity extends AppCompatActivity {
     EditText edpassword,edfarming_partner_name,edlast_name,edaddress,edlandmark,edsub_location,edemail,edphone,eddob,edcpassword;
     Button btn_signupnext;
     SharedPreferences sharedPreferences;
+    CountryCodePicker ed_ccode;
     SharedPreferences.Editor sharedPreferencesEditor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,7 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
         btn_signupnext=findViewById(R.id.btn_signupnext);
         edaddress=findViewById(R.id.address);
+        ed_ccode=findViewById(R.id.ed_ccode);
         edpassword=findViewById(R.id.password);
         edcpassword=findViewById(R.id.cpassword);
         edfarming_partner_name=findViewById(R.id.farming_partner_name);
@@ -58,8 +62,21 @@ public class SignUpActivity extends AppCompatActivity {
                 final int mDay = c.get(Calendar.DAY_OF_MONTH);
                 DatePickerDialog datePickerDialog = new DatePickerDialog(SignUpActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
-                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                        eddob.setText(i + "-" + (i1 + 1) + "-" + i2);
+                    public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
+
+                        int month= monthOfYear+1;
+                        String fm=""+month;
+                        String fd=""+dayOfMonth;
+                        if(month<10){
+                            fm ="0"+month;
+                        }
+                        if (dayOfMonth<10){
+                            fd="0"+dayOfMonth;
+                        }
+                        String date= ""+year+"-"+fm+"-"+fd;
+                        Log.d("tag",""+date);
+                       // eddob.setText(i + "-" + (i1 + 1) + "-" + i2);
+                       eddob.setText(date);
                     }
                 }, mYear, mMonth, mDay);
                 // datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
@@ -80,7 +97,7 @@ public class SignUpActivity extends AppCompatActivity {
                     sharedPreferencesEditor.putString("landmark",edlandmark.getText().toString());
                     sharedPreferencesEditor.putString("sub_location",edsub_location.getText().toString());
                     sharedPreferencesEditor.putString("email",edemail.getText().toString());
-                    sharedPreferencesEditor.putString("phone",edphone.getText().toString());
+                    sharedPreferencesEditor.putString("phone",ed_ccode.getSelectedCountryCodeWithPlus()+" "+edphone.getText().toString());
                     sharedPreferencesEditor.putString("dob",eddob.getText().toString());
                     sharedPreferencesEditor.commit();
 

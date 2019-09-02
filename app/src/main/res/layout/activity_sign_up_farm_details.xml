@@ -248,7 +248,7 @@
                     android:id="@+id/ed_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Farm Description"
+                    android:hint="Farm Description*"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:inputType="textPostalAddress"/>
             </android.support.design.widget.TextInputLayout>

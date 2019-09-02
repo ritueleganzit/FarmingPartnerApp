@@ -77,11 +77,8 @@ EditText farm_name,edfarming_partner_name,ed_email,ed_location,ed_address,ed_cap
 ed_location.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-        if (mediapath!=null && !(mediapath.isEmpty()))
-        {
-            sharedPreferencesEditor.putString("photo",""+mediapath.trim());
+       // Toast.makeText(SignUpFarmDetails.this, ""+mediapath, Toast.LENGTH_SHORT).show();
 
-        }
         sharedPreferencesEditor.putString("farm_address",""+ed_address.getText().toString());
         sharedPreferencesEditor.putString("farm_name",""+farm_name.getText().toString());
         sharedPreferencesEditor.putString("farm_location",""+ed_location.getText().toString());
@@ -98,8 +95,7 @@ ed_location.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 if (isValid())
                 {
-                    if (mediapath!=null && !(mediapath.isEmpty()))
-                    {
+                    if (sharedPreferences.getString("photo","")!=null  && !(sharedPreferences.getString("photo","").isEmpty()))                    {
                         sharedPreferencesEditor.putString("farm_address",""+ed_address.getText().toString());
                         sharedPreferencesEditor.putString("farm_name",""+farm_name.getText().toString());
                         sharedPreferencesEditor.putString("farm_location",""+ed_location.getText().toString());
@@ -110,6 +106,7 @@ ed_location.setOnClickListener(new View.OnClickListener() {
                         startActivity(new Intent(SignUpFarmDetails.this, MainActivity.class));
                         overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
                     }
+
                     else
                     {
                         Toast.makeText(SignUpFarmDetails.this, "Please Select Image", Toast.LENGTH_SHORT).show();
@@ -174,9 +171,23 @@ pickImage();
             return false;
         }   else if (ed_location.getText().toString().trim().equals("")) {
 
-            ed_location.setError("Address is mandatory");
+            ed_location.setError("Location selection is mandatory");
 
             ed_location.requestFocus();
+
+            return false;
+        } else if (ed_address.getText().toString().trim().equals("")) {
+
+            ed_address.setError("Address is mandatory");
+
+            ed_address.requestFocus();
+
+            return false;
+        } else if (ed_description.getText().toString().trim().equals("")) {
+
+            ed_description.setError("Farm Description is mandatory");
+
+            ed_description.requestFocus();
 
             return false;
         } else if (ed_capacity.getText().toString().trim().equals("")) {
