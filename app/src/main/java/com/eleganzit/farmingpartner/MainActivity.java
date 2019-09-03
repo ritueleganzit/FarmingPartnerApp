@@ -403,6 +403,9 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
                         Toast.makeText(MainActivity.this, "Registered Successfully ", Toast.LENGTH_SHORT).show();
                         sharedPreferencesEditor.clear();
                         sharedPreferencesEditor.commit();
+
+                        userSessionManager.createLoginSession(""+response.body().getData().get(0).getAddress(),id,""+""+response.body().getData().get(0).getFarm_id(), email, "", fname,lname,phone, dob,address,landmark,sub_location,photo,"");
+/*
                         Intent i = new Intent(MainActivity.this, SignInActivity.class);
                         // Closing all the Activities
 
@@ -410,7 +413,7 @@ public class MainActivity extends AppCompatActivity implements View.OnDragListen
                         // Staring Login Activity
                         startActivity(i);
                         overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
-                        finish();
+                        finish();*/
 
                        
 
