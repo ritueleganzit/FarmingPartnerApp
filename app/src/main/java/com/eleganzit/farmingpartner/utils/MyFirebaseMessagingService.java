@@ -18,6 +18,7 @@ import android.util.Log;
 
 import com.eleganzit.farmingpartner.R;
 import com.eleganzit.farmingpartner.activity.HomeActivity;
+import com.eleganzit.farmingpartner.activity.NotificationsActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -35,11 +36,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
-        /*if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+       // Log.e("remoteMessage", remoteMessage.getMessageType());
+
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             sendNotification1(remoteMessage);
         }else{
             sendNotification(remoteMessage);
-        }*/
+        }
     }
     @SuppressLint("LongLogTag")
     private void sendNotification(RemoteMessage remoteMessage) {
@@ -56,7 +60,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            Intent resultIntent = new Intent(getApplicationContext() , HomeActivity.class);
+            Intent resultIntent = new Intent(getApplicationContext() , NotificationsActivity.class);
             resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(),
                     0 /* Request code */, resultIntent,
@@ -71,6 +75,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     .setBadgeIconType(NotificationCompat.BADGE_ICON_SMALL)
                     .setNumber(10)
                     .setStyle(new NotificationCompat.BigTextStyle().bigText(body))
+.setContentIntent(pendingIntent)
+                    .setColor(getResources().getColor(R.color.colorPrimaryDark))
 
                     .setTicker("Farming Partner")
                     .setContentTitle(title)
@@ -90,7 +96,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            Intent resultIntent = new Intent(getApplicationContext() , HomeActivity.class);
+            Intent resultIntent = new Intent(getApplicationContext() , NotificationsActivity.class);
             resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(),
                     0 /* Request code */, resultIntent,
@@ -104,6 +110,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     .setSmallIcon(getNotificationIcon())
                     .setBadgeIconType(NotificationCompat.BADGE_ICON_SMALL)
                     .setNumber(10)
+                    .setContentIntent(pendingIntent)
+            .setColor(getResources().getColor(R.color.colorPrimaryDark))
                     .setStyle(new NotificationCompat.BigTextStyle().bigText(body))
                     .setTicker("Farming Partner")
                     .setContentTitle(title)
@@ -154,7 +162,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            Intent resultIntent = new Intent(getApplicationContext(), HomeActivity.class);
+            Intent resultIntent = new Intent(getApplicationContext(), NotificationsActivity.class);
             resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(),
                     0 /* Request code */, resultIntent,
@@ -163,6 +171,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             OreoNotification oreoNotification = new OreoNotification(this);
             Notification.Builder builder = oreoNotification.getOreoNotification(title, body, pendingIntent, defaultsound, String.valueOf(R.drawable.ic_launcher_background));
+            builder.setColor(getResources().getColor(R.color.colorPrimaryDark));
 
             int i = 0;
             oreoNotification.getManager().notify(i, builder.build());
@@ -179,7 +188,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 e.printStackTrace();
             }
             ;
-            Intent resultIntent = new Intent(getApplicationContext(), HomeActivity.class);
+            Intent resultIntent = new Intent(getApplicationContext(), NotificationsActivity.class);
             resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(),
                     0 /* Request code */, resultIntent,
@@ -188,7 +197,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             OreoNotification oreoNotification = new OreoNotification(this);
             Notification.Builder builder = oreoNotification.getOreoNotification(title, body, pendingIntent, defaultsound, String.valueOf(R.drawable.ic_launcher_background));
-
+            builder.setColor(getResources().getColor(R.color.colorPrimaryDark));
             NotificationManager notificationManager =
                     (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             int i = 0;
@@ -199,6 +208,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private int getNotificationIcon () {
         boolean useWhiteIcon = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP);
-        return useWhiteIcon ? R.mipmap.ic_launcher : R.mipmap.ic_launcher;
+        return useWhiteIcon ? R.drawable.ic_app : R.mipmap.ic_launcher;
     }
 }

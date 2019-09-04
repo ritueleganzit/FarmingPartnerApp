@@ -72,7 +72,6 @@ public class OTPActivity extends AppCompatActivity {
                 if (response.isSuccessful())
                 {
 
-                    Toast.makeText(OTPActivity.this, "otp" , Toast.LENGTH_SHORT).show();
 
                     if (response.body().getStatus().toString().equalsIgnoreCase("1")) 
                     {
@@ -89,7 +88,7 @@ public class OTPActivity extends AppCompatActivity {
                 }
 
                 else {
-                    Toast.makeText(OTPActivity.this, pinentered+"grdg"+email, Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(OTPActivity.this, pinentered+"grdg"+email, Toast.LENGTH_SHORT).show();
                 }
             }
 

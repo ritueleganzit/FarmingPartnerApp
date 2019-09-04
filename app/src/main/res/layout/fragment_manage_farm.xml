@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="#ffffff"
+    android:fitsSystemWindows="true"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <RelativeLayout
+        android:descendantFocusability="blocksDescendants"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context=".fragments.ViewAvailablePlotsFragment">
+
+        <!-- TODO: Update blank fragment layout -->
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/img_card"
+            android:layout_width="match_parent"
+            app:cardCornerRadius="15dp"
+            app:cardBackgroundColor="@color/grey"
+            app:cardElevation="@dimen/cardview_default_elevation"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="true"
+            android:layout_marginTop="-20dp"
+            android:layout_height="200dp">
+
+            <ImageView
+                android:id="@+id/img_farm"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#D8D8D8"
+                android:scaleType="centerCrop"/>
+
+        </android.support.v7.widget.CardView>
+
+        <TableLayout
+            android:id="@+id/tbl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/img_card"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:paddingTop="5dp">
+
+            <TableRow android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="50"
+                    android:id="@+id/farm_name"
+                    android:ellipsize="end"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:singleLine="true"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="Farm Name"
+                    android:textColor="@color/colorBlack" />
+
+                <LinearLayout
+                    android:id="@+id/lin_view_map"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/accept"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginRight="5dp"
+                        android:paddingBottom="4dp"
+                        android:paddingTop="4dp"
+                        android:paddingLeft="4dp"
+                        android:src="@mipmap/ic_map" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hapticFeedbackEnabled="true"
+                        android:paddingTop="4dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:paddingBottom="4dp"
+                        android:paddingRight="4dp"
+                        android:text="VIEW MAP"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                        android:textColor="@color/colorBlack" />
+                </LinearLayout>
+
+            </TableRow>
+
+            <TableRow
+                android:visibility="gone"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:ellipsize="end"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:fontFamily="@font/poppins_regular"
+                    android:singleLine="true"
+                    android:text="Plot Name"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:id="@+id/txt_plot_number"
+                    android:layout_width="0dp"
+                    android:layout_weight="50"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/poppins_medium"
+                    android:gravity="end"
+                    android:singleLine="true"
+                    android:text=" "
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/colorBlack" />
+
+            </TableRow>
+
+            <TableRow android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:ellipsize="end"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:fontFamily="@font/poppins_regular"
+                    android:singleLine="true"
+                    android:text="Address"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:id="@+id/farm_address"
+                    android:layout_width="0dp"
+                    android:layout_weight="50"
+                    android:ellipsize="end"
+                    android:gravity="end"
+
+                    android:singleLine="true"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text=" 935 Ridgewood"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/colorBlack" />
+
+
+            </TableRow>
+
+            <TableRow android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="50"
+                    android:ellipsize="end"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:fontFamily="@font/poppins_regular"
+                    android:singleLine="true"
+                    android:text="Plot Capacity"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:id="@+id/plot_capacity"
+                    android:layout_width="0dp"
+                    android:gravity="end"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:layout_weight="50"
+                    android:ellipsize="end"
+                    android:text="500 SQFT"
+                    android:singleLine="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/colorBlack" />
+
+
+            </TableRow>
+
+            <TableRow android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="50"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:singleLine="true"
+                    android:text="Registered on"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:id="@+id/purched_on"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:gravity="end"
+                    android:text="May 25, 2019"
+                    android:layout_weight="50"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/colorBlack" />
+
+
+            </TableRow>
+
+            <TableRow android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:ellipsize="end"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:fontFamily="@font/poppins_regular"
+                    android:singleLine="true"
+                    android:text="Owner Name"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:id="@+id/owner_name"
+                    android:layout_width="0dp"
+                    android:layout_weight="50"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/poppins_medium"
+                    android:gravity="end"
+                    android:text="Lorem Ipsum"
+                    android:singleLine="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/colorBlack" />
+
+
+            </TableRow>
+
+
+        </TableLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tbl"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rc_farms"
+                android:layout_width="match_parent"
+                android:layout_above="@+id/lin"
+                android:layout_height="match_parent"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                android:orientation="vertical"/>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</android.support.v4.widget.NestedScrollView>

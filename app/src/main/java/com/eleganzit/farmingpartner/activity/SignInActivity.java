@@ -253,6 +253,7 @@ call.enqueue(new Callback<LoginRespose>() {
     @Override
     public void onFailure(Call<LoginRespose> call, Throwable t) {
         progressDialog.dismiss();
+        Toast.makeText(SignInActivity.this, "Server or Internet Error", Toast.LENGTH_SHORT).show();
     }
 });
     }

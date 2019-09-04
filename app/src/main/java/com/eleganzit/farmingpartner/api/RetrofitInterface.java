@@ -212,7 +212,8 @@ public interface RetrofitInterface {
     @FormUrlEncoded()
     @POST("/efarming-AdminPanel/efarm-api/getVegDetail")
     Call<GetVegDetailResponse> getVegDetail(
-            @Field("vegetable_id") String vegetable_id
+            @Field("vegetable_id") String vegetable_id ,
+            @Field("farm_id") String farm_id
     );
 
     @FormUrlEncoded()
