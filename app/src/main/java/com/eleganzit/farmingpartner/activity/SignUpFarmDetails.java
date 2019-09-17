@@ -2,6 +2,7 @@ package com.eleganzit.farmingpartner.activity;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,7 +27,10 @@ import com.eleganzit.farmingpartner.MainActivity;
 import com.eleganzit.farmingpartner.R;
 import com.eleganzit.farmingpartner.RegistrationActivity;
 import com.eleganzit.farmingpartner.RegistrationAddress;
+import com.eleganzit.farmingpartner.api.RetrofitAPI;
+import com.eleganzit.farmingpartner.api.RetrofitInterface;
 import com.eleganzit.farmingpartner.fragment.MyProfileFragment;
+import com.eleganzit.farmingpartner.model.ValidateFarmingpartner;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -34,6 +39,9 @@ import java.util.regex.Pattern;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import me.nereo.multi_image_selector.MultiImageSelector;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class SignUpFarmDetails extends AppCompatActivity {
@@ -51,6 +59,7 @@ EditText farm_name,edfarming_partner_name,ed_email,ed_location,ed_address,ed_cap
     File file;
     private static final int REQUEST_IMAGE2 = 201;
     protected static final int REQUEST_STORAGE_READ_ACCESS_PERMISSION2 = 202;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,10 +80,16 @@ EditText farm_name,edfarming_partner_name,ed_email,ed_location,ed_address,ed_cap
         sharedPreferencesEditor=sharedPreferences.edit();
 
 
+        progressDialog = new ProgressDialog(SignUpFarmDetails.this);
+        progressDialog.setMessage("Please Wait");
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
 
 
 
-ed_location.setOnClickListener(new View.OnClickListener() {
+
+
+        ed_location.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
        // Toast.makeText(SignUpFarmDetails.this, ""+mediapath, Toast.LENGTH_SHORT).show();
@@ -96,20 +111,12 @@ ed_location.setOnClickListener(new View.OnClickListener() {
                 if (isValid())
                 {
                     if (sharedPreferences.getString("photo","")!=null  && !(sharedPreferences.getString("photo","").isEmpty()))                    {
-                        sharedPreferencesEditor.putString("farm_address",""+ed_address.getText().toString());
-                        sharedPreferencesEditor.putString("farm_name",""+farm_name.getText().toString());
-                        sharedPreferencesEditor.putString("farm_location",""+ed_location.getText().toString());
-                        sharedPreferencesEditor.putString("farm_description",""+ed_description.getText().toString());
-                        sharedPreferencesEditor.putString("plot_capacity",""+ed_capacity.getText().toString());
-                        sharedPreferencesEditor.commit();
-
-                        startActivity(new Intent(SignUpFarmDetails.this, MainActivity.class));
-                        overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
-                    }
+                        Log.d("sadasd",""+ed_email.getText().toString());
+                        validateFarmingpartner();          }
 
                     else
                     {
-                        Toast.makeText(SignUpFarmDetails.this, "Please Select Image", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignUpFarmDetails.this, "Please upload the photo of your farm", Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -140,7 +147,46 @@ pickImage();
     }
 
 
+public void validateFarmingpartner()
+{  progressDialog.show();
+    RetrofitInterface myInterface = RetrofitAPI.getRetrofit().create(RetrofitInterface.class);
+    Call<ValidateFarmingpartner> call=myInterface.validateFarmingpartner(ed_email.getText().toString(),farm_name.getText().toString());
+    call.enqueue(new Callback<ValidateFarmingpartner>() {
+        @Override
+        public void onResponse(Call<ValidateFarmingpartner> call, Response<ValidateFarmingpartner> response) {
+            progressDialog.dismiss();
+            if (response.isSuccessful())
+            {
 
+                if(response.body().getStatus().toString().equalsIgnoreCase("1"))
+                {
+                    sharedPreferencesEditor.putString("farm_address",""+ed_address.getText().toString());
+                    sharedPreferencesEditor.putString("farm_name",""+farm_name.getText().toString());
+                    sharedPreferencesEditor.putString("farm_location",""+ed_location.getText().toString());
+                    sharedPreferencesEditor.putString("farm_description",""+ed_description.getText().toString());
+                    sharedPreferencesEditor.putString("plot_capacity",""+ed_capacity.getText().toString());
+                    sharedPreferencesEditor.putString("email",""+ed_email.getText().toString());
+                    sharedPreferencesEditor.commit();
+
+                    startActivity(new Intent(SignUpFarmDetails.this, MainActivity.class));
+                    overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+
+                }
+                else
+                {
+                    Toast.makeText(SignUpFarmDetails.this, ""+response.body().getMessage(), Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        }
+
+        @Override
+        public void onFailure(Call<ValidateFarmingpartner> call, Throwable t) {
+            progressDialog.dismiss();
+        }
+    });
+
+}
     public boolean isValid() {
         final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
         Pattern pattern;
@@ -183,21 +229,24 @@ pickImage();
             ed_address.requestFocus();
 
             return false;
-        } else if (ed_description.getText().toString().trim().equals("")) {
-
-            ed_description.setError("Farm Description is mandatory");
-
-            ed_description.requestFocus();
-
-            return false;
-        } else if (ed_capacity.getText().toString().trim().equals("")) {
+        }
+        else if (ed_capacity.getText().toString().trim().equals("")) {
 
             ed_capacity.setError("Plot capacity is mandatory");
 
             ed_capacity.requestFocus();
 
             return false;
-        }  else if (!matcher.matches()) {
+        }
+
+        else if (ed_description.getText().toString().trim().equals("")) {
+
+            ed_description.setError("Farm Description is mandatory");
+
+            ed_description.requestFocus();
+
+            return false;
+        }   else if (!matcher.matches()) {
             ed_email.setError("Please enter a Valid e-mail id");
 
             ed_email.requestFocus();

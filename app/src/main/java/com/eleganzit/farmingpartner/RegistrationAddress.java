@@ -350,7 +350,8 @@ public class RegistrationAddress extends AppCompatActivity implements OnMapReady
         protected String[] doInBackground(String... strings) {
             String response;
             try {
-                response = getLatLongByURL("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + latitude + "," + longitude + "&key=AIzaSyCZJDD1Osg2A3bYeAQG6UtTD9fll8t5-IU");
+            //    response = getLatLongByURL("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + latitude + "," + longitude + "&key=AIzaSyCZJDD1Osg2A3bYeAQG6UtTD9fll8t5-IU");
+                response = getLatLongByURL("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + latitude + "," + longitude + "&key=AIzaSyBvWV53S1tCayWFa8X-0iHLsak87s3we9I");
                 Log.d("response", "" + response);
                 return new String[]{response};
             } catch (Exception e) {

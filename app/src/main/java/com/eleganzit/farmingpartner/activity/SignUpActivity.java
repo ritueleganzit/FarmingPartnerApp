@@ -1,6 +1,7 @@
 package com.eleganzit.farmingpartner.activity;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,8 +14,12 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.eleganzit.farmingpartner.MainActivity;
 import com.eleganzit.farmingpartner.R;
 import com.eleganzit.farmingpartner.RegistrationActivity;
+import com.eleganzit.farmingpartner.api.RetrofitAPI;
+import com.eleganzit.farmingpartner.api.RetrofitInterface;
+import com.eleganzit.farmingpartner.model.ValidateFarmingpartner;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
@@ -28,6 +33,10 @@ import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -36,6 +45,7 @@ public class SignUpActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     CountryCodePicker ed_ccode;
     SharedPreferences.Editor sharedPreferencesEditor;
+    ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +61,10 @@ public class SignUpActivity extends AppCompatActivity {
         edsub_location=findViewById(R.id.sub_location);
         edemail=findViewById(R.id.email);
         edphone=findViewById(R.id.phone);
+        progressDialog = new ProgressDialog(SignUpActivity.this);
+        progressDialog.setMessage("Please Wait");
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
         eddob=findViewById(R.id.dob);
         sharedPreferences=getSharedPreferences("regis",MODE_PRIVATE);
         eddob.setOnClickListener(new View.OnClickListener() {
@@ -90,23 +104,9 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (isValid()) {
 
-                    sharedPreferencesEditor.putString("farming_partner_name",edfarming_partner_name.getText().toString());
-                    sharedPreferencesEditor.putString("last_name",edlast_name.getText().toString());
-                    sharedPreferencesEditor.putString("address",edaddress.getText().toString());
-                    sharedPreferencesEditor.putString("password",edpassword.getText().toString());
-                    sharedPreferencesEditor.putString("landmark",edlandmark.getText().toString());
-                    sharedPreferencesEditor.putString("sub_location",edsub_location.getText().toString());
-                    sharedPreferencesEditor.putString("email",edemail.getText().toString());
-                    sharedPreferencesEditor.putString("phone",ed_ccode.getSelectedCountryCodeWithPlus()+" "+edphone.getText().toString());
-                    sharedPreferencesEditor.putString("dob",eddob.getText().toString());
-                    sharedPreferencesEditor.commit();
-
-                    startActivity(new Intent(SignUpActivity.this, SignUpFarmDetails.class)
 
 
-                    );
-                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                    finish();
+                   validateFarmingpartner();
                 }
             }
         });
@@ -125,7 +125,52 @@ public class SignUpActivity extends AppCompatActivity {
         sharedPreferencesEditor.clear();
         sharedPreferencesEditor.commit();
     }
+    public void validateFarmingpartner()
+    {  progressDialog.show();
+        RetrofitInterface myInterface = RetrofitAPI.getRetrofit().create(RetrofitInterface.class);
+        Call<ValidateFarmingpartner> call=myInterface.validateEmailId(edemail.getText().toString());
+        call.enqueue(new Callback<ValidateFarmingpartner>() {
+            @Override
+            public void onResponse(Call<ValidateFarmingpartner> call, Response<ValidateFarmingpartner> response) {
+                progressDialog.dismiss();
+                if (response.isSuccessful())
+                {
 
+                    if(response.body().getStatus().toString().equalsIgnoreCase("1"))
+                    {
+                        sharedPreferencesEditor.putString("farming_partner_name",edfarming_partner_name.getText().toString());
+                        sharedPreferencesEditor.putString("last_name",edlast_name.getText().toString());
+                        sharedPreferencesEditor.putString("address",edaddress.getText().toString());
+                        sharedPreferencesEditor.putString("password",edpassword.getText().toString());
+                        sharedPreferencesEditor.putString("landmark",edlandmark.getText().toString());
+                        sharedPreferencesEditor.putString("sub_location",edsub_location.getText().toString());
+                        sharedPreferencesEditor.putString("email",edemail.getText().toString());
+                        sharedPreferencesEditor.putString("phone",ed_ccode.getSelectedCountryCodeWithPlus()+" "+edphone.getText().toString());
+                        sharedPreferencesEditor.putString("dob",eddob.getText().toString());
+                        sharedPreferencesEditor.commit();
+
+                        startActivity(new Intent(SignUpActivity.this, SignUpFarmDetails.class)
+
+
+                        );
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                        finish();
+                    }
+                    else
+                    {
+                        Toast.makeText(SignUpActivity.this, ""+response.body().getMessage(), Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ValidateFarmingpartner> call, Throwable t) {
+                progressDialog.dismiss();
+            }
+        });
+
+    }
     @Override
     protected void onResume() {
         super.onResume();
@@ -135,7 +180,23 @@ public class SignUpActivity extends AppCompatActivity {
         edlandmark.setText(""+sharedPreferences.getString("landmark",""));
         edsub_location.setText(""+sharedPreferences.getString("sub_location",""));
         edemail.setText(""+sharedPreferences.getString("email",""));
-        edphone.setText(""+sharedPreferences.getString("phone",""));
+        Log.d("asdasdad",""+sharedPreferences.getString("phone",""));
+        if (sharedPreferences.getString("phone","").equalsIgnoreCase(""))
+        {
+
+        }
+        else
+        {
+
+            String result = sharedPreferences.getString("phone","").replaceAll("[-+.^:,]","");
+
+            String upperString = result.trim().substring(3,sharedPreferences.getString("phone","").length()-1);
+            Log.d("asdasdad",""+upperString);
+            Log.d("asdasdad",""+sharedPreferences.getString("phone","").length());
+
+            edphone.setText(""+upperString);
+        }
+
         eddob.setText(""+sharedPreferences.getString("dob",""));
     }
 

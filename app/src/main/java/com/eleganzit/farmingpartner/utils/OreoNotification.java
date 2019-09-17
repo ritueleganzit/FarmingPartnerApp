@@ -7,6 +7,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
@@ -32,7 +33,7 @@ public class OreoNotification extends ContextWrapper {
     private void createChannel() {
         NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
                 CHANNEL_NAME,  NotificationManager.IMPORTANCE_HIGH);
-        channel.setDescription("VKC Vendor");
+        channel.setDescription("Farming Partner");
         channel.enableLights(true);
         channel.enableVibration(true);
         channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
@@ -59,8 +60,6 @@ public class OreoNotification extends ContextWrapper {
                 .setWhen(System.currentTimeMillis())
                 .setSmallIcon(getNotificationIcon ())
                 .setTicker("Farming Partner")
-                .setStyle(new Notification.BigTextStyle().bigText(body))
-
                 .setNumber(10)
                 .setContentTitle(title)
                 .setContentText(body)
@@ -70,6 +69,6 @@ public class OreoNotification extends ContextWrapper {
 
     private int getNotificationIcon () {
         boolean useWhiteIcon = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP);
-        return useWhiteIcon ? R.mipmap.ic_launcher : R.mipmap.ic_launcher;
+        return useWhiteIcon ? R.drawable.ic_app : R.mipmap.ic_launcher;
     }
 }

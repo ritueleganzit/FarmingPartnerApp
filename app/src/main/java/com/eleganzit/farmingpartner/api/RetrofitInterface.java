@@ -27,6 +27,7 @@ import com.eleganzit.farmingpartner.model.UpdateNotificationStatus;
 import com.eleganzit.farmingpartner.model.UpdatePhotoResponse;
 import com.eleganzit.farmingpartner.model.UpdateResponse;
 import com.eleganzit.farmingpartner.model.UserDetailsResponse;
+import com.eleganzit.farmingpartner.model.ValidateFarmingpartner;
 import com.eleganzit.farmingpartner.model.VegetablesResponse;
 
 import okhttp3.MultipartBody;
@@ -289,6 +290,17 @@ public interface RetrofitInterface {
     Call<FarmSlotsResponse> getcustomerSlots(
             @Field("customer_plot_id") String customer_plot_id
     );
+  @FormUrlEncoded()
+  @POST("/efarming-AdminPanel/efarm-api/validateFarmingpartner")
+  Call<ValidateFarmingpartner> validateFarmingpartner(
+          @Field("email") String email,
+          @Field("farm_name") String farm_name
+  );
+  @FormUrlEncoded()
+  @POST("/efarming-AdminPanel/efarm-api/validateEmailId")
+  Call<ValidateFarmingpartner> validateEmailId(
+          @Field("email") String email
+  );
 
     @FormUrlEncoded()
     @POST("/efarming-AdminPanel/efarm-api/vegetablesPopup")

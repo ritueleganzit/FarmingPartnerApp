@@ -120,6 +120,7 @@ if (notificationsData.getName().equalsIgnoreCase("Sapling"))
 {
     status_name="sapling_date_status";
     progress_name="sapling_date";
+   // Toast.makeText(context, ""+notificationsData.getCustomer_id(), Toast.LENGTH_SHORT).show();
     updateNotificationStatus(dialog,notificationsData.getVeg_cal_status_id(),notificationsData.getCustomer_id(),notificationsData.getFarm_name(),notificationsData.getVeg_name(),notificationsData.getPlot_name(),status_name,progress_name,status);
 
 }if (notificationsData.getName().equalsIgnoreCase("Deweeding1"))

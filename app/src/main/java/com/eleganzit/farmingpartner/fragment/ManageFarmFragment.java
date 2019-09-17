@@ -86,12 +86,17 @@ farm_id=userSessionManager.getUserDetails().get(UserSessionManager.KEY_FARM_ID);
                 Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(geoUri));
                 startActivity(i);*/
 
-                String geoUri = "http://maps.google.com/maps?q=loc:" + lat + "," + lng + " (" + location + ")";
+               /* String geoUri = "http://maps.google.com/maps?q=loc:" + lat + "," + lng + " (" + location + ")";
               //  Uri gmmIntentUri = Uri.parse("geo:"+lat+","+lng+"?q="+location+"");
                 Uri gmmIntentUri = Uri.parse(geoUri);
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
                 startActivity(mapIntent);
+*/
+
+
+                Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("http://maps.google.co.in/maps?q=" + location));
+                startActivity(i);
 
 
             }

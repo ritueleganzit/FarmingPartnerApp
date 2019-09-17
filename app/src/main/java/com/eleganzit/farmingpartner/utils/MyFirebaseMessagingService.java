@@ -82,7 +82,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     .setContentTitle(title)
                     .setContentText(body)
                     .setContentInfo("Info");
-            notificationManager.notify(1, notificationBuilder.build());
+            notificationManager.notify(NotificationID.getID(), notificationBuilder.build());
         }else{
             Log.e("remoteMessage background", remoteMessage.getData().toString());
             Map<String, String> data = remoteMessage.getData();
@@ -117,7 +117,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     .setContentTitle(title)
                     .setContentText(body)
                     .setContentInfo("Info");
-            notificationManager.notify(1, notificationBuilder.build());
+            notificationManager.notify(NotificationID.getID(), notificationBuilder.build());
         }
     }
 
@@ -174,7 +174,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             builder.setColor(getResources().getColor(R.color.colorPrimaryDark));
 
             int i = 0;
-            oreoNotification.getManager().notify(i, builder.build());
+            oreoNotification.getManager().notify(NotificationID.getID(), builder.build());
         }else{
             String body = null;
             Log.e("remoteMessage", remoteMessage.getData().toString());
@@ -201,7 +201,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             NotificationManager notificationManager =
                     (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             int i = 0;
-            oreoNotification.getManager().notify(i, builder.build());
+            oreoNotification.getManager().notify(NotificationID.getID(), builder.build());
         }
 
     }
